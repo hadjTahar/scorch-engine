@@ -2,18 +2,18 @@
 
 ## What is scorch-engine 
 
-A cross platform game engine/framework, that can be used to develop both 2D and 3D using.
+A cross platform game engine/framework, that can be used to develop both 2D and 3D apps using.
 
 It’s a game engine and an application development framework, using open source C++ libraries:
 
 
 ### Vendors:
 
-- SDL3: for windowing
+- SDL3: For windowing
 - SKIA: 2D canvas
-- Google-filament: for 3D
-- Flecs-ECS
-- Yoga-Flex-Layout
+- Google-filament: For 3D rendering
+- Flecs: For ECS
+- Yoga-Flex: Layouts
 
 For a complete list check the "vendors" folder.
 
