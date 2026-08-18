@@ -1,0 +1,21 @@
+[submodule "vendors/flecs"]
+	path = vendors/flecs
+	url = https://github.com/SanderMertens/flecs.git
+[submodule "vendors/glm"]
+	path = vendors/glm
+	url = https://github.com/g-truc/glm.git
+[submodule "vendors/googlebenchmark"]
+	path = vendors/googlebenchmark
+	url = https://github.com/google/benchmark.git
+[submodule "vendors/googletest"]
+	path = vendors/googletest
+	url = https://github.com/google/googletest.git
+[submodule "vendors/yoga"]
+	path = vendors/yoga
+	url = https://github.com/react/yoga.git
+[submodule "vendors/sdl"]
+	path = vendors/sdl
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "vendors/filament"]
+	path = vendors/filament
+	url = https://github.com/google/filament.git
