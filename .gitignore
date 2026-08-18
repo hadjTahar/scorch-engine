@@ -1,0 +1,13 @@
+.qtcreator
+*apps*
+
+
+# C/C++ build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
