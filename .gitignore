@@ -1,5 +1,5 @@
 .qtcreator
-*apps*
+modules/apps/
 
 
 # C/C++ build artifacts
