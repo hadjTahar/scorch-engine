@@ -63,7 +63,7 @@ Experimental multiple rendering backends:
 
 ## Getting started:
 
-check https://github.com/hadjTahar/scorch-engine#how-to-build
+Check [How to build](https://github.com/hadjTahar/scorch-engine#how-to-build)
 
 ----------------------------------------------------------------------------------------
 
@@ -229,7 +229,7 @@ The hardest part is compiling skia, once you build it (skia, good luck with that
 
 **Clang args.gn on windows - windows10_clang_release_x64_skia_backend:**
 
-# Set build arguments here. See `gn help buildargs`.
+	# Set build arguments here. See `gn help buildargs`.
 	target_cpu = "x64"
 	cc = "clang-cl"
 	cxx = "clang-cl"
