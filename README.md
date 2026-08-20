@@ -1,5 +1,7 @@
 # scorch-engine
 
+Not useable yet, work in progress...
+
 ## What is scorch-engine 
 
 A cross platform game engine/framework, that can be used to develop both 2D and 3D apps using.
@@ -28,6 +30,7 @@ For a complete list check the "vendors" folder.
 - Physics2d from box2d
 - Physics3d: box3d
 - Material design: work in progress 
+- Supports both scene graph and data driven approaches
 
 
 This is more than adding an abstraction layer on top of other libraries, additional features I added
@@ -58,17 +61,30 @@ Experimental multiple rendering backends:
 ----------------------------------------------------------------------------------------
 
 
-## Getting started
+## Getting started:
 
-- [Check skia.md](build.md)
+check https://github.com/hadjTahar/scorch-engine#how-to-build
+
+----------------------------------------------------------------------------------------
+
+## Demos:
+
+Here are some primitive demos
+
+- Rotating cube
+- Rotating cubes
+- Swarm
+- property, rectangle
+- Flex Layouts
+----------------------------------------------------------------------------------------
+
+
+## Examples
+Check folders "examples_2d" and "examples_3d"
 
 ----------------------------------------------------------------------------------------
 
-## Demo
 
-Here is an example of it rendering 1500 glowing boids, example fireflies
-
-----------------------------------------------------------------------------------------
 
 ## Why support this project 
 
@@ -161,5 +177,167 @@ Scorch-engine was created as a response to that. It is built on the belief that 
 
 
 
+
+### How to build
+---
+
+
+Build on tested on MSVC-x64
+To build this, you first need to build skia
+The hardest part is compiling skia, once you build it (skia, good luck with that), rest should be easy
+
+
+- Clone the repository 
+- cd to the repository
+- git submodule update --init --recursive
+
+
+
+#### Yoga-flex
+
+- Open "yoga/CMakeLists.txt"
+- Comment out "add_subdirectory(tests)"
+
+
+#### Skia backend
+
+
+- Use a different path from "scorch-engine"
+- Download skia into a short path like "D:/" or "C:/"
+	- git clone https://github.com/google/skia.git
+- Don't use "power shell" or "cmd"
+- Use either "x86 native tools for VS" or "x64 native tools for VS"
+- cd skia
+- python tools/git-sync-deps --verbose
+- Run it two times (in case first time fails)
+
+
+##### Gn
+---
+
+- Run ".\bin\gn.exe gen out/build"
+- Choose from args.gn
+- Copy the text to "out/build/args.gn"
+- Run ".\bin\gn.exe gen out/build" again
+- Run "ninja -C out/build skia"
+- Check if it's the right build arch
+	- Windows: Run dumpbin /headers out\build\skia.lib | findstr "machine"
+- Copy the generated .lib to "vendors/skia/libs/"
+
+
+##### "args.gn"
+
+**Clang args.gn on windows - windows10_clang_release_x64_skia_backend:**
+
+# Set build arguments here. See `gn help buildargs`.
+	target_cpu = "x64"
+	cc = "clang-cl"
+	cxx = "clang-cl"
+	# Use forward slashes here!
+	clang_win = "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/Llvm/x64"
+	is_official_build = true
+	is_component_build = false 
+	skia_use_freetype = true
+	skia_use_system_freetype2 = false
+	skia_use_system_libjpeg_turbo = false
+	skia_use_system_zlib = false
+	skia_use_system_harfbuzz = false
+	skia_use_system_libpng = false
+	skia_use_system_libwebp = false 
+	skia_use_system_expat = false
+	skia_use_system_icu = false
+	skia_use_icu = false
+	skia_enable_tools = false
+	
+	###  Select an optional backend
+	# skia_use_gl=true			Enable OpenGL GPU backend
+	# skia_use_vulkan=true		Enable Vulkan GPU backend
+	# skia_use_metal=true		Enable Apple Metal backend
+	# skia_use_direct3d=true	Enable Direct3D backend
+	# skia_use_dawn=true		Enable WebGPU (Dawn) backend
+
+**MSVC args.gn on windows - windows10_msvc_release_x64_skia_backend:**
+
+	# Set build arguments here. See `gn help buildargs`.
+	target_cpu = "x64"
+	is_official_build = true
+	is_component_build = false 
+	skia_use_freetype = true
+	skia_use_system_freetype2 = false
+	skia_use_system_libjpeg_turbo = false
+	skia_use_system_zlib = false
+	skia_use_system_harfbuzz = false
+	skia_use_system_libpng = false
+	skia_use_system_libwebp = false 
+	skia_use_system_expat = false
+	skia_use_system_icu = false
+	skia_use_icu = false
+	skia_enable_tools = false
+	
+	###  Select an optional backend
+	# skia_use_gl=true			Enable OpenGL GPU backend
+	# skia_use_vulkan=true		Enable Vulkan GPU backend
+	# skia_use_metal=true		Enable Apple Metal backend
+	# skia_use_direct3d=true	Enable Direct3D backend
+	# skia_use_dawn=true		Enable WebGPU (Dawn) backend
+
+
+
+**Build mismatch**
+
+Sometimes gn defaults to x86, if there is a build mismatch, open toolchain.ninja, and check if command(s) are pointing to the right arch x86/x64 folder.
+- x86 : "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/Llvm/bin"
+- x64 : "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/Llvm/x64/bin"
+
+For now I change the paths manually, search and replace "x64" with "x86" and it works on windows
+
+
+##### GPU backend flags
+
+| Flag                     | Purpose                          |
+| ------------------------ | -------------------------------- |
+| `skia_use_gl=true`       | Enable **OpenGL GPU backend**    |
+| `skia_use_vulkan=true`   | Enable **Vulkan GPU backend**    |
+| `skia_use_metal=true`    | Enable **Apple Metal backend**   |
+| `skia_use_direct3d=true` | Enable **Direct3D backend**      |
+| `skia_use_dawn=true`     | Enable **WebGPU (Dawn)** backend |
+
+
+##### Bazel
+
+
+Bazel is the recommended way to build skia, but I was not sucessfull
+
+#### Use skia:
+Once skia is built, link the generated lib
+
+- To know how the name of the skia.lib should be
+- Clear CMake configs of Qx
+- Run "cmake" on the Qx project, it will fail, but will print where it expects the skia library to be, depending on the platfrom:
+- Copy the generated skia.(lib, a, ..) into "vendors/skia/libs/"
+- Rename the lib file and run cmake again
+- The name should look like "vendors/skia/libs/OS_COMPILER_MODE_ARCH_skia_BACKEND"
+
+Examples (depending on the platfrom):
+
+	windows10_clang_release_x64_skia_direct3d
+	windows10_clang_release_x64_skia_opengl
+	windows10_clang_release_x64_skia_raster
+	windows10_msvc_debug_x64_skia_opengl
+	windows10_msvc_debug_x86_skia_raster
+	windows10_msvc_release_x64_skia_opengl
+	windows10_msvc_release_x64_skia_raster
+	windows10_msvc_release_x86_skia_opengl
+	windows10_msvc_release_x86_skia_raster
+	windows10_msvc_release_x64_skia_raster
+
+
+#### Include files
+
+If the build is successful, copy these folders to "vendors/skia/includes":
+
+- include 
+- skia (copy include and rename it as skia)
+- modules
 
 

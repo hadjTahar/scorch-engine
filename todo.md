@@ -1,0 +1,169 @@
+
+- Retest and recheck all 2D and 3D examples
+- Remove:
+    - DataPool
+    - ECSModelItem
+- Add colorsPool
+	- Update worldItem using colors
+	- enableShader/enableMaterial
+- Rename:
+    - GraphicsWindow
+    - GraphicsCore
+    - GraphicsBase
+    - GraphicsModel -> GraphicsMesh 
+- Fix: Camera controler is flipping the world when mouse clicked
+- Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
+- Trigs vs strips for better performance
+- Add demos on github
+- Copy qx_old notes
+- Add TypedFunctions to unit tests
+- Filament Canvas:
+	- Filament Canvas 
+	    - Render to sdl texture then to filament
+	    - Take skia snap shot and render it to filament
+	    OR
+	    - Render to sdl texture then to filament texture
+	- CanvasModel cnvsItm = scene.addItem<CanvasModel>
+	    - pass it to the scen2D
+	    - and use it to render the canvas
+	- Remove filament from canvas, and pass either
+	    - The window
+	    - The model
+	    - The Canvas Model
+	- GraphicsModelItem
+    - GraphicsCanvasItem
+
+- Github:
+	- Currently tested on windows
+	- Contact?
+- Remove MetaItemType::Physics
+	- Don't use "propagation" and "propagate", just get root or windowItem and set it to needsRendering	
+- QX_OPT_SDL_WINDOW_OPTIONS per OS, ask gpt
+- Recheck if there are leaks when resizing
+- Recheck and Fix the time loop
+- Improve or fix the scene graph.
+	- look up scene graph data structure and a better traverse 
+	- Remove the recursive calls in the scene graph (update, render, ...)
+- Refactor modules
+	- See if you can use filament and canvas as modules
+	- Let skia modules handle all the options 
+	- Qx_use_module(skia)
+	- Qx_use_module(filament)
+	- Enable or disable linking
+	- So you can clean up, or commenting out non needed modules on release
+	- Nanolann, ECS (ECSComponent), hash maps, filament, skia, and most vendors as modules
+	- Doc: modular functionalities, it's up to the end user to use or remove modules
+		scene 2D and scene3D as modules???
+	- Folder structure
+		- apps
+		- examples 2D and 3D
+		- modules
+		- vendors
+- Multiple views:
+	- Untested
+	- Fix or remove multiple views
+	- Rename renderItem to renderables()
+- Dynamic properry for camera
+	- LinearCamera
+	- BezierCamera
+	- PolynomialCamera
+	- DampedCamera
+- Mouse event:
+	- Replace x y with vector point ::windowPoint 
+	- itemPoint (mapped point)
+- Mechanics:
+	Develop a mechanic class, that handles, that can be fed to an ECS
+	- Input: keys or mouse 
+	- Detection: collision 
+	- Transformation : Move,render, update, animation or rotation
+	- Communication : 
+		- Or Interaction, update or inform other items or entities. Eg: if a door button is pressed, inform the door to open with a signal, rewards, bullet or hit damage, sound
+		- Check Signal from Godot
+	- State:  Update internal (relative to the item) logics, memory and states. Eg: opened,closed, hit.
+
+- Editor:
+	- Generate item files that later can be used to load the items
+	- Add scene 3d
+	- Add add canvas scene
+	- When you compome and run, add items from the files
+- Document the classes:
+	- Properties, like size, color, and propagation system
+	- Items
+	- Components
+	- Timers
+	- Dynamic Properties
+	- 2D Canvas
+	- 3D Rendering
+	- Transforms
+	- Views
+	- Scenes
+	- namespaces
+		- Qx
+		- prv: is something that the end user probably should not use
+	- Modules
+		- qx: core module
+		- examples
+		- tests: unit testing module
+		- benchmarks: benchmarks module
+
+- Screen units and screen resolutions
+- Remove check property : QX_OPT_CHECK_UPDATE_CHILDREN
+- Check skia effects, check:
+	- styles.h/CanvasEffects
+	- https://skia.org/docs/user/sksl/
+	- https://shopify.github.io/react-native-skia/docs/shaders/gradients/
+	- https://skia.org/docs/user/api/skpaint_overview/
+	- goolge skia gradients
+- Add atlas item for emitters and swarms
+	- or use ecs for the emitters
+- Leaks:
+	- Use empty canvas and see where the leaks are
+	
+- Keyboard events, when exiting cause crash
+- Frame transforms interpolation between updates:
+  - is this necessary
+  - cache the world transform, update
+  - virtual ::interpolate??
+  - QX_OPT_INTERPOLATE
+- Camera Limits
+- Strip vs triangles for fast rendering??
+- How to add normals??
+- Audio with sdl Mixer example 
+- Add Page Item for both 2D and 3D, types: stack, swipe, OverLay for games UI
+- Abstract the filament options, bloom, and render
+- Clean unnecessary filament includes
+- Add options to "scripts/compile_mats.py" with optimized options
+- Search for "BackendResult" returns and handle them properly
+	- Create Error class, with enum and description
+	- And an assert, with the description
+	- All errors must be checked, ::check, if not called, assert an uncaught error
+	- See if you can replace all the direct assert calls with Error class,
+		Eg: Error::assert(), Error::error(), Error::warning()
+- Remove "MetaItemType" and use "ItemType" directly for asserting
+- More examples
+	- 3D filling a tank with balls test example
+	- Inputs example, fix the events
+		- It does not allow for multiple keys
+		- Using strings interrupts the precvious key
+	- Procedural animation example, Velvet integration
+	- Procedural crawlers animation example
+	- Box3D wall brick smash
+	- A lit cube material, with a light source
+	- Load model from file
+	- Item controller, with mouse like the camera example 
+	- Cube placer, click to place cube on a plane for rts game
+	- Bullets example
+	- Ballistic example
+	- Pendulum 
+	- Orbitor
+	- Particle sim with DynamicVelocity and dynamic fade?
+	- Add Japan example white and red circle
+	- Flight instruments module, Flight Indicator instruments module widgets
+    - Pivots: cubes with differnt pivots, check rotatin_cube example
+    - Motions: TransformMotion Component, check rotatin_cube example
+        rotatorEffect /Component
+        BouncerEffect /Component
+        SliderEffect /Component
+        ShakerEffect /Component
+        PulserEffect /Component
+        ScalerEffect /Component
