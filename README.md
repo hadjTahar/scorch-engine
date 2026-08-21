@@ -179,108 +179,44 @@ Scorch-engine was created as a response to that. It is built on the belief that 
 
 
 
+----------------------------------------------------------------------------------------
+
+
 ### How to build
 ---
 
 
 Build on tested on MSVC-x64
-To build this, you first need to build skia
-The hardest part is compiling skia, once you build it (skia, good luck with that), rest should be easy
 
 
-- Clone the repository 
-- cd to the repository
+#### Clone and init the repository
+
+- git clone https://github.com/hadjTahar/scorch-engine.git
+- cd scorch-engine
 - git submodule update --init --recursive
 
 
-
-#### Yoga-flex
+#### Comment out Yoga unit tests
 
 - Open "yoga/CMakeLists.txt"
 - Comment out "add_subdirectory(tests)"
 
+#### Build skia
 
-#### Skia backend
+The hardest part is compiling skia, once you build it (skia, good luck with that), rest should be easy
 
-
-- Use a different path from "scorch-engine"
-- Download skia into a short path like "D:/" or "C:/"
-	- git clone https://github.com/google/skia.git
-- Don't use "power shell" or "cmd"
-- Use either "x86 native tools for VS" or "x64 native tools for VS"
-- cd skia
-- python tools/git-sync-deps --verbose
-- Run it two times (in case first time fails)
-
-
-##### Gn
----
-
-- Run ".\bin\gn.exe gen out/build"
-- Choose from **args.gn**
-- Copy the text to "out/build/args.gn"
-- Run ".\bin\gn.exe gen out/build" again
-- Run "ninja -C out/build skia"
-- Check if it's the right build arch
-	- Windows: Run dumpbin /headers out\build\skia.lib | findstr "machine"
-- Copy the generated .lib to "vendors/skia/libs/"
-
-
-##### "args.gn"
-
-**Clang args.gn on windows - windows10_clang_release_x64_skia_backend:**
-
-	# Set build arguments here. See `gn help buildargs`.
-	target_cpu = "x64"
-	cc = "clang-cl"
-	cxx = "clang-cl"
-	# Use forward slashes here!
-	clang_win = "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/Llvm/x64"
-	is_official_build = true
-	is_component_build = false 
-	skia_use_freetype = true
-	skia_use_system_freetype2 = false
-	skia_use_system_libjpeg_turbo = false
-	skia_use_system_zlib = false
-	skia_use_system_harfbuzz = false
-	skia_use_system_libpng = false
-	skia_use_system_libwebp = false 
-	skia_use_system_expat = false
-	skia_use_system_icu = false
-	skia_use_icu = false
-	skia_enable_tools = false
-	
-	###  Select an optional backend
-	# skia_use_gl=true			Enable OpenGL GPU backend
-	# skia_use_vulkan=true		Enable Vulkan GPU backend
-	# skia_use_metal=true		Enable Apple Metal backend
-	# skia_use_direct3d=true	Enable Direct3D backend
-	# skia_use_dawn=true		Enable WebGPU (Dawn) backend
-
-**MSVC args.gn on windows - windows10_msvc_release_x64_skia_backend:**
-
-	# Set build arguments here. See `gn help buildargs`.
-	target_cpu = "x64"
-	is_official_build = true
-	is_component_build = false 
-	skia_use_freetype = true
-	skia_use_system_freetype2 = false
-	skia_use_system_libjpeg_turbo = false
-	skia_use_system_zlib = false
-	skia_use_system_harfbuzz = false
-	skia_use_system_libpng = false
-	skia_use_system_libwebp = false 
-	skia_use_system_expat = false
-	skia_use_system_icu = false
-	skia_use_icu = false
-	skia_enable_tools = false
-	
-	###  Select an optional backend
-	# skia_use_gl=true			Enable OpenGL GPU backend
-	# skia_use_vulkan=true		Enable Vulkan GPU backend
-	# skia_use_metal=true		Enable Apple Metal backend
-	# skia_use_direct3d=true	Enable Direct3D backend
-	# skia_use_dawn=true		Enable WebGPU (Dawn) backend
+- Windows: 
+	- Don't use "CMD" or "Power-shell"
+	- Use either "x86 native tools for VS" or "x64 native tools for VS"
+- Linux: not tested yet
+- run "python init_skia.py"
+- Copy "scripts/skia_compiler.py" and option_files.args file
+	- Choose based on compiler and backend
+- cd vendors/skia
+	- This is very important
+	- Don't run the python script from "scripts/skia_compiler.py"
+	- Copy it and run it from "vendors/skia/"
+- Run skia_compiler.py option_files.args file
 
 
 
@@ -293,44 +229,11 @@ Sometimes gn defaults to x86, if there is a build mismatch, open toolchain.ninja
 For now I change the paths manually, search and replace "x64" with "x86" and it works on windows
 
 
-##### GPU backend flags
-
-| Flag                     | Purpose                          |
-| ------------------------ | -------------------------------- |
-| `skia_use_gl=true`       | Enable **OpenGL GPU backend**    |
-| `skia_use_vulkan=true`   | Enable **Vulkan GPU backend**    |
-| `skia_use_metal=true`    | Enable **Apple Metal backend**   |
-| `skia_use_direct3d=true` | Enable **Direct3D backend**      |
-| `skia_use_dawn=true`     | Enable **WebGPU (Dawn)** backend |
-
-
 ##### Bazel
 
+You can build skia, not following these steps, like using "bazel build", just make sure the end lib file is at: "vendors/skia/qx_lib/skia.lib"
 
-Bazel is the recommended way to build skia, but I was not sucessfull
-
-#### Use skia:
-Once skia is built, link the generated lib
-
-- To know how the name of the skia.lib should be
-- Clear CMake configs of Qx
-- Run "cmake" on the Qx project, it will fail, but will print where it expects the skia library to be, depending on the platfrom:
-- Copy the generated skia.(lib, a, ..) into "vendors/skia/libs/"
-- Rename the lib file and run cmake again
-- The name should look like "vendors/skia/libs/OS_COMPILER_MODE_ARCH_skia_BACKEND"
-
-Examples (depending on the platfrom):
-
-	windows10_clang_release_x64_skia_direct3d
-	windows10_clang_release_x64_skia_opengl
-	windows10_clang_release_x64_skia_raster
-	windows10_msvc_debug_x64_skia_opengl
-	windows10_msvc_debug_x86_skia_raster
-	windows10_msvc_release_x64_skia_opengl
-	windows10_msvc_release_x64_skia_raster
-	windows10_msvc_release_x86_skia_opengl
-	windows10_msvc_release_x86_skia_raster
-	windows10_msvc_release_x64_skia_raster
+Bazel is the recommended way to build skia, but I was not sucessfull so far.
 
 
 #### Include files
@@ -342,3 +245,16 @@ If the build is successful, copy these folders to "vendors/skia/includes":
 - modules
 
 
+
+
+
+#### Re-build filament materials
+
+- Cmake "scroch-engine"
+- Build scroch-engine, don't run, it will crash
+- run compile_mats.py
+
+
+#### Build scorch-engine
+
+- 

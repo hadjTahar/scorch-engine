@@ -1,0 +1,22 @@
+# Set build arguments here. See `gn help buildargs`.
+target_cpu = "x64"
+is_official_build = true
+is_component_build = false 
+skia_use_freetype = true
+skia_use_system_freetype2 = false
+skia_use_system_libjpeg_turbo = false
+skia_use_system_zlib = false
+skia_use_system_harfbuzz = false
+skia_use_system_libpng = false
+skia_use_system_libwebp = false 
+skia_use_system_expat = false
+skia_use_system_icu = false
+skia_use_icu = false
+skia_enable_tools = false
+
+###  Select an optional backend
+# skia_use_gl=true			Enable OpenGL GPU backend
+# skia_use_vulkan=true		Enable Vulkan GPU backend
+# skia_use_metal=true		Enable Apple Metal backend
+# skia_use_direct3d=true	Enable Direct3D backend
+# skia_use_dawn=true		Enable WebGPU (Dawn) backend
