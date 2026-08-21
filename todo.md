@@ -1,4 +1,24 @@
 
+
+- Improve Skia build
+	- Add skia as submodule
+	- Check if submodule, does not add "downloaded files"
+	- Create a folder called args_fn, with configs
+	- Cof compilation, copy it to the desired dolders "64_compiler_release....."
+
+Add skia as sub module
+Create scripts for each case
+Leave the bon supported ones empty 
+
+skia_build.py
+arts_gn.py as a map for the args, 
+Run skia build name
+
+Or keep the arms as files and consume them as args
+
+
+------------------------------------------------------------------------------------
+
 - Retest and recheck all 2D and 3D examples
 - Remove:
     - DataPool

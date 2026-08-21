@@ -216,7 +216,7 @@ The hardest part is compiling skia, once you build it (skia, good luck with that
 ---
 
 - Run ".\bin\gn.exe gen out/build"
-- Choose from args.gn
+- Choose from **args.gn**
 - Copy the text to "out/build/args.gn"
 - Run ".\bin\gn.exe gen out/build" again
 - Run "ninja -C out/build skia"
