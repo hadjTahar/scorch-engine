@@ -8,7 +8,7 @@ add_library(qx_skia STATIC IMPORTED)
 ### -------------------------
 set(QX_SKIA_FILE_NAME "skia")
 
-set( QX_CMK_SKIA_LIB_PATH "${CMAKE_SOURCE_DIR}/vendors/qx_skia/skia/qx_out/lib")
+set( QX_CMK_SKIA_LIB_PATH "${CMAKE_SOURCE_DIR}/vendors/qx_skia/lib")
 find_library(SKIA_LIB
     NAMES ${QX_SKIA_FILE_NAME}
     PATHS ${QX_CMK_SKIA_LIB_PATH})

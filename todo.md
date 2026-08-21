@@ -1,3 +1,4 @@
+- Test and document git config submodule.ignore all
 
 
 - Improve Skia build

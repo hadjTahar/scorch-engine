@@ -186,7 +186,8 @@ Scorch-engine was created as a response to that. It is built on the belief that 
 ---
 
 
-Build on tested on MSVC-x64
+Build and tested on MSVC-x64
+
 
 
 #### Initialize
@@ -196,10 +197,7 @@ Build on tested on MSVC-x64
 - git submodule update --init --recursive
 
 
-#### Yoga-flex
 
-- Open "yoga/CMakeLists.txt"
-- Comment out "add_subdirectory(tests)"
 
 #### Build skia
 
@@ -211,13 +209,7 @@ The hardest part is compiling skia, once you build it (skia, good luck with that
 - Linux: not tested yet
 - The rest should be the same for any platfrom
 - run "python init_skia.py"
-- Copy "scripts/skia_compiler.py" and option_files.args file
-	- Choose based on compiler and backend
-- cd vendors/skia
-	- This is very important
-	- Don't run the python script from "scripts/skia_compiler.py"
-	- Copy it and run it from "vendors/skia/"
-- Run skia_compiler.py option_files.args file
+- Run skia_compiler.py args/choose_option_file.args
 
 
 
@@ -232,7 +224,7 @@ For now I change the paths manually, search and replace "x64" with "x86" and it 
 
 ##### Bazel
 
-You can build skia, not following these steps, like using "bazel build", just make sure the end lib file is at: "vendors/skia/qx_lib/skia.lib"
+You can build skia, not following these steps, like using "bazel build", just make sure the end lib file is at: "vendors/skia/qx_lib/lib/skia.lib"
 
 Bazel is the recommended way to build skia, but I was not sucessfull so far.
 
@@ -241,7 +233,15 @@ Bazel is the recommended way to build skia, but I was not sucessfull so far.
 
 Build only,don't run, it will crash.
 
-- Runc cmake
+- Open main CMakeLists.txt
+- Edit "QX_OPT_CANVAS_BACKEND" for the backend you chose to build skia
+	- skia_raster
+	- skia_opengl
+	- skia_vulkan
+	- .
+	- .
+	- .
+- Run cmake
 - Then build
 
 #### Re-build filament materials
@@ -249,3 +249,4 @@ Build only,don't run, it will crash.
 If the version of google-filament changed, you need to re-build all the materials
 
 - run compile_mats.py
+	- ToDo: Make "compile_mats.py" run only on "examples" and "apps"

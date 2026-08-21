@@ -28,7 +28,10 @@ def main():
     # ------------------------------------------------------------------
 
     script_dir = Path(__file__).resolve()
+
+    # Skia is located next to this script.
     skia_dir = (script_dir.parent / "skia").resolve()
+    lib_dir  = (script_dir.parent / "lib").resolve()
 
     if not skia_dir.is_dir():
         raise RuntimeError(f"Skia directory not found: {skia_dir}")
@@ -163,7 +166,7 @@ def main():
             f"Generated Skia library not found: {generated_library}"
         )
 
-    lib_dir = skia_dir / "qx_out" / "lib"
+    # Copy to ./lib relative to the directory where the script is run.
     lib_dir.mkdir(parents=True, exist_ok=True)
 
     destination_library = lib_dir / library_name
