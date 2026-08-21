@@ -7,6 +7,7 @@ Not useable yet, work in progress...
 A cross platform game engine/framework, that can be used to develop both 2D and 3D apps using.
 
 It’s a game engine and an application development framework, using open source C++ libraries:
+This is a low level game engine, it gives basic features and let’s you build your game style however you wish it to be.
 
 
 ### Vendors:
