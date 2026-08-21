@@ -19,3 +19,6 @@
 [submodule "vendors/filament"]
 	path = vendors/filament
 	url = https://github.com/google/filament.git
+[submodule "vendors/qx_skia/skia"]
+	path = vendors/qx_skia/skia
+	url = https://skia.googlesource.com/skia.git

@@ -1,8 +1,6 @@
 import subprocess
 import os
 
-# Go to ../../vendors/skia relative to this script's directory
-script_dir = os.path.dirname(os.path.abspath(__file__))
 skia_dir = os.path.abspath( "skia" )
 
 subprocess.run(

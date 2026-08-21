@@ -1,3 +1,9 @@
+Sure — the only changes are:
+
+* `skia_dir` → `script_dir.parent / "skia"`
+* `lib_dir` → the `lib` directory in the **current working directory**, i.e. where you run the script, using `Path.cwd() / "lib"`.
+
+```python
 import argparse
 import platform
 import shutil
@@ -28,6 +34,8 @@ def main():
     # ------------------------------------------------------------------
 
     script_dir = Path(__file__).resolve()
+
+    # Skia is located next to this script.
     skia_dir = (script_dir.parent / "skia").resolve()
 
     if not skia_dir.is_dir():
@@ -163,7 +171,8 @@ def main():
             f"Generated Skia library not found: {generated_library}"
         )
 
-    lib_dir = skia_dir / "qx_out" / "lib"
+    # Copy to ./lib relative to the directory where the script is run.
+    lib_dir = Path.cwd() / "lib"
     lib_dir.mkdir(parents=True, exist_ok=True)
 
     destination_library = lib_dir / library_name
@@ -198,3 +207,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nError: {e}", file=sys.stderr)
         sys.exit(1)
+```
