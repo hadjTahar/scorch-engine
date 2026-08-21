@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.16)
+
+### ----------------
+### App Options
+### ----------------
+
+
+set( QX_CMK_APP_NAME ecs_rendering_static_count )
+set( QX_CMK_ORG_NAME "QxOrg" )
+
+include( "${CMAKE_SOURCE_DIR}/cmakes/app.cmake" )

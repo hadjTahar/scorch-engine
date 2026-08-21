@@ -1,0 +1,13 @@
+material {
+    name : blue,
+    shadingModel : unlit
+}
+
+fragment {
+    void material(inout MaterialInputs material) {
+        prepareMaterial(material);
+        material.baseColor = vec4(0,0,225,1);
+   }
+
+    
+}

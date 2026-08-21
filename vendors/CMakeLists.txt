@@ -36,6 +36,7 @@ set( FILAMENT_BUILD_TESTING             OFF )
 set( BENCHMARK_ENABLE_GTEST_TESTS OFF )
 
 
+add_subdirectory( qx_skia     qx_skia)
 add_subdirectory( glm         glm_build)
 add_subdirectory( sdl         sdl_build)
 add_subdirectory( yoga        yoga_build)

@@ -189,14 +189,14 @@ Scorch-engine was created as a response to that. It is built on the belief that 
 Build on tested on MSVC-x64
 
 
-#### Clone and init the repository
+#### Initialize
 
 - git clone https://github.com/hadjTahar/scorch-engine.git
 - cd scorch-engine
 - git submodule update --init --recursive
 
 
-#### Comment out Yoga unit tests
+#### Yoga-flex
 
 - Open "yoga/CMakeLists.txt"
 - Comment out "add_subdirectory(tests)"
@@ -209,6 +209,7 @@ The hardest part is compiling skia, once you build it (skia, good luck with that
 	- Don't use "CMD" or "Power-shell"
 	- Use either "x86 native tools for VS" or "x64 native tools for VS"
 - Linux: not tested yet
+- The rest should be the same for any platfrom
 - run "python init_skia.py"
 - Copy "scripts/skia_compiler.py" and option_files.args file
 	- Choose based on compiler and backend
@@ -236,25 +237,15 @@ You can build skia, not following these steps, like using "bazel build", just ma
 Bazel is the recommended way to build skia, but I was not sucessfull so far.
 
 
-#### Include files
+#### Build scorch-engine
 
-If the build is successful, copy these folders to "vendors/skia/includes":
+Build only,don't run, it will crash.
 
-- include 
-- skia (copy include and rename it as skia)
-- modules
-
-
-
-
+- Runc cmake
+- Then build
 
 #### Re-build filament materials
 
-- Cmake "scroch-engine"
-- Build scroch-engine, don't run, it will crash
+If the version of google-filament changed, you need to re-build all the materials
+
 - run compile_mats.py
-
-
-#### Build scorch-engine
-
-- 
