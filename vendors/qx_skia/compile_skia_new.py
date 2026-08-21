@@ -1,9 +1,3 @@
-Sure — the only changes are:
-
-* `skia_dir` → `script_dir.parent / "skia"`
-* `lib_dir` → the `lib` directory in the **current working directory**, i.e. where you run the script, using `Path.cwd() / "lib"`.
-
-```python
 import argparse
 import platform
 import shutil
@@ -207,4 +201,3 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\nError: {e}", file=sys.stderr)
         sys.exit(1)
-```
