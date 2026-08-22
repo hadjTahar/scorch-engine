@@ -12,6 +12,7 @@ MainWindow::MainWindow(CoreItem *parent):
     auto scene = addItem<Qx::prv::GraphicsScene2D>();
     auto vw0 = scene->addView();
     auto cam0 = vw0->camera();
+    cam0->reset2DOrthoCamera( screen() );
 
     auto sldItm = scene->addItem<ImageRectangle>();
     sldItm->transform.setPosition( {0, 0, 0 } );

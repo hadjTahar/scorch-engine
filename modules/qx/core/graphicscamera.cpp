@@ -75,9 +75,8 @@ void GraphicsCamera::resetUICamera( const Screen &scrn )
 void GraphicsCamera::reset2DOrthoCamera( const Screen &scrn )
 {
     properties.setPosition( {} );
-
     properties.setForward( {0.0f, 0.0f, -1.0f} );
-    properties.setUp( {0.0f, 1.0f, 0.0f} );
+    properties.setUp( {0.0f, -1.0f, 0.0f} );
 
     properties.setMode( CameraMode::ORTHOGRAPHIC );
     properties.setFieldOfView( 45.0f );
@@ -89,9 +88,9 @@ void GraphicsCamera::reset2DOrthoCamera( const Screen &scrn )
 
 void GraphicsCamera::reset2DPerspectiveCamera( const Screen &scrn )
 {
-    properties.setPosition( {0.0f, 0.0f, 1.0f} );
+    properties.setPosition( {} );
     properties.setForward( {0.0f, 0.0f, -1.0f} );
-    properties.setUp( {0.0f, 1.0f, 0.0f} );
+    properties.setUp( {0.0f, -1.0f, 0.0f} );
 
 
     properties.setMode( CameraMode::PERSPECTIVE );

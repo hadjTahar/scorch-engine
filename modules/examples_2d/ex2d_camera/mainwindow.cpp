@@ -20,42 +20,44 @@ MainWindow::MainWindow(CoreItem *parent):
 
 
 
+    itm->style.setColor( Qx::green() );
+
 
     pCmp->process = [cam0](Qx::x_real dlt)
     {
         const Qx::x_vector3 pos = cam0->properties.position();
-        cam0->properties.setPosition( { pos.x+.71,pos.y+.71, pos.z } );
+        // cam0->properties.setPosition( { pos.x+.71,pos.y+.71, pos.z } );
     };
 
 
-    for (int idx = 0; idx < 133; ++idx)
+    for (int idx = 0; idx < 7; ++idx)
     {
         auto itm0 = itm->addItem<Qx::Rectangle>();;
         itm0->transform.setPosition( { idx * 50,
                                     idx * 50,
-                                    2} );
+                                    0} );
         // itm0->attach<CoreComponent>();
     }
     itm->transform.setPosition( { 20,20, 1} );
 
 
 
-    auto timer = itm->attach<Qx::Timer>();
-    timer->start( 22222, 50 );
-    timer->timeout = [itm]{
+    // auto timer = itm->attach<Qx::Timer>();
+    // timer->start( 22222, 50 );
+    // timer->timeout = [itm]{
 
-        // const x_vector3 pos = itm->transform.position;
-        // itm->transform.position = {
-        //     pos.x+2.71,
-        //     pos.y+2.71,
-        //     pos.z
-        // };
+    //     // const x_vector3 pos = itm->transform.position;
+    //     // itm->transform.position = {
+    //     //     pos.x+2.71,
+    //     //     pos.y+2.71,
+    //     //     pos.z
+    //     // };
 
-    };
+    // };
 
 
-    Qx::Timer::singleShot( 1000, [](){
-    });
+    // Qx::Timer::singleShot( 1000, [](){
+    // });
 
 
 

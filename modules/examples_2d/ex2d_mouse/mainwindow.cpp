@@ -19,7 +19,7 @@ MainWindow::MainWindow(CoreItem *parent):
 
     auto layout = scene->addItem<Qx::FlexLayout>();
 
-    layout->style.setColor( Qx::yellow() );
+    layout->style.setColor( Qx::green() );
 
     auto rc0 = layout->addItem<Qx::Rectangle>();
     auto rc1 = layout->addItem<Qx::Rectangle>();

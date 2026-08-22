@@ -19,7 +19,8 @@ MainWindow::MainWindow(CoreItem *parent):
 {
     auto scene = addItem<Qx::prv::GraphicsScene2D>();
     auto vw0 = scene->addView();
-    // auto cam0 = vw0->camera();
+    auto cam0 = vw0->camera();
+    cam0->reset2DOrthoCamera( screen() );
     auto itm = scene->addItem<Qx::Rectangle>();;
 
     auto timer = itm->attach<Qx::Timer>();

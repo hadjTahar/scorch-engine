@@ -261,9 +261,11 @@ void SkiaBase::loadFontsDB()
     dbg_warning() << "SkiaBase::loadFontsDB is not loading system fonts";
     const auto fontsNames = Qx::Assets::fileNames( ":/fonts" );
 
+    dbg_info() << "Loading Skia Canvas fonts ... ";
+    dbg_info() << "-------------------------------";
     for ( const auto &ftName : fontsNames) {
 
-        dbg_print() << ftName;
+        dbg_info() << ftName;
         const auto fntData  = Qx::Assets::load( ftName ).data();
         const auto data     = helpers::MakeSkData( fntData.data(), fntData.size() );
         const auto typeface = m_skiaFontsManager->makeFromData( data );

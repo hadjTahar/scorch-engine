@@ -63,8 +63,8 @@ MainWindow::MainWindow(CoreItem *parent):
         return true;
     };
 
-    // mCmp1->setFocusPolicy( Qx::FocusPolicy::Click );
-    // mCmp1->setFocused( true );
+    mCmp1->setFocusPolicy( Qx::FocusPolicy::Click );
+    mCmp1->setFocused( true );
 
 
 }

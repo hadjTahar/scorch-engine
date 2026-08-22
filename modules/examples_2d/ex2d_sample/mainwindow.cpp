@@ -12,4 +12,7 @@ MainWindow::MainWindow(CoreItem *parent):
     auto cam0 = vw0->camera();
     cam0->reset2DOrthoCamera( screen() );
     auto itm = scene->addItem<Qx::Rectangle>();
+
+
+    itm->transform.setPosition( {100, 100, 0 } );
 }

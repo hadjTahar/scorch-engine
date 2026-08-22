@@ -71,7 +71,11 @@ MainWindow::MainWindow(CoreItem *parent):
     auto scene = addItem<Qx::prv::GraphicsScene2D>();
     auto vw0 = scene->addView();
     auto cam0 = vw0->camera();
+    cam0->reset2DOrthoCamera( screen() );
     auto itm = scene->addItem<Qx::Rectangle>();
+    itm->style.setColor( Qx::red() );
+    // itm->transform.setPosition( {10, 10, 0 } );
+    itm->transform.setPosition( {} );
 
 
     auto stCmp = itm->attach<Qx::StateMachineComponent<PlayerController>>();
