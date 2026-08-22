@@ -17,8 +17,10 @@
 	- Create CoreComponent::active| or enabled/disabled, if (!enabled) return, don't call process
 		- This allows some items and components to idle
 
+
+
 - Fix: Camera controler is flipping the world when mouse clicked
-- Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
+	- Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
 - Trigs vs strips for better performance
 - Add demos on github
 - Copy qx_old notes
@@ -147,11 +149,21 @@
 		Eg: Error::assert(), Error::error(), Error::warning()
 - Remove "MetaItemType" and use "ItemType" directly for asserting
 - More examples
+	SpriteAnim example
+		Load sheet
+		Auto index = Add row (x y )
+		play index 
+
+		Time speed, fps?
+
+		Or addFrame(index, x, y)
+		Play(index)
 	- 3D filling a tank with balls test example
 	- Inputs example, fix the events
 		- It does not allow for multiple keys
 		- Using strings interrupts the precvious key
 	- Procedural animation example, Velvet integration
+	- Behavior tree example 
 	- Procedural crawlers animation example
 	- Box3D wall brick smash
 	- A lit cube material, with a light source
