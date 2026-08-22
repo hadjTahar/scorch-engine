@@ -27,19 +27,23 @@ private:
         return m_worldMatrix;
     }
 
+    ItemTransform(){}
+    ItemTransform(const ItemTransform&){}
+    ItemTransform(const ItemTransform&&){}
 
 public:
     ItemTransform(GraphicsItem *owner):
         m_item{ owner },
         m_localMatrix{ x_matrix4x4{1} },
         m_worldMatrix{ x_matrix4x4{1} },
-        m_position{ 0,0,0 },
+        m_position{ 0 },
         m_scale{    1,1,1 },
-        m_rotation{ 0,0,0,1},
+        m_rotation{ 1,0,0,0},
         m_size{ 0,0,0 },
-        m_dirtyLocal{ false },
-        m_dirtyWorld{ false }
+        m_dirtyLocal{ true },
+        m_dirtyWorld{ true }
     {
+        // setPosition( {} );
     }
 
     void setPosition( const x_vector3 &vec)
@@ -197,8 +201,8 @@ private:
     x_size      m_size;
     x_pivot     m_pivot;
 
-    bool m_dirtyLocal{ true };
-    bool m_dirtyWorld{ true };
+    bool m_dirtyLocal;
+    bool m_dirtyWorld;
 
 };
 

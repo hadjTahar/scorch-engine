@@ -75,8 +75,8 @@ void GraphicsCamera::resetUICamera( const Screen &scrn )
 void GraphicsCamera::reset2DOrthoCamera( const Screen &scrn )
 {
     properties.setPosition( {} );
-    properties.setForward( {0.0f, 0.0f, -1.0f} );
-    properties.setUp( {0.0f, -1.0f, 0.0f} );
+    properties.setForward( {0.00f, 0.00f, -1.0f} );
+    properties.setUp(      {0.00f, 1.00f, 0.00f} );
 
     properties.setMode( CameraMode::ORTHOGRAPHIC );
     properties.setFieldOfView( 45.0f );
@@ -89,8 +89,8 @@ void GraphicsCamera::reset2DOrthoCamera( const Screen &scrn )
 void GraphicsCamera::reset2DPerspectiveCamera( const Screen &scrn )
 {
     properties.setPosition( {} );
-    properties.setForward( {0.0f, 0.0f, -1.0f} );
-    properties.setUp( {0.0f, -1.0f, 0.0f} );
+    properties.setForward( {0.00f, 0.00f, -1.0f} );
+    properties.setUp(      {0.00f, 1.00f, 0.00f} );
 
 
     properties.setMode( CameraMode::PERSPECTIVE );
@@ -104,9 +104,9 @@ void GraphicsCamera::reset2DPerspectiveCamera( const Screen &scrn )
 void GraphicsCamera::reset3DOrthoCamera(const Screen &scrn,
                                         const x_aabb &aabb)
 {
-    properties.setPosition( {0.0f, 0.0f, 2.f} );
-    properties.setForward( {0.0f, 0.0f, 1.0f} );
-    properties.setUp( {0.0f, 1.0f, 0.0f} );
+    properties.setPosition( {0.0f, 0.0f, 2.0f} );
+    properties.setForward(  {0.0f, 0.0f, 1.0f} );
+    properties.setUp(       {0.0f, 1.0f, 0.0f} );
 
 
     properties.setMode( CameraMode::ORTHOGRAPHIC );
@@ -115,12 +115,12 @@ void GraphicsCamera::reset3DOrthoCamera(const Screen &scrn,
 
 void GraphicsCamera::reset3DOrthoCamera( const Screen &scrn )
 {
+    // properties.setPosition( {0.0f, 0.0f, 2.0f} );
+    // properties.setForward(  {0.0f, 0.0f, 1.0f} );
+    // properties.setUp(       {0.0f, 1.0f, 0.0f} );
     // // const auto sz = scrn.size();
     // const auto ratio = scrn.sizeRatio();
 
-    // properties.setPosition( {} );
-    // properties.setForward( {0.0f, 0.0f, -1.0f} );
-    // properties.setUp( {0.0f, 1.0f, 0.0f} );
 
 
     // properties.setMode( CameraMode::ORTHOGRAPHIC );
@@ -136,10 +136,9 @@ void GraphicsCamera::reset3DPerspectiveCamera( const Screen &scrn )
     // const auto sz = scrn.size();
     const auto ratio = scrn.sizeRatio();
 
-    properties.setPosition( {0.0f, 0.0f, 2.f} );
-    properties.setForward( {0.0f, 0.0f, 1.0f} );
-    properties.setUp( {0.0f, 1.0f, 0.0f} );
-
+    properties.setPosition( {0.0f, 0.0f, 2.0f} );
+    properties.setForward(  {0.0f, 0.0f, 1.0f} );
+    properties.setUp(       {0.0f, 1.0f, 0.0f} );
 
     properties.setMode( CameraMode::PERSPECTIVE );
     properties.setFieldOfView( 45.0f );

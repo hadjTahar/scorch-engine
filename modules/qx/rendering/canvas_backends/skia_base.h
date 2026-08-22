@@ -39,10 +39,6 @@ protected:
                           const x_size &sz) override final;
 
 
-    // void startViewTransform(GraphicsScene *, GraphicsView *view);
-    // void endViewTransform( GraphicsView *view);
-    // void startItemTransform( const x_matrix4x4 &mat);
-    // void endItemTransform();
 
 protected:
     void loadFontsDB();

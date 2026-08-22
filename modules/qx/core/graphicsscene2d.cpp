@@ -80,7 +80,6 @@ void GraphicsScene2D::renderViews(WindowItem *winItm)
             auto graphicsItm      = castItem<GraphicsItem>( itm );
             const auto itmRdr     = itm->rendering;
             const auto itemMatrix = graphicsItm->transform.renderingTransform();
-
             if( itmRdr.ignoreCamera() )
                 m_canvas->setMatrix( itemMatrix * gvwMatrix );
             else
@@ -92,26 +91,6 @@ void GraphicsScene2D::renderViews(WindowItem *winItm)
     }
     m_canvas->render( winItm->properties.size() );
 
-
-
-    // for ( auto &vwPtr : m_views)
-    // {
-    //     auto vw = vwPtr.get();
-    //     cnvs->startViewTransform( this, vw );
-    //     const auto lst = vw->renderables( m_items );
-    //     for ( auto itm : lst)
-    //     {
-    //         auto graphicsItm = castItem<GraphicsItem>( itm );
-    //         if( !vw->shouldRender( graphicsItm ) )
-    //             continue;
-    //         cnvs->startItemTransform( graphicsItm->transform.worldMatrix() );
-    //         graphicsItm->renderItem( cnvs );
-    //         cnvs->endItemTransform();
-    //         graphicsItm->resetPropertyStates();
-    //     }
-    //     cnvs->endViewTransform( vw );
-    // }
-    // cnvs->endBackend();
 }
 
 

@@ -6,7 +6,7 @@ project(examples_2d LANGUAGES CXX)
 # add_subdirectory( ex2d_camera ) ## X
 # add_subdirectory( ex2d_canvas_paths ) ## OK
 # add_subdirectory( ex2d_fails ) ## X
-# add_subdirectory( ex2d_flexLayout ) ## X
+add_subdirectory( ex2d_flexLayout ) ## X
 # add_subdirectory( ex2d_gradients ) ## OK
 # add_subdirectory( ex2d_images ) ## OK
 # add_subdirectory( ex2d_inputs ) ## Somewhat works
@@ -25,10 +25,10 @@ project(examples_2d LANGUAGES CXX)
 
 
 add_subdirectory( ex2d_sample ) ## X
-add_subdirectory( ex2d_sml ) ## X
-add_subdirectory( ex2d_texts ) ## X
-add_subdirectory( ex2d_timer ) ## X
-add_subdirectory( ex2d_velocity ) ## X
-add_subdirectory( ex2d_z_sorting ) ## X
+# add_subdirectory( ex2d_sml ) ## X
+# add_subdirectory( ex2d_texts ) ## X
+# add_subdirectory( ex2d_timer ) ## X
+# add_subdirectory( ex2d_velocity ) ## X
+# add_subdirectory( ex2d_z_sorting ) ## X
 
 

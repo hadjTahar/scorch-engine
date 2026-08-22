@@ -17,13 +17,14 @@ MainWindow::MainWindow(CoreItem *parent):
     cam0->reset2DOrthoCamera( screen() );
 
 
+    /// ------------------------------------------
     auto layout = scene->addItem<Qx::FlexLayout>();
-
     layout->style.setColor( Qx::yellow() );
 
     auto rc0 = layout->addItem<Qx::Rectangle>();
     auto rc1 = layout->addItem<Qx::Rectangle>();
     auto rc2 = layout->addItem<Qx::Rectangle>();
+
 
 
     layout->flexStyle()->flexDirection = Qx::FlexDirection::Row;

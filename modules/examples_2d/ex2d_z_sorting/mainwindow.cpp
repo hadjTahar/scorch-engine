@@ -15,12 +15,13 @@ MainWindow::MainWindow(CoreItem *parent):
     cam0->resetUICamera( screen() );
 
 
+    auto itm = scene->addItem<Qx::Rectangle>();
 
 
-    auto itm_z_3 = scene->addItem<Qx::Rectangle>();
+    auto itm_z_3 = itm->addItem<Qx::Rectangle>();
         auto itm_z_4 = itm_z_3->addItem<Qx::Rectangle>();
-    auto itm_z_2 = scene->addItem<Qx::Rectangle>();
-    auto itm_z_1 = scene->addItem<Qx::Rectangle>();
+    auto itm_z_2 = itm->addItem<Qx::Rectangle>();
+    auto itm_z_1 = itm->addItem<Qx::Rectangle>();
 
 
     /// ## If 2D_Z_SORTING is NOT enabled, we should see
@@ -39,7 +40,7 @@ MainWindow::MainWindow(CoreItem *parent):
     itm_z_1->style.setColor( Qx::blue() );
 
     itm_z_3->transform.setPosition( {0,0,3} );
-        itm_z_4->transform.setPosition( {20,20,0} );
+        itm_z_4->transform.setPosition( {0,0,5} );
     itm_z_2->transform.setPosition( {50,50,2} );
     itm_z_1->transform.setPosition( {100,100,1} );
 }

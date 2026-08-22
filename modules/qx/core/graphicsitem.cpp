@@ -31,7 +31,7 @@ GraphicsItem::GraphicsItem(CoreItem *parent):
     rendering.setCulling( true);
     rendering.setAntilalias( true);
     rendering.setLod( false);
-    rendering.setIgnoreCamera( false);
+    rendering.setIgnoreCamera( false );
 }
 
 GraphicsItem::~GraphicsItem()

@@ -3,7 +3,6 @@
 
 ------------------------------------------------------------------------------------
 
-- Retest and recheck all 2D and 3D examples
 - Add colorsPool
 	- Update worldItem using colors
 	- enableShader/enableMaterial
@@ -149,6 +148,7 @@
 		Eg: Error::assert(), Error::error(), Error::warning()
 - Remove "MetaItemType" and use "ItemType" directly for asserting
 - More examples
+	2D example pivots
 	SpriteAnim example
 		Load sheet
 		Auto index = Add row (x y )

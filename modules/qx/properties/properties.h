@@ -64,12 +64,12 @@ struct ItemRendering : PropertySet
 
 private:
 
-    bool m_visible;
-    bool m_clipping;
-    bool m_culling;
-    bool m_antilalias;
-    bool m_lod;
-    bool m_ignoreCamera;
+    bool m_visible{true};
+    bool m_clipping{false};
+    bool m_culling{true};
+    bool m_antilalias{true};
+    bool m_lod{false};
+    bool m_ignoreCamera{false};
 };
 
 
