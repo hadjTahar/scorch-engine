@@ -1,7 +1,9 @@
 .qtcreator
 modules/apps/
 apps/*
-
+*/compiled_data/compiled_data.h
+*/compiled_data/qx_*h
+*/compiled_data/qx_*cpp
 
 # C/C++ build artifacts
 *.o
