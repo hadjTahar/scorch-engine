@@ -1,29 +1,9 @@
 - Test and document git config submodule.ignore all
 
 
-- Improve Skia build
-	- Add skia as submodule
-	- Check if submodule, does not add "downloaded files"
-	- Create a folder called args_fn, with configs
-	- Cof compilation, copy it to the desired dolders "64_compiler_release....."
-
-Add skia as sub module
-Create scripts for each case
-Leave the bon supported ones empty 
-
-skia_build.py
-arts_gn.py as a map for the args, 
-Run skia build name
-
-Or keep the arms as files and consume them as args
-
-
 ------------------------------------------------------------------------------------
 
 - Retest and recheck all 2D and 3D examples
-- Remove:
-    - DataPool
-    - ECSModelItem
 - Add colorsPool
 	- Update worldItem using colors
 	- enableShader/enableMaterial
@@ -32,6 +12,11 @@ Or keep the arms as files and consume them as args
     - GraphicsCore
     - GraphicsBase
     - GraphicsModel -> GraphicsMesh 
+- Make sure you are not rendering not visable items and off screen, using rendering
+	- Create bool offScreen();
+	- Create CoreComponent::active| or enabled/disabled, if (!enabled) return, don't call process
+		- This allows some items and components to idle
+
 - Fix: Camera controler is flipping the world when mouse clicked
 - Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
 - Trigs vs strips for better performance

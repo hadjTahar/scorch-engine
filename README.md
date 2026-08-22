@@ -235,7 +235,7 @@ Build only,don't run, it will crash.
 
 - Open main CMakeLists.txt
 - Edit "QX_OPT_CANVAS_BACKEND" for the backend you chose to build skia
-	- skia_raster
+	- skia_raster (Safest and easiest)
 	- skia_opengl
 	- skia_vulkan
 	- .
