@@ -1,10 +1,10 @@
 #ifndef MAINAPP_H
 #define MAINAPP_H
 
-#include <core/application.h>
+#include <core/graphicsapp.h>
 
 
-class MainApp : public Qx::prv::Application
+class MainApp : public Qx::prv::GraphicsApp
 {
 
 public:

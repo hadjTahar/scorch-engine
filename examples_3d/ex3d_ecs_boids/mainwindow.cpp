@@ -42,7 +42,7 @@ static auto mk( const Qx::x_vector3 &ctr, Qx::x_layers lyr )
 
 
 MainWindow::MainWindow(CoreItem *parent):
-    Qx::prv::WindowItem{ parent }
+    Qx::prv::GraphicsWindow{ parent }
 {
     auto scene3D = addItem<Qx::prv::GraphicsScene3D>();
     auto vw0     = scene3D->addView();

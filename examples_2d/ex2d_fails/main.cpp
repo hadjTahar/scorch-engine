@@ -40,7 +40,7 @@
 //         // auto tmpItm4 = tmpRoot->addItem<NonQXItem>();
 
 //         /// ## add/remove pending items
-//         /// ## not needed when you use Application
+//         /// ## not needed when you use GraphicsApp
 //         ///
 //         Qx::prv::tests::TestItem::stepPendings();
 

@@ -12,7 +12,7 @@ class TimerSingleshot;
 
 class TimerCallback : public prv::TimerBase
 {
-    friend class Application;
+    friend class GraphicsApp;
 
 public:
     TimerCallback();

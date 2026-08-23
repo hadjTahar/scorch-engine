@@ -1,4 +1,4 @@
-#include "application.h"
+#include "graphicsapp.h"
 #include "graphicsscene.h"
 #include <timers/timerbase.h>
 #include <timers/timercallback.h>
@@ -8,10 +8,10 @@
 namespace Qx::prv
 {
 
-Application *Application::app = nullptr;
+GraphicsApp *GraphicsApp::app = nullptr;
 
 
-Application::Application(x_real pps, x_real fpsHint):
+GraphicsApp::GraphicsApp(x_real pps, x_real fpsHint):
     RootBaseItem{},
     m_exiting{ false }
 {
@@ -32,7 +32,7 @@ Application::Application(x_real pps, x_real fpsHint):
     m_delayLoop.fixedDltTicks   = 0;
 }
 
-Application::~Application()
+GraphicsApp::~GraphicsApp()
 {
     m_exiting = true;
     TimerCallback::clearSingleShots();
@@ -46,7 +46,7 @@ Application::~Application()
 
 }
 
-void Application::exit(const std::string &reason)
+void GraphicsApp::exit(const std::string &reason)
 {
     m_exiting = true;
     if( !reason.empty() )
@@ -57,7 +57,7 @@ void Application::exit(const std::string &reason)
 }
 
 
-AppResult Application::init(void **appstate, int argc, char *argv[])
+AppResult GraphicsApp::init(void **appstate, int argc, char *argv[])
 {
     dbg_unused(appstate);
     dbg_unused(argc);
@@ -69,7 +69,7 @@ AppResult Application::init(void **appstate, int argc, char *argv[])
     return AppResult::CONTINUE;
 }
 
-AppResult Application::iterate(void *appstate)
+AppResult GraphicsApp::iterate(void *appstate)
 {
     dbg_unused(appstate);
     TimerBase::startFrame();
@@ -84,7 +84,7 @@ AppResult Application::iterate(void *appstate)
     return AppResult::CONTINUE;
 }
 
-AppResult Application::event(void *appstate, SDL_Event *event)
+AppResult GraphicsApp::event(void *appstate, SDL_Event *event)
 {
     dbg_unused( appstate );
     if( childrenView().empty() )
@@ -102,7 +102,7 @@ AppResult Application::event(void *appstate, SDL_Event *event)
     return AppResult::CONTINUE;
 }
 
-void Application::quit(void *appstate, AppResult result)
+void GraphicsApp::quit(void *appstate, AppResult result)
 {
 
     dbg_unused( appstate );
@@ -111,7 +111,7 @@ void Application::quit(void *appstate, AppResult result)
 }
 
 
-void Application::handleEvent( const SDL_Event *const event)
+void GraphicsApp::handleEvent( const SDL_Event *const event)
 {
     const auto winID = static_cast<x_count>( event->window.windowID );
     auto wind = window( winID );
@@ -134,19 +134,19 @@ void Application::handleEvent( const SDL_Event *const event)
     }
 }
 
-void Application::windowAdded(GraphicsWindow *wind)
+void GraphicsApp::windowAdded(GraphicsWindow *wind)
 {
     m_windows[ wind->windowID() ] = wind;
 }
 
-void Application::windowRemoved(GraphicsWindow *wind)
+void GraphicsApp::windowRemoved(GraphicsWindow *wind)
 {
     const auto winID = static_cast<x_count>( wind->windowID() );
     const auto cnt  = m_windows.erase( winID );
     dbg_assert( cnt == 1 ) << "Expected cnt to be 1, " << "instead got " << cnt;
 }
 
-void Application::updateChildren(bool dropFrame)
+void GraphicsApp::updateChildren(bool dropFrame)
 {
     meta_check_hierarchy();
     /// ## [1] : update items per window->views
@@ -182,7 +182,7 @@ void Application::updateChildren(bool dropFrame)
     CoreItem::stepPendings();
 }
 
-void Application::renderToBackend(bool dropFrame)
+void GraphicsApp::renderToBackend(bool dropFrame)
 {
     if( dropFrame )
     {
@@ -213,7 +213,7 @@ void Application::renderToBackend(bool dropFrame)
     resetPropertyStates();
 }
 
-GraphicsWindow *Application::window(x_count idx)
+GraphicsWindow *GraphicsApp::window(x_count idx)
 {
     if( m_windows.contains( idx ) )
         return m_windows[ idx ];

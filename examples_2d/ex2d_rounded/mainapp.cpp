@@ -3,7 +3,7 @@
 
 
 MainApp::MainApp():
-    Application{60, 30 }
+    GraphicsApp{60, 30 }
 {
     auto win = addItem<MainWindow>();
     win->properties.setSize( { 1200, 700 } );

@@ -1,3 +1,5 @@
+# To do:
+
 - Test and document git config submodule.ignore all
 
 
@@ -14,9 +16,6 @@
 
 
 - Retest examples
-- Rename:
-    - WindowItem to GraphicsWindow
-    - CoreItem to GraphicsCore
 
 ------------------------------------------------------------------------------------
 

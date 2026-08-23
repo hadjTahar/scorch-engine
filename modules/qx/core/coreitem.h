@@ -31,7 +31,7 @@ using SmartItem = std::unique_ptr<CoreItem>;
 class CoreItem : public MetaObject
 {
 
-    friend class Application;
+    friend class GraphicsApp;
     friend class GraphicsScene;
     friend class GraphicsScene2D;
     friend class GraphicsScene3D;

@@ -22,7 +22,7 @@ namespace Qx::prv
 
 class GraphicsWindow : public prv::CoreItem
 {
-    friend class Application;
+    friend class GraphicsApp;
     friend class CoreComponent;
     friend class Qx::MouseComponent;
     friend class Qx::KeyComponent;

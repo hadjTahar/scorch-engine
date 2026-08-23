@@ -1,5 +1,5 @@
 #include "graphicswindow.h"
-#include "application.h"
+#include "graphicsapp.h"
 #include "graphicsscene2d.h"
 #include "graphicsscene3d.h"
 #include "graphicsitem2d.h"
@@ -30,7 +30,7 @@ GraphicsWindow::GraphicsWindow(CoreItem *parent):
     m_sequenceEvent{0,0,0,0}
 {
     m_itemType = ItemType::Window;
-    dbg_assert( Application::app ) << "Invalid app context";
+    dbg_assert( GraphicsApp::app ) << "Invalid app context";
     initWindow();
     dbg_assert( m_sdlWindow ) << "Invalid m_sdlWindow";
 
@@ -66,7 +66,7 @@ GraphicsWindow::~GraphicsWindow()
     clearChildren();
     m_filamentEngine->destroy( m_filamentSwapChain );
     m_filamentEngine->flushAndWait();
-    Application::app->windowRemoved( this );
+    GraphicsApp::app->windowRemoved( this );
     if( m_sdlWindow )
         SDL_DestroyWindow( m_sdlWindow );
 }
@@ -104,10 +104,10 @@ void GraphicsWindow::initWindow()
         );
 
     if( !m_sdlWindow )
-        Application::app->exit( "SDL_CreateWindow can't create a window" );
+        GraphicsApp::app->exit( "SDL_CreateWindow can't create a window" );
 
 
-    Application::app->windowAdded( this );
+    GraphicsApp::app->windowAdded( this );
 }
 
 void GraphicsWindow::processComponents(x_real dlt)

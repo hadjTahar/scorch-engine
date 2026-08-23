@@ -1,5 +1,5 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef GRAPHICSAPP_H
+#define GRAPHICSAPP_H
 
 #include "rootbaseitem.h"
 #include "graphicswindow.h"
@@ -14,17 +14,17 @@
 namespace Qx::prv {
 
 
-class Application : public prv::RootBaseItem
+class GraphicsApp : public prv::RootBaseItem
 {
-    QX_META_OBJECT( Application, MetaItemType::Root, MetaItemType::Window )
+    QX_META_OBJECT( GraphicsApp, MetaItemType::Root, MetaItemType::Window )
 
     friend class GraphicsWindow;
 public:
-    static Application *app;
+    static GraphicsApp *app;
 
 public:
-    Application(x_real pps, x_real fpsHint );
-    virtual ~Application();
+    GraphicsApp(x_real pps, x_real fpsHint );
+    virtual ~GraphicsApp();
     void exit( const std::string &reason = "" );
 
 
@@ -58,4 +58,4 @@ private:
 
 }
 
-#endif // APPLICATION_H
+#endif // GRAPHICSAPP_H

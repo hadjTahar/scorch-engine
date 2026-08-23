@@ -10,12 +10,12 @@ namespace Qx::prv
 
 
 
-class Application;
+class GraphicsApp;
 
 
 class TimerBase : public MetaObject
 {
-    friend class Application;
+    friend class GraphicsApp;
     QX_META_OBJECT( TimerBase, MetaItemType::NA, MetaItemType::NA )
 
 protected:
