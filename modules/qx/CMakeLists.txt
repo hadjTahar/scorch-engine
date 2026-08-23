@@ -34,6 +34,18 @@ target_compile_features(qx PUBLIC cxx_std_20)
 target_include_directories( qx PUBLIC "." )
 include( "${CMAKE_SOURCE_DIR}/cmakes/defs.cmake" )
 
+### Name must be qx_link_+module name
+### ---------------------------------------------------
+
+function( qx_link_qx target )
+    # Header includes
+    # target_include_directories(${target} PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
+    # Link qx
+    target_link_libraries( ${target} PUBLIC qx )
+endfunction()
+
+### ---------------------------------------------------
+
 
 # glm
 ### ---------------
