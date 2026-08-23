@@ -5,26 +5,50 @@
 
 - Retest examples
 - Rename:
-    - GraphicsWindow
-    - GraphicsCore
-    - GraphicsBase
-    - GraphicsModel -> GraphicsMesh 
+    - WindowItem to GraphicsWindow
+    - CoreItem to GraphicsCore
 
 ------------------------------------------------------------------------------------
 
-- Re structure
+Level of details 
+If .lod is true compute the distance from camera and pass it to render Item and update model
+
+
+float lodFactor =
+glm::clamp(distance / camera.farPlane, 0.0f, 1.0f);
+
+0.0 ───── 0.25 ───── 0.55 ───── 0.8 ───── 1.0
+           │          │          │         │
+          HIGH      MEDIUM      LOW      CULLED
+
+
+enum class DetailsLevel : uint8_t {
+	None,
+	Ignore = None, /// ??
+    High,
+    Medium,
+    Low,
+    Culled
+};
+
+------------------------------------------------------------------------------------
+
+
+- Re structure:
 Start with moving examples and apps first 
 Each module defines a linking function
 That can be called with concatenation eg
 qx_use( Ecs)
+Don't make CanvasBase abstract, instead print "Function name is not implemented, defaulting to CanvasVase", this allows compilation without a rendering backend
+Try to separate filament from Qx
 
 	- Apps
 	- Examples 
 	- src from Qx
 	- Modules
 	  - Modules use qx, not the other way around 
-	  - Skia canvas, not possible 
-	  - Filament rendering , not possible 
+	  - skia_canvas:Skia canvas, not possible 
+	  - qx_3D: Filament rendering , not possible 
 	  - Ecs
 	  - Collision 
 	  - Boxes 

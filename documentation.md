@@ -33,6 +33,30 @@ Why different names? because I may be wrong about certain transforms and how eac
         - For 2D render, we handle the camera ourselves
         - Mouse events checking
 
+### Level of details 
+
+Level of details 
+If .lod is true compute the distance from camera and pass it to render Item and update model
+
+
+float lodFactor =
+glm::clamp(distance / camera.farPlane, 0.0f, 1.0f);
+
+0.0 ───── 0.25 ───── 0.55 ───── 0.8 ───── 1.0
+           │          │          │         │
+          HIGH      MEDIUM      LOW      CULLED
+
+
+enum class DetailsLevel : uint8_t {
+    None,
+    Ignore = None, /// ??
+    High,
+    Medium,
+    Low,
+    Culled
+};
+
+
 #### Important concepts and notes:
 
 - Rendering: Uses ::renderingTransform()

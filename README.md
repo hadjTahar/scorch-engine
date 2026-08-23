@@ -76,15 +76,39 @@ Experimental multiple rendering backends:
 
 ## Getting started:
 
-Check [How to build](https://github.com/hadjTahar/scorch-engine#how-to-build)
+- Check [How to build](https://github.com/hadjTahar/scorch-engine#how-to-build)
+- Check [Demos](https://github.com/hadjTahar/scorch-engine#demos)
+- Check examples folders "examples_2d" and "examples_3d"
 
 
-----------------------------------------------------------------------------------------
+### API Sample
+
+	MainWindow::MainWindow(CoreItem *parent):
+	    Qx::prv::WindowItem{ parent }
+	{
+	 	auto scene = addItem<Qx::prv::GraphicsScene2D>();
+	    auto vw  = scene->addView();
+	    auto cam0 = vw->camera();
+	    cam0->reset2DOrthoCamera( screen() );
+	    auto itm0 = scene->addItem<Qx::Rectangle>();
+	    /// ## itm0 is parent of itm1
+	    auto itm1 = itm0->addItem<Qx::Rectangle>();
 
 
-## Examples
-Check folders "examples_2d" and "examples_3d"
+	    itm0->transform.setPosition( {100, 100, 0 } );
+	    itm0->style.setColor( Qx::red() );
 
+	    itm1->transform.setPosition( {20, 20, 0 } );
+	    itm1->style.setColor( Qx::green() );
+
+	    auto mCmp = itm1->attach<Qx::MouseComponent>();
+	     mCmp->clicked = [](const Qx::MouseEvent &)
+	    {
+	        dbg_print_st() << "clicked : ";
+	        return true;
+	    };
+
+	}
 ----------------------------------------------------------------------------------------
 
 
