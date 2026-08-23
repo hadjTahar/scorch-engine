@@ -53,3 +53,8 @@ target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_NAME=\"${QX_CM
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_ORG_NAME=\"${QX_CMK_ORG_NAME}\"" )
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_SRC=\"${CMAKE_CURRENT_SOURCE_DIR}\"" )
 
+
+
+function( qx_app_use_module module )
+    cmake_language(CALL qx_link_${module} ${QX_CMK_APP_NAME})
+endfunction()

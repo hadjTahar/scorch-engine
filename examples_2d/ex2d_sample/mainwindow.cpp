@@ -4,9 +4,15 @@
 #include <core/graphicsitem2d.h>
 #include <core/graphicsscene2d.h>
 
+#include <sample_call.h>
+
+
+
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::WindowItem{ parent }
 {
+
+    Qx::mod_sample::testPrint();
     auto scene = addItem<Qx::prv::GraphicsScene2D>();
     auto vw0 = scene->addView();
     auto cam0 = vw0->camera();

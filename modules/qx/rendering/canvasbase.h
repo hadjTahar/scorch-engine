@@ -22,17 +22,37 @@ public:
     CanvasBase(SDL_Window *sdlWin, filament::Scene *filScn );
     virtual ~CanvasBase();
 
-    virtual BackendResult initBackend(const x_size &sz) = 0;
-    virtual BackendResult renderShapes(const x_size &sz,
-                                       PixelFormat pxFormat,
-                                       PixelAlphaType pxAlphaTp) = 0;
+    virtual BackendResult initBackend(const x_size &sz)
+    {
+        dbg_print() << "initBackend is not implemented, defaulting to "
+                       "CanvasBase::initBackend";
 
-    virtual void presentToSurface(SDL_Surface *sdlSurface,
-                                  const x_size &sz) = 0;
+        return BackendResult::SUCCESS;
+    }
 
-    virtual void presentToTexture( SDL_Texture *texture,
-                                  SDL_Renderer *renderer,
-                                  const x_size &sz) = 0;
+    virtual BackendResult renderShapes(const x_size &,
+                                       PixelFormat,
+                                       PixelAlphaType )
+    {
+        dbg_print() << "renderShapes is not implemented, defaulting to "
+                       "CanvasBase::renderShapes";
+        return BackendResult::SUCCESS;
+    }
+
+    virtual void presentToSurface(SDL_Surface *,
+                                  const x_size &)
+    {
+        dbg_print() << "presentToSurface is not implemented, defaulting to "
+                       "CanvasBase::presentToSurface";
+    }
+
+    virtual void presentToTexture( SDL_Texture *,
+                                  SDL_Renderer *,
+                                  const x_size &)
+    {
+        dbg_print() << "presentToTexture is not implemented, defaulting to "
+                       "CanvasBase::presentToTexture";
+    }
 
 
     void render(const x_size &sz);
