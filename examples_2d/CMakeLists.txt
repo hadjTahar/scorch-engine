@@ -6,8 +6,8 @@ project(examples_2d LANGUAGES CXX)
 # add_subdirectory( ex2d_camera ) ## X
 # add_subdirectory( ex2d_canvas_paths ) ## OK
 # add_subdirectory( ex2d_fails ) ## X
-# add_subdirectory( ex2d_flexLayout ) ## X
-# add_subdirectory( ex2d_gradients ) ## OK
+add_subdirectory( ex2d_flexLayout ) ## OK
+add_subdirectory( ex2d_gradients ) ## OK
 # add_subdirectory( ex2d_images ) ## OK
 # add_subdirectory( ex2d_inputs ) ## Somewhat works
 # add_subdirectory( ex2d_keys ) ## OK

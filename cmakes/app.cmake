@@ -44,17 +44,16 @@ file(GLOB_RECURSE SRC_FILES *.h *.cpp *.md)
 add_executable(${QX_CMK_APP_NAME} ${SRC_FILES} )
 # C++20
 target_compile_features(${QX_CMK_APP_NAME} PUBLIC cxx_std_20)
-# Header includes
-target_include_directories(${QX_CMK_APP_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
-# Link qx
-target_link_libraries( ${QX_CMK_APP_NAME} PUBLIC qx )
+
+
+function( qx_app_use_module module )
+    cmake_language(CALL qx_link_${module} ${QX_CMK_APP_NAME})
+endfunction()
+
+qx_app_use_module( qx )
 
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_NAME=\"${QX_CMK_APP_NAME}\"" )
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_ORG_NAME=\"${QX_CMK_ORG_NAME}\"" )
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_SRC=\"${CMAKE_CURRENT_SOURCE_DIR}\"" )
 
 
-
-function( qx_app_use_module module )
-    cmake_language(CALL qx_link_${module} ${QX_CMK_APP_NAME})
-endfunction()
