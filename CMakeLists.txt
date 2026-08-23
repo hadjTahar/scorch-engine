@@ -74,14 +74,14 @@ set( QX_OPT_3D_GEOMETRY_TRACKERS     false )
 ### 12 bytes on 32 is enough for:
 # - 1 pointer (usualy this)
 # - 2 more 4-bytes floats
-set( QX_OPT_TYPED_FUNCTION_CAPTURE_SIZE     12 )
+set( QX_OPT_TYPED_FUNCTION_CAPTURE_SIZE  12 )
 ## ON -> TypedFunction. OFF-> std::function.
-set( QX_OPT_TYPED_FUNCTION_CALLBACK         false )
-set( QX_OPT_DROP_FRAME_DELAY                5  )
+set( QX_OPT_TYPED_FUNCTION_CALLBACK      false )
+set( QX_OPT_DROP_FRAME_DELAY             5  )
 
-set( QX_OPT_VERTEX_COUNT_WARNNING           1000000  )
-set( QX_OPT_INDEX_COUNT_WARNNING            3000000  )
-set( QX_OPT_ENABLE_OPENMP            false )
+set( QX_OPT_VERTEX_COUNT_WARNNING        1000000  )
+set( QX_OPT_INDEX_COUNT_WARNNING         3000000  )
+set( QX_OPT_ENABLE_OPENMP                false )
 
 
 ## Useful if you have multiple graphics scenes,
@@ -122,7 +122,22 @@ endif()
 
 
 
+### Modules and vendors
+### ----------------
 add_subdirectory( modules )
 add_subdirectory( vendors )
 
+### Executables
+### ----------------
 
+add_subdirectory( examples_2d   examples_2d_build)
+add_subdirectory( examples_3d   examples_3d_build)
+# add_subdirectory( tests         tests_build)
+# add_subdirectory( benchmarks    benchmarks_build)
+
+
+
+### Add "apps", only if it exists
+if(EXISTS "apps/CMakeLists.txt")
+    add_subdirectory( apps          apps_build)
+endif()

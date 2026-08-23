@@ -34,11 +34,6 @@ public:
                                   SDL_Renderer *renderer,
                                   const x_size &sz) = 0;
 
-    // virtual void presentToModel( GraphicsModel * ) = 0;
-
-
-
-
 
     void render(const x_size &sz);
 

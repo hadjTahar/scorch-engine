@@ -31,30 +31,6 @@ enum class DetailsLevel : uint8_t {
     Culled
 };
 
-------------------------------------------------------------------------------------
-
-
-- Re structure:
-Start with moving examples and apps first 
-Each module defines a linking function
-That can be called with concatenation eg
-qx_use( Ecs)
-Don't make CanvasBase abstract, instead print "Function name is not implemented, defaulting to CanvasVase", this allows compilation without a rendering backend
-Try to separate filament from Qx
-
-	- Apps
-	- Examples 
-	- src from Qx
-	- Modules
-	  - Modules use qx, not the other way around 
-	  - skia_canvas:Skia canvas, not possible 
-	  - qx_3D: Filament rendering , not possible 
-	  - Ecs
-	  - Collision 
-	  - Boxes 
-	  - State machine
-	  - Petri net
-	- Vendors
 
 ------------------------------------------------------------------------------------
 
