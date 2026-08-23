@@ -140,6 +140,14 @@ public:
             return pvtTransform * canvasMatrix;
     }
 
+
+    static inline auto canvasMatrix( const x_matrix4x4 &gvwMatrix,
+                                    const x_matrix4x4 &camViewMatrix,
+                                    const x_matrix4x4 &camPrjtMatrix)
+    {
+        return gvwMatrix*(camPrjtMatrix * camViewMatrix);;
+    }
+
 private:
 
 

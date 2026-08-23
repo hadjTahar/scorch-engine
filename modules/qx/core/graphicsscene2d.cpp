@@ -33,9 +33,9 @@ void GraphicsScene2D::renderViews(WindowItem *winItm)
         auto vw    = vwPtr.get();
         auto cam2D = vw->camera();
         const auto gvwMatrix      = vw->transform();
-        const auto camViewMatrix = cam2D->viewMatrix();
-        const auto camPrjtMatrix = cam2D->projectionMatrix();
-        const auto canvasMatrix  = gvwMatrix*(camPrjtMatrix * camViewMatrix);
+        const auto canvasMatrix  = ItemTransform::canvasMatrix( gvwMatrix,
+                                                              cam2D->viewMatrix(),
+                                                              cam2D->projectionMatrix() );
 
         /// ## 2D Z sorting
         /// ---------------
@@ -79,10 +79,12 @@ void GraphicsScene2D::renderViews(WindowItem *winItm)
         /// ---------------
         for ( auto itm : m_items)
         {
-            auto graphicsItm      = castItem<GraphicsItem>( itm );
-            const auto itmRdr     = itm->rendering;
-            const auto finalMat   = graphicsItm->transform.
-                                  cameraTransform( gvwMatrix, canvasMatrix, itmRdr.ignoreCamera());
+            auto graphicsItm    = castItem<GraphicsItem>( itm );
+            const auto itmRdr   = itm->rendering;
+            const auto finalMat = graphicsItm->transform.cameraTransform( gvwMatrix,
+                                                                         canvasMatrix,
+                                                                         itmRdr.ignoreCamera()
+                                                                         );
             m_canvas->setMatrix( finalMat );
 
 
