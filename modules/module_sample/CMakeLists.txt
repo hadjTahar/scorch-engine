@@ -10,10 +10,20 @@ file(GLOB_RECURSE SAMPLE_SRC_FILES *.h *.cpp)
 add_library(module_sample STATIC ${SAMPLE_SRC_FILES} )
 target_compile_features(module_sample PUBLIC cxx_std_20)
 
+
+
+# Header includes
+target_include_directories(module_sample PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
+# Link qx
+target_link_libraries( module_sample PUBLIC qx )
+
+
 ### This function defines how the end-target links it
 ### Use full links, using "CMAKE_SOURCE_DIR"
 ### Don't use "PROJECT_NAME"
+### ---------------------------------------------------
 
+### Name must be qx_link_+module name
 ### ---------------------------------------------------
 
 function( qx_link_module_sample target )
