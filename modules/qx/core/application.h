@@ -2,7 +2,7 @@
 #define APPLICATION_H
 
 #include "rootbaseitem.h"
-#include "windowitem.h"
+#include "graphicswindow.h"
 #include "../timers/timerloop.h"
 
 
@@ -18,7 +18,7 @@ class Application : public prv::RootBaseItem
 {
     QX_META_OBJECT( Application, MetaItemType::Root, MetaItemType::Window )
 
-    friend class WindowItem;
+    friend class GraphicsWindow;
 public:
     static Application *app;
 
@@ -39,17 +39,17 @@ public:
 private:
     void handleEvent(const SDL_Event * const event);
 
-    void windowAdded( WindowItem *wind );
-    void windowRemoved( WindowItem *wind );
+    void windowAdded( GraphicsWindow *wind );
+    void windowRemoved( GraphicsWindow *wind );
     void updateChildren(bool dropFrame);
 
     void renderToBackend(bool dropFrame );
-    WindowItem *window( x_count idx );
+    GraphicsWindow *window( x_count idx );
 
 
 private:
     std::map<x_count,
-             WindowItem*> m_windows;
+             GraphicsWindow*> m_windows;
     DelayLoop             m_delayLoop;
     bool                  m_exiting;
 

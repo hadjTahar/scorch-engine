@@ -3,7 +3,7 @@
 #include <misc/hostenv.h>
 
 MainWindow::MainWindow(CoreItem *parent):
-    Qx::prv::WindowItem{ parent }
+    Qx::prv::GraphicsWindow{ parent }
 {
 
     dbg_print() << "App Name: " << Qx::HostEnv::App::appName();

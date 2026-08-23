@@ -11,14 +11,14 @@ namespace Qx
 
 namespace prv
 {
-class WindowItem;
+class GraphicsWindow;
 }
 
 
 class Screen
 {
 
-    friend class prv::WindowItem;
+    friend class prv::GraphicsWindow;
 
 
 protected:

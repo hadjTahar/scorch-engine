@@ -2,13 +2,13 @@
 #define APPWINDOW_H
 
 
-#include <core/windowitem.h>
+#include <core/graphicswindow.h>
 
 
 namespace Qx {
 
 
-class AppWindow : public prv::WindowItem
+class AppWindow : public prv::GraphicsWindow
 {
 
 

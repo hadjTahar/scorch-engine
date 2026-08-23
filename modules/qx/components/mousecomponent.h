@@ -9,7 +9,7 @@ namespace Qx
 
 class MouseComponent : public prv::EventComponent
 {
-    friend class prv::WindowItem;
+    friend class prv::GraphicsWindow;
 public:
     MouseComponent(prv::GraphicsItem *parentItem);
     ~MouseComponent();

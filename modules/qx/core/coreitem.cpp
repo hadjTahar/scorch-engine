@@ -1,7 +1,7 @@
 #include "coreitem.h"
 
 #include "graphicsscene.h"
-#include "windowitem.h"
+#include "graphicswindow.h"
 
 namespace Qx::prv
 {

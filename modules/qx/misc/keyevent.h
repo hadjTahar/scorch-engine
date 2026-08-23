@@ -7,7 +7,7 @@
 namespace Qx{
 
 namespace prv{
-class WindowItem;
+class GraphicsWindow;
 }
 
 
@@ -26,7 +26,7 @@ public:
     bool repeat() const;
 
 private:
-    friend class prv::WindowItem;
+    friend class prv::GraphicsWindow;
     x_keycode    m_key;
     x_modifiers  m_modifiers;
     bool         m_repeat;

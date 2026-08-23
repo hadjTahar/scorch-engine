@@ -1,4 +1,4 @@
-#include "windowitem.h"
+#include "graphicswindow.h"
 #include "application.h"
 #include "graphicsscene2d.h"
 #include "graphicsscene3d.h"
@@ -17,10 +17,10 @@
 namespace Qx::prv
 {
 
-filament::Engine    *WindowItem::m_filamentEngine   = nullptr;
-filament::Renderer  *WindowItem::m_filamentRenderer = nullptr;
+filament::Engine    *GraphicsWindow::m_filamentEngine   = nullptr;
+filament::Renderer  *GraphicsWindow::m_filamentRenderer = nullptr;
 
-WindowItem::WindowItem(CoreItem *parent):
+GraphicsWindow::GraphicsWindow(CoreItem *parent):
     CoreItem{ parent },
     properties{ *this },
     m_filamentSwapChain{ nullptr },
@@ -61,7 +61,7 @@ WindowItem::WindowItem(CoreItem *parent):
     dbg_assert( m_filamentSwapChain ) << "Invalid m_filamentSwapChain";
 }
 
-WindowItem::~WindowItem()
+GraphicsWindow::~GraphicsWindow()
 {
     clearChildren();
     m_filamentEngine->destroy( m_filamentSwapChain );
@@ -71,7 +71,7 @@ WindowItem::~WindowItem()
         SDL_DestroyWindow( m_sdlWindow );
 }
 
-x_count WindowItem::windowID() const
+x_count GraphicsWindow::windowID() const
 {
     const auto ret = static_cast<x_count>(
         SDL_GetWindowID( m_sdlWindow )
@@ -80,17 +80,17 @@ x_count WindowItem::windowID() const
     return ret;
 }
 
-void WindowItem::setFullScreen()
+void GraphicsWindow::setFullScreen()
 {
     SDL_SetWindowFullscreen( m_sdlWindow, true );
 }
 
-Screen WindowItem::screen() const
+Screen GraphicsWindow::screen() const
 {
     return Screen{ m_sdlWindow };
 }
 
-void WindowItem::initWindow()
+void GraphicsWindow::initWindow()
 {
     const int ww = static_cast<int>( 800 );
     const int hh = static_cast<int>( 600 );
@@ -110,7 +110,7 @@ void WindowItem::initWindow()
     Application::app->windowAdded( this );
 }
 
-void WindowItem::processComponents(x_real dlt)
+void GraphicsWindow::processComponents(x_real dlt)
 {
     const auto res = processComponentsSorted();
     dbg_assert( res ) << "m_processComponents is not sorted";
@@ -119,7 +119,7 @@ void WindowItem::processComponents(x_real dlt)
         cmp->processComponent( dlt );
 }
 
-AppResult WindowItem::processEvents()
+AppResult GraphicsWindow::processEvents()
 {
     if constexpr( QX_DEF_IMMEDIATE_EVENTS )
         return AppResult::CONTINUE;
@@ -130,7 +130,7 @@ AppResult WindowItem::processEvents()
     return AppResult::CONTINUE;
 }
 
-AppResult WindowItem::event(const SDL_Event *const event)
+AppResult GraphicsWindow::event(const SDL_Event *const event)
 {
     if constexpr( QX_DEF_IMMEDIATE_EVENTS )
         return handleEvent( event );
@@ -139,7 +139,7 @@ AppResult WindowItem::event(const SDL_Event *const event)
     return AppResult::CONTINUE;
 }
 
-AppResult WindowItem::handleEvent(const SDL_Event * const event)
+AppResult GraphicsWindow::handleEvent(const SDL_Event * const event)
 {
     const auto evtTp = event->type;
     switch ( evtTp )
@@ -164,7 +164,7 @@ AppResult WindowItem::handleEvent(const SDL_Event * const event)
     return AppResult::CONTINUE;
 }
 
-AppResult WindowItem::dispatchMouseEvent(const SDL_Event * const event)
+AppResult GraphicsWindow::dispatchMouseEvent(const SDL_Event * const event)
 {
     const auto evtTp = event->type;
 
@@ -212,7 +212,7 @@ AppResult WindowItem::dispatchMouseEvent(const SDL_Event * const event)
     return AppResult::CONTINUE;
 }
 
-bool WindowItem::handleMouseEvent(Uint32 evtType,
+bool GraphicsWindow::handleMouseEvent(Uint32 evtType,
                                   MouseEvent &mEvent,
                                   MouseComponent *mCmp)
 {
@@ -265,7 +265,7 @@ bool WindowItem::handleMouseEvent(Uint32 evtType,
     return accepted;
 }
 
-bool WindowItem::updateFocusKeyComponent(KeyComponent *kCmp, FocusPolicy policy)
+bool GraphicsWindow::updateFocusKeyComponent(KeyComponent *kCmp, FocusPolicy policy)
 {
     auto accepted = false;
     switch (policy) {
@@ -303,7 +303,7 @@ bool WindowItem::updateFocusKeyComponent(KeyComponent *kCmp, FocusPolicy policy)
     return accepted;
 }
 
-AppResult WindowItem::handleKeyEvent(const SDL_Event * const event)
+AppResult GraphicsWindow::handleKeyEvent(const SDL_Event * const event)
 {
     KeyEvent kEvent{ event->key.key,
                     event->key.mod,
@@ -350,7 +350,7 @@ AppResult WindowItem::handleKeyEvent(const SDL_Event * const event)
 
 }
 
-void WindowItem::updatePropertyStates(MetaItemType sceneType)
+void GraphicsWindow::updatePropertyStates(MetaItemType sceneType)
 {
     dbg_unused( sceneType );
     const auto tp = propertyStates();
@@ -389,7 +389,7 @@ void WindowItem::updatePropertyStates(MetaItemType sceneType)
 
 }
 
-void WindowItem::positionChanged()
+void GraphicsWindow::positionChanged()
 {
     dbg_assert( m_sdlWindow ) << "Invalid m_sdlWindow";
     int xx = 0;
@@ -400,7 +400,7 @@ void WindowItem::positionChanged()
     properties.setPosition( {xx, yy} );
 }
 
-void WindowItem::addCoreComponent(CoreComponent *cmp)
+void GraphicsWindow::addCoreComponent(CoreComponent *cmp)
 {
     m_processComponents.push_back( cmp );
 
@@ -410,13 +410,13 @@ void WindowItem::addCoreComponent(CoreComponent *cmp)
               sortCmp);
 }
 
-void WindowItem::remCoreComponent(CoreComponent *cmp)
+void GraphicsWindow::remCoreComponent(CoreComponent *cmp)
 {
     const auto res = std::erase(m_processComponents, cmp);
     dbg_assert( res > 0 ) << "Could not remove component";
 }
 
-void WindowItem::addMouseComponent(MouseComponent *mCmp)
+void GraphicsWindow::addMouseComponent(MouseComponent *mCmp)
 {
     m_mouseComponents.push_back( mCmp );
     dbg_warning() << "m_mouseComponents is not ordered";
@@ -424,7 +424,7 @@ void WindowItem::addMouseComponent(MouseComponent *mCmp)
     /// ## and re-order m_mouseComponents when Transform changes
 }
 
-void WindowItem::remMouseComponent(MouseComponent *mCmp)
+void GraphicsWindow::remMouseComponent(MouseComponent *mCmp)
 {
     const auto res = std::erase(m_mouseComponents, mCmp);
     dbg_assert( res > 0 ) << "Could not remove mouse component";
@@ -432,14 +432,14 @@ void WindowItem::remMouseComponent(MouseComponent *mCmp)
         m_lastPresed = nullptr;
 }
 
-void WindowItem::addKeyComponent(KeyComponent *kCmp)
+void GraphicsWindow::addKeyComponent(KeyComponent *kCmp)
 {
     m_keyComponents.push_back( kCmp );
     dbg_warning() << "m_keyComponents is not ordered";
 }
 
 
-void WindowItem::remKeyComponent(KeyComponent *kCmp)
+void GraphicsWindow::remKeyComponent(KeyComponent *kCmp)
 {
     const auto res = std::erase(m_keyComponents, kCmp);
     dbg_assert( res > 0 ) << "Could not remove key component";
@@ -447,12 +447,12 @@ void WindowItem::remKeyComponent(KeyComponent *kCmp)
         m_focusKeyComponent = nullptr;
 }
 
-bool WindowItem::processComponentsSorted() const
+bool GraphicsWindow::processComponentsSorted() const
 {
     return std::is_sorted( m_processComponents.begin(), m_processComponents.end(), sortCmp );
 }
 
-bool WindowItem::sortCmp(CoreComponent *cmp0, CoreComponent *cmp1)
+bool GraphicsWindow::sortCmp(CoreComponent *cmp0, CoreComponent *cmp1)
 {
     const auto index0 = cmp0->graphicsItem()->hierarchyIndex();
     const auto index1 = cmp1->graphicsItem()->hierarchyIndex();
@@ -460,29 +460,29 @@ bool WindowItem::sortCmp(CoreComponent *cmp0, CoreComponent *cmp1)
 }
 
 
-filament::Engine *WindowItem::filamentEngine()
+filament::Engine *GraphicsWindow::filamentEngine()
 {
     return m_filamentEngine;
 }
 
-filament::Renderer *WindowItem::filamentRenderer()
+filament::Renderer *GraphicsWindow::filamentRenderer()
 {
     return m_filamentRenderer;
 }
 
 
-filament::SwapChain *WindowItem::filamentSwapChain() const
+filament::SwapChain *GraphicsWindow::filamentSwapChain() const
 {
     return m_filamentSwapChain;
 }
 
-SDL_Window *WindowItem::sdlWindow() const
+SDL_Window *GraphicsWindow::sdlWindow() const
 {
     return m_sdlWindow;
 }
 
 
-void WindowItem::sizeChanged()
+void GraphicsWindow::sizeChanged()
 {
     dbg_assert( m_sdlWindow ) << "Invalid m_sdlWindow";
     int ww = 0;

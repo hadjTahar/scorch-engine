@@ -9,14 +9,14 @@ namespace Qx{
 
 namespace prv{
 class GLGraphTree;
-class WindowItem;
+class GraphicsWindow;
 }
 
 
 class MouseEvent : public Event
 {
 
-    friend class prv::WindowItem;
+    friend class prv::GraphicsWindow;
 
 // protected:
     MouseEvent(x_real  xx,

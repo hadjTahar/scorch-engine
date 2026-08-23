@@ -1,5 +1,5 @@
-#ifndef WINDOWITEM_H
-#define WINDOWITEM_H
+#ifndef GRAPHICSWINDOW_H
+#define GRAPHICSWINDOW_H
 
 #include "coreitem.h"
 #include "properties/properties.h"
@@ -20,7 +20,7 @@ class KeyComponent;
 namespace Qx::prv
 {
 
-class WindowItem : public prv::CoreItem
+class GraphicsWindow : public prv::CoreItem
 {
     friend class Application;
     friend class CoreComponent;
@@ -28,7 +28,7 @@ class WindowItem : public prv::CoreItem
     friend class Qx::KeyComponent;
     friend class GraphicsScene2D;
 
-    QX_META_OBJECT( WindowItem,
+    QX_META_OBJECT( GraphicsWindow,
                    MetaItemType::Window,
                    MetaItemType::GraphicsScene2D|MetaItemType::GraphicsScene3D )
 
@@ -36,8 +36,8 @@ public:
     WindowProperties properties;
 
 public:
-    WindowItem(CoreItem *parent);
-    ~WindowItem();
+    GraphicsWindow(CoreItem *parent);
+    ~GraphicsWindow();
     x_count windowID() const;
     void setFullScreen();
     Screen screen() const;
@@ -52,8 +52,8 @@ protected:
 
     void initWindow();
     void processComponents(x_real dlt);
-    void render(Canvas*)override final{dbg_assert(false) << "WindowItem::render should never be called";}
-    void updateModel()override final{dbg_assert(false) << "WindowItem::render should never be called";}
+    void render(Canvas*)override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
+    void updateModel()override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
     inline AppResult processEvents();
     AppResult event(const SDL_Event * const event);
     AppResult handleEvent(const SDL_Event * const event);
@@ -95,4 +95,4 @@ private:
 };
 
 }
-#endif // WINDOWITEM_H
+#endif // GRAPHICSWINDOW_H

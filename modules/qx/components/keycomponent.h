@@ -12,7 +12,7 @@ class KeyComponent : public prv::EventComponent
 {
 public:
 
-    friend class prv::WindowItem;
+    friend class prv::GraphicsWindow;
 public:
     KeyComponent(prv::GraphicsItem *parentItem);
     ~KeyComponent();

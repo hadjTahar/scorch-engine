@@ -1,7 +1,7 @@
 #include "graphicsscene2d.h"
 #include <glm/gtc/matrix_access.hpp> // Required header
 
-#include "windowitem.h"
+#include "graphicswindow.h"
 
 namespace Qx::prv
 {
@@ -13,7 +13,7 @@ GraphicsScene2D::GraphicsScene2D(CoreItem *parent):
     m_itemType = ItemType::GraphicsScene2D;
 }
 
-BackendResult GraphicsScene2D::initCanvas(WindowItem *winItm)
+BackendResult GraphicsScene2D::initCanvas(GraphicsWindow *winItm)
 {
     if( m_canvas )
         return BackendResult::SUCCESS;
@@ -22,7 +22,7 @@ BackendResult GraphicsScene2D::initCanvas(WindowItem *winItm)
 }
 
 
-void GraphicsScene2D::renderViews(WindowItem *winItm)
+void GraphicsScene2D::renderViews(GraphicsWindow *winItm)
 {
 
     if( !m_canvas )

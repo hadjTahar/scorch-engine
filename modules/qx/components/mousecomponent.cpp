@@ -1,5 +1,5 @@
 #include "mousecomponent.h"
-#include <core/windowitem.h>
+#include <core/graphicswindow.h>
 
 namespace Qx
 {

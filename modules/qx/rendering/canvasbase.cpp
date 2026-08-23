@@ -1,6 +1,6 @@
 #include "canvasbase.h"
 
-#include <core/windowitem.h>
+#include <core/graphicswindow.h>
 
 
 namespace Qx::prv
@@ -8,7 +8,7 @@ namespace Qx::prv
 
 CanvasBase::CanvasBase(SDL_Window *sdlWin, filament::Scene *filScn):
     m_sdlWindow{ sdlWin },
-    m_filamentEngine{ WindowItem::filamentEngine() },
+    m_filamentEngine{ GraphicsWindow::filamentEngine() },
     m_filamentScene{ filScn },
     m_sdlTexture{ nullptr },
     m_sdlRenderer{ nullptr }

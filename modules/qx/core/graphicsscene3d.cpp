@@ -28,16 +28,16 @@ GraphicsScene3D::GraphicsScene3D(CoreItem *parent):
     m_itemType = ItemType::GraphicsScene3D;
 }
 
-BackendResult GraphicsScene3D::initCanvas(WindowItem *winItm)
+BackendResult GraphicsScene3D::initCanvas(GraphicsWindow *winItm)
 {
     return BackendResult::SUCCESS;
 }
 
 
-void GraphicsScene3D::renderViews(WindowItem *winItm)
+void GraphicsScene3D::renderViews(GraphicsWindow *winItm)
 {
-    auto filamentEng = WindowItem::filamentEngine();
-    auto filamentRdr = WindowItem::filamentRenderer();
+    auto filamentEng = GraphicsWindow::filamentEngine();
+    auto filamentRdr = GraphicsWindow::filamentRenderer();
     auto filamentScn = filamentScene();
 
     /// ## Update the models

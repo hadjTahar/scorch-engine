@@ -4,7 +4,7 @@
 
 #include "graphicsitem.h"
 #include "graphicsview.h"
-#include "windowitem.h"
+#include "graphicswindow.h"
 
 
 
@@ -22,8 +22,8 @@ public:
     virtual ~GraphicsScene();
     GraphicsView *addView();
 
-    virtual BackendResult initCanvas(WindowItem *winItm) = 0;
-    virtual void renderViews( WindowItem *winItm ) = 0;
+    virtual BackendResult initCanvas(GraphicsWindow *winItm) = 0;
+    virtual void renderViews( GraphicsWindow *winItm ) = 0;
     std::vector<GraphicsItem *> items() const;
 
     filament::Scene *filamentScene() const;
@@ -51,7 +51,7 @@ private:
     /// ## When accessing GraphicsScene::transform
     /// ## It's causing an assert fail at:
     /// ## ItemTransform::updateWorld, because
-    /// ## it's reaching WindowItem
+    /// ## it's reaching GraphicsWindow
     using prv::GraphicsItem::transform;
 
 protected:

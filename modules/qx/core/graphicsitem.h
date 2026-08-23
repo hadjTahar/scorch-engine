@@ -44,7 +44,7 @@ public:
 
 
 protected:
-    friend class WindowItem;
+    friend class GraphicsWindow;
     friend class prv::GraphicsScene2D;
     friend class prv::GraphicsScene3D;
     void handleMouseEvent( const MouseEvent &event);

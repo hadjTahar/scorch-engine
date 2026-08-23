@@ -131,7 +131,7 @@ add_subdirectory( vendors )
 ### ----------------
 
 add_subdirectory( examples_2d   examples_2d_build)
-# add_subdirectory( examples_3d   examples_3d_build)
+add_subdirectory( examples_3d   examples_3d_build)
 # add_subdirectory( tests         tests_build)
 # add_subdirectory( benchmarks    benchmarks_build)
 

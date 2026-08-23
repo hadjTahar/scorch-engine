@@ -5,14 +5,14 @@ Qx::prv::GraphicsScene::GraphicsScene(CoreItem *parent):
     m_filamentScene{ nullptr }
 {
     m_graphicsScene = this;
-    auto engine = WindowItem::filamentEngine();
+    auto engine = GraphicsWindow::filamentEngine();
     m_filamentScene  = engine->createScene();
 }
 
 Qx::prv::GraphicsScene::~GraphicsScene()
 {
     m_items.clear();
-    auto engine = WindowItem::filamentEngine();
+    auto engine = GraphicsWindow::filamentEngine();
     engine->destroy( m_filamentScene );
 }
 

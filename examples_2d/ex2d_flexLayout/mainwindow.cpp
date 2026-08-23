@@ -9,7 +9,7 @@
 #include <misc/mouseevent.h>
 
 MainWindow::MainWindow(CoreItem *parent):
-    Qx::prv::WindowItem{ parent }
+    Qx::prv::GraphicsWindow{ parent }
 {
     auto scene = addItem<Qx::prv::GraphicsScene2D>();
     auto vw0  = scene->addView();

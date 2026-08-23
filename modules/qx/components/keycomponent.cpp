@@ -1,5 +1,5 @@
 #include "keycomponent.h"
-#include <core/windowitem.h>
+#include <core/graphicswindow.h>
 
 
 namespace Qx

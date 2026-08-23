@@ -1,7 +1,7 @@
 #include "corecomponent.h"
 
 #include <core/graphicsitem.h>
-#include <core/windowitem.h>
+#include <core/graphicswindow.h>
 
 
 namespace Qx::prv
@@ -38,7 +38,7 @@ void CoreComponent::processComponent(x_real dlt)
         process( dlt );
 }
 
-WindowItem *CoreComponent::windowItem()
+GraphicsWindow *CoreComponent::windowItem()
 {
     if( m_windowItem )
         return m_windowItem;
@@ -69,7 +69,7 @@ WindowItem *CoreComponent::windowItem()
 
 
     dbg_assert( ret ) << "Could not find window item";
-    m_windowItem = CoreItem::castItem<WindowItem,MetaItemType::Window>( ret );
+    m_windowItem = CoreItem::castItem<GraphicsWindow,MetaItemType::Window>( ret );
     return m_windowItem;
 }
 

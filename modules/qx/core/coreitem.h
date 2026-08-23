@@ -23,7 +23,7 @@ using SmartComp = std::unique_ptr<CoreComponent>;
 class RootBaseItem;
 class GraphicsScene;
 class GraphicsView;
-class WindowItem;
+class GraphicsWindow;
 
 class CoreItem;
 using SmartItem = std::unique_ptr<CoreItem>;
@@ -37,7 +37,7 @@ class CoreItem : public MetaObject
     friend class GraphicsScene3D;
     friend class GraphicsItem;
     friend class CoreComponent;
-    friend class WindowItem;
+    friend class GraphicsWindow;
     friend class CameraController;
 
 public:

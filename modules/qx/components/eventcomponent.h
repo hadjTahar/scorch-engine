@@ -9,7 +9,7 @@
 namespace Qx::prv
 {
 
-class WindowItem;
+class GraphicsWindow;
 class GraphicsCamera;
 class GraphicsScene;
 

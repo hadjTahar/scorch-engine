@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <core/graphicsitem2d.h>
-#include <core/windowitem.h>
+#include <core/graphicswindow.h>
 
 #include <components/dynamicproperty.h>
 
@@ -12,7 +12,7 @@
 #include <easing/dampedeasing.h>
 
 
-class MainWindow : public Qx::prv::WindowItem
+class MainWindow : public Qx::prv::GraphicsWindow
 {
 
 public:

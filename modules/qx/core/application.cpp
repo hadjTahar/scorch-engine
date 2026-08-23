@@ -40,9 +40,9 @@ Application::~Application()
     CoreItem::stepPendings();
     TimerBase::clearTimers();
 
-    WindowItem::m_filamentEngine->flushAndWait();
-    WindowItem::m_filamentEngine->destroy(WindowItem::m_filamentRenderer);
-    filament::Engine::destroy(WindowItem::m_filamentEngine);
+    GraphicsWindow::m_filamentEngine->flushAndWait();
+    GraphicsWindow::m_filamentEngine->destroy(GraphicsWindow::m_filamentRenderer);
+    filament::Engine::destroy(GraphicsWindow::m_filamentEngine);
 
 }
 
@@ -134,12 +134,12 @@ void Application::handleEvent( const SDL_Event *const event)
     }
 }
 
-void Application::windowAdded(WindowItem *wind)
+void Application::windowAdded(GraphicsWindow *wind)
 {
     m_windows[ wind->windowID() ] = wind;
 }
 
-void Application::windowRemoved(WindowItem *wind)
+void Application::windowRemoved(GraphicsWindow *wind)
 {
     const auto winID = static_cast<x_count>( wind->windowID() );
     const auto cnt  = m_windows.erase( winID );
@@ -213,7 +213,7 @@ void Application::renderToBackend(bool dropFrame)
     resetPropertyStates();
 }
 
-WindowItem *Application::window(x_count idx)
+GraphicsWindow *Application::window(x_count idx)
 {
     if( m_windows.contains( idx ) )
         return m_windows[ idx ];

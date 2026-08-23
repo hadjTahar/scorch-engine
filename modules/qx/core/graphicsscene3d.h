@@ -17,8 +17,8 @@ class GraphicsScene3D : public prv::GraphicsScene
 
 public:
     GraphicsScene3D(CoreItem *parent);
-    BackendResult initCanvas(WindowItem *winItm) override final;
-    void renderViews(WindowItem *winItm ) override final;
+    BackendResult initCanvas(GraphicsWindow *winItm) override final;
+    void renderViews(GraphicsWindow *winItm ) override final;
 
 protected:
 };

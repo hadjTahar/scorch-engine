@@ -1,5 +1,5 @@
 #include "graphicsview.h"
-#include "windowitem.h"
+#include "graphicswindow.h"
 
 #include "graphicsitem2d.h"
 #include "graphicsitem3d.h"
@@ -21,7 +21,7 @@ GraphicsView::GraphicsView(GraphicsScene *scene,
     m_camera{ MetaObject::make_unique_meta<GraphicsCamera>(scene) },
     m_transform{ x_matrix4x4{1} }
 {
-    auto engine = WindowItem::filamentEngine();
+    auto engine = GraphicsWindow::filamentEngine();
     m_filamentCamera = engine->createCamera(utils::EntityManager::get().create());
     m_filamentView   = engine->createView();
 
@@ -49,7 +49,7 @@ GraphicsView::GraphicsView(GraphicsScene *scene,
 
 GraphicsView::~GraphicsView()
 {
-    auto engine = WindowItem::filamentEngine();
+    auto engine = GraphicsWindow::filamentEngine();
     engine->destroyCameraComponent( m_filamentCamera->getEntity() );
     engine->destroy(m_filamentView);
 }

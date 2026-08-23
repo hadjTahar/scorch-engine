@@ -9,7 +9,7 @@
 
 
 MainWindow::MainWindow(CoreItem *parent):
-    Qx::prv::WindowItem{ parent }
+    Qx::prv::GraphicsWindow{ parent }
 {
 
     Qx::mod_sample::testPrint();

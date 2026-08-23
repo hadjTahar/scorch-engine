@@ -11,14 +11,14 @@ namespace Qx::prv
 {
 
 class GraphicsItem;
-class WindowItem;
+class GraphicsWindow;
 
 
 class CoreComponent : public MetaObject
 {
     friend class CoreItem;
     friend class GraphicsItem;
-    friend class WindowItem;
+    friend class GraphicsWindow;
 
     QX_META_OBJECT( CoreComponent, MetaItemType::NA, MetaItemType::NA )
 
@@ -30,7 +30,7 @@ public:
 
 protected:
     void processComponent( x_real dlt );
-    WindowItem *windowItem();
+    GraphicsWindow *windowItem();
 
 public:
     x_processCallback process;
@@ -39,7 +39,7 @@ protected:
     GraphicsItem *m_graphicsItem;
 
 private:
-    WindowItem   *m_windowItem;
+    GraphicsWindow   *m_windowItem;
 };
 
 

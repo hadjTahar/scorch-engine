@@ -6,7 +6,7 @@ namespace Qx {
 
 
 AppWindow::AppWindow(CoreItem *parent):
-    prv::WindowItem{ parent}
+    prv::GraphicsWindow{ parent}
 {
 
 
