@@ -101,7 +101,20 @@ public:
         return m_pivot;
     }
 
-    auto renderingTransform()
+    auto physicsTransform()
+    {
+        /// ## TODO: Should I use the pivot for physics?
+        /// ## Or retrun the ::worldMatrix directly?
+        return worldMatrix();
+    }
+
+    auto layoutsTransform()
+    {
+        /// ## TODO: Layouts should not be concerned with the pivot???
+        return worldMatrix();
+    }
+
+    auto pivotTransform()
     {
         /// m_graphicsModel->matrix  = mat1 * transform.worldMatrix() * mat0;
         if( m_pivot.type == PivotType::None)
@@ -114,17 +127,17 @@ public:
         return mat1 * worldMatrix() * mat0;
     }
 
-    auto physicsTransform()
+    auto cameraTransform( const x_matrix4x4 &gvwMatrix,
+                         const x_matrix4x4 &canvasMatrix,
+                         bool ignoreCamera)
     {
-        /// ## TODO: Should I use the pivot for physics?
-        /// ## Or retrun the ::worldMatrix directly?
-        return worldMatrix();
-    }
-
-    auto layoutsTransform()
-    {
-        /// ## TODO: Layouts should not be concerned with the pivot???
-        return worldMatrix();
+        const auto pvtTransform = pivotTransform();
+        if( ignoreCamera )
+            /// ## Use the graphics view transform only
+            return pvtTransform * gvwMatrix;
+        else
+            /// ## Use the camera transform
+            return pvtTransform * canvasMatrix;
     }
 
 private:

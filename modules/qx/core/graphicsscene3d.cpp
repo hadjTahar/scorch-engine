@@ -51,7 +51,7 @@ void GraphicsScene3D::renderViews(WindowItem *winItm)
         if( model->autoReset )
             model->resetMeshCounters();
         item3D->updateModel();
-        model->setTransform( item3D->transform.renderingTransform() );
+        model->setTransform( item3D->transform.pivotTransform() );
         if( itmRdr.ignoreCamera() ){
             dbg_warning() << "Ignore camera is not supported for 3D items...";
             /// ## We can ignore the camera by using the inverse matrix of

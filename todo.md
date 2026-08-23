@@ -3,20 +3,13 @@
 
 
 
-
-worldTransform=physicsTransform
-worldPivotTransform
-	For 3D render
-cameraTransform( view , camera)
-	For 2D render
-	And mouse events
-
-retest examples
+- Retest examples
 - Rename:
     - GraphicsWindow
     - GraphicsCore
     - GraphicsBase
     - GraphicsModel -> GraphicsMesh 
+
 ------------------------------------------------------------------------------------
 
 - Re structure
@@ -39,6 +32,7 @@ qx_use( Ecs)
 	  - Petri net
 	- Vendors
 
+------------------------------------------------------------------------------------
 
 - Add colorsPool
 	- Update worldItem using colors

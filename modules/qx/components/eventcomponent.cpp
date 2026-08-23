@@ -23,7 +23,7 @@ bool EventComponent::checkEvent(const MouseEvent &event, prv::GraphicsScene *scn
 {
     if( m_mousePolicy == MousePolicy::AlwaysCapture )
         return true;
-    const auto matItem = m_graphicsItem->transform.renderingTransform();
+    const auto matItem = m_graphicsItem->transform.pivotTransform();
     const auto xx = event.x();
     const auto yy = event.y();
     const auto zz = m_graphicsItem->transform.position().z;
@@ -32,11 +32,7 @@ bool EventComponent::checkEvent(const MouseEvent &event, prv::GraphicsScene *scn
     const auto &vws = scn->views();
     for ( const auto &vw : vws )
     {
-        // auto const cam     = vw.camera();
-        // const auto projMat = cam->projectionMatrix();
-        // const auto viewMat = cam->viewMatrix();
-        // const auto cnvsMat = projMat * viewMat;
-        // const auto pTest   = glm::inverse( matItem*cnvsMat) * eventPt;
+
         const auto pTest   = glm::inverse( matItem) * eventPt;
         x_vector3  finalPt = pTest;
         if( pTest.w != 0 )
@@ -44,13 +40,6 @@ bool EventComponent::checkEvent(const MouseEvent &event, prv::GraphicsScene *scn
                                 pTest.y/pTest.w,
                                 pTest.z/pTest.w};
         const auto res = m_graphicsItem->contains( finalPt );
-        // dbg_print() << event.x() << " : " << event.y();
-        // dbg_print() <<
-        //     finalPt.x <<
-        //     " : " <<
-        //     finalPt.y <<
-        //     " : " <<
-        //     finalPt.z;
         if( res )
             return true;
     }

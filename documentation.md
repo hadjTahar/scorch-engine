@@ -1,7 +1,7 @@
 
 ### Docs:
 
-Most of this is deprecated, needs some updates
+**Most of this is deprecated, needs some updates**
 
 The vertices are deinterleaved: vertex GPU representation not [P UV C]
 
@@ -15,6 +15,23 @@ POSITIONS: P P P P P P ...
 NORMALS:   N N N N N N ...
 UVS:       UV UV UV UV ...
 
+
+### Transforms:
+
+Why different names? because I may be wrong about certain transforms and how each should have been implemented, so I know where each function is called, if I decided to make changes.
+
+    - ItemTransform::physicsTransform
+        - Is just the worldTransform
+        - Used for physics, not pivot needed
+    - ItemTransform::layoutsTransform
+        - Is just the worldTransform
+        - Used for layouts, to check if we need to re-calculate layouts
+    - ItemTransform::pivotTransform
+        - Filament already handles camera for us
+        - For 3D render
+    - ItemTransform::cameraTransform( view , camera)
+        - For 2D render, we handle the camera ourselves
+        - Mouse events checking
 
 #### Important concepts and notes:
 

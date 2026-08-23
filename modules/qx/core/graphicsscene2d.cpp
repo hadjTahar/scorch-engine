@@ -1,4 +1,5 @@
 #include "graphicsscene2d.h"
+#include <glm/gtc/matrix_access.hpp> // Required header
 
 #include "windowitem.h"
 
@@ -40,13 +41,14 @@ void GraphicsScene2D::renderViews(WindowItem *winItm)
         /// ---------------
         if constexpr(QX_DEF_ENABLE_2D_Z_SORTING){
             const auto camMd = cam2D->properties.mode();
-            const x_vector4 matRow{
-                canvasMatrix[2][0],
-                canvasMatrix[2][1],
-                canvasMatrix[2][2],
-                canvasMatrix[2][3]
-            };
+            // const x_vector4 matRow{
+            //     canvasMatrix[2][0],
+            //     canvasMatrix[2][1],
+            //     canvasMatrix[2][2],
+            //     canvasMatrix[2][3]
+            // };
 
+            const auto matRow = glm::row(canvasMatrix, 2);
             /// ## Collect camera z values to avoid std::sort from re-computing them
             for ( auto itm : m_items){
                 /// ## TODO: Should we ignore camera here too?
@@ -79,11 +81,10 @@ void GraphicsScene2D::renderViews(WindowItem *winItm)
         {
             auto graphicsItm      = castItem<GraphicsItem>( itm );
             const auto itmRdr     = itm->rendering;
-            const auto itemMatrix = graphicsItm->transform.renderingTransform();
-            if( itmRdr.ignoreCamera() )
-                m_canvas->setMatrix( itemMatrix * gvwMatrix );
-            else
-                m_canvas->setMatrix( itemMatrix * canvasMatrix );
+            const auto finalMat   = graphicsItm->transform.
+                                  cameraTransform( gvwMatrix, canvasMatrix, itmRdr.ignoreCamera());
+            m_canvas->setMatrix( finalMat );
+
 
             graphicsItm->renderItem( m_canvas.get() );
             graphicsItm->resetPropertyStates();
