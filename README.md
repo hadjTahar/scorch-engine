@@ -266,8 +266,23 @@ If the version of google-filament changed, you need to re-build all the material
 
 Here are some primitive demos
 
-- Rotating cube
-- Rotating cubes
-- Swarm
-- property, rectangle
-- Flex Layouts
+#### Glowing boids
+
+https://github.com/user-attachments/assets/315b8172-da4d-4e61-b13f-9c45ac4482ce
+
+
+#### Rotating cubes
+
+https://github.com/user-attachments/assets/fde1c2f2-aecf-4953-9cd5-0d369ca1b25f
+
+#### Flex_layouts
+
+https://github.com/user-attachments/assets/bbd8dfca-9003-4a64-bd2f-780a105fd4fe
+
+#### Mouse events
+
+
+https://github.com/user-attachments/assets/7bd2999d-d79c-410d-8367-bce9fdf2cceb
+
+
+
