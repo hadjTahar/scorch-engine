@@ -1,27 +1,55 @@
 - Test and document git config submodule.ignore all
 
 
-------------------------------------------------------------------------------------
 
-- Add colorsPool
-	- Update worldItem using colors
-	- enableShader/enableMaterial
+
+
+worldTransform=physicsTransform
+worldPivotTransform
+	For 3D render
+cameraTransform( view , camera)
+	For 2D render
+	And mouse events
+
+retest examples
 - Rename:
     - GraphicsWindow
     - GraphicsCore
     - GraphicsBase
     - GraphicsModel -> GraphicsMesh 
+------------------------------------------------------------------------------------
+
+- Re structure
+Start with moving examples and apps first 
+Each module defines a linking function
+That can be called with concatenation eg
+qx_use( Ecs)
+
+	- Apps
+	- Examples 
+	- src from Qx
+	- Modules
+	  - Modules use qx, not the other way around 
+	  - Skia canvas, not possible 
+	  - Filament rendering , not possible 
+	  - Ecs
+	  - Collision 
+	  - Boxes 
+	  - State machine
+	  - Petri net
+	- Vendors
+
+
+- Add colorsPool
+	- Update worldItem using colors
+	- enableShader/enableMaterial
 - Make sure you are not rendering not visable items and off screen, using rendering
 	- Create bool offScreen();
 	- Create CoreComponent::active| or enabled/disabled, if (!enabled) return, don't call process
 		- This allows some items and components to idle
-
-
-
 - Fix: Camera controler is flipping the world when mouse clicked
 	- Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
 - Trigs vs strips for better performance
-- Add demos on github
 - Copy qx_old notes
 - Add TypedFunctions to unit tests
 - Filament Canvas:

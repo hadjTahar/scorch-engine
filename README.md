@@ -10,6 +10,18 @@ It’s a game engine and an application development framework, using open source
 This is a low level game engine, it gives basic features and let’s you build your game style however you wish it to be.
 
 
+### One engine to rule them all.
+
+- Games and apps.
+- Desktop, mobile and possibly consoles.
+- 2D and 3D.
+
+Built on the shoulders of powerful C++ libraries: SDL, Skia, Filament, and more.
+
+There are incredible C++ libraries for almost every part of application and game development. What I find missing is a framework that brings them together into one coherent, modern, cross-platform engine.
+
+That's Scorch.
+
 ### Vendors:
 
 - SDL3: For windowing
@@ -66,17 +78,7 @@ Experimental multiple rendering backends:
 
 Check [How to build](https://github.com/hadjTahar/scorch-engine#how-to-build)
 
-----------------------------------------------------------------------------------------
 
-## Demos:
-
-Here are some primitive demos
-
-- Rotating cube
-- Rotating cubes
-- Swarm
-- property, rectangle
-- Flex Layouts
 ----------------------------------------------------------------------------------------
 
 
@@ -123,7 +125,13 @@ Now it only supports basic rendering functionalities, but the base is there to m
 
 ----------------------------------------------------------------------------------------
 
-## Why I Created scorch-engine
+## Why scorch-engine
+
+These are just my personal preferences and reasons; they won’t necessarily apply to everyone.
+
+Many mainstream game engines prioritize being feature rich, comprehensive and production-ready for large, complex projects. That can make them unnecessarily heavy for small, specialized games where a lightweight custom engine may be a better fit.
+
+
 
 
 I created **scorch-engine** because none of the existing tools fully matched how I like to work or what I want to build.
@@ -250,3 +258,16 @@ If the version of google-filament changed, you need to re-build all the material
 
 - run compile_mats.py
 	- ToDo: Make "compile_mats.py" run only on "examples" and "apps"
+
+
+----------------------------------------------------------------------------------------
+
+## Demos:
+
+Here are some primitive demos
+
+- Rotating cube
+- Rotating cubes
+- Swarm
+- property, rectangle
+- Flex Layouts

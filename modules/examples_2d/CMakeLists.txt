@@ -12,7 +12,7 @@ add_subdirectory( ex2d_flexLayout ) ## X
 # add_subdirectory( ex2d_inputs ) ## Somewhat works
 # add_subdirectory( ex2d_keys ) ## OK
 # add_subdirectory( ex2d_motions ) ## OK
-# add_subdirectory( ex2d_mouse ) ## X
+add_subdirectory( ex2d_mouse ) ## X
 # add_subdirectory( ex2d_openmp_check ) ## Somewhat works
 # add_subdirectory( ex2d_os_paths ) ## OK
 # add_subdirectory( ex2d_position ) ## OK

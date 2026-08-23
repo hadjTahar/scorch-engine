@@ -16,4 +16,4 @@ project(examples_3d LANGUAGES CXX)
 # add_subdirectory( ex3d_circle ) ## OK
 # add_subdirectory( ex3d_circles ) ## OK
 # add_subdirectory( ex3d_rotating_cube ) ## OK
-# add_subdirectory( ex3d_rotating_cubes ) ## OK
+add_subdirectory( ex3d_rotating_cubes ) ## OK
