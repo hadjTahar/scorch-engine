@@ -46,6 +46,7 @@ public:
     static filament::Renderer *filamentRenderer();
     filament::SwapChain *filamentSwapChain() const;
     SDL_Window   *sdlWindow() const;
+    SDL_Renderer *sdlRenderer();
 
 
 protected:
@@ -84,6 +85,7 @@ private:
     filament::SwapChain       *m_filamentSwapChain;
 
     SDL_Window        *m_sdlWindow;
+    SDL_Renderer      *m_sdlRenderer;
     MouseComponent    *m_lastPresed;
     KeyComponent      *m_focusKeyComponent;
     SequenceEvent      m_sequenceEvent;

@@ -10,8 +10,7 @@ CanvasBase::CanvasBase(GraphicsWindow *winItm,
                        filament::Scene *filamentScn):
     m_windowItem{ winItm },
     m_filamentScene{filamentScn},
-    m_sdlTexture{ nullptr },
-    m_sdlRenderer{ nullptr }
+    m_sdlTexture{ nullptr }
 {
 }
 
@@ -20,8 +19,6 @@ CanvasBase::~CanvasBase()
     if( m_sdlTexture )
         SDL_DestroyTexture( m_sdlTexture );
 
-    if( m_sdlRenderer )
-        SDL_DestroyRenderer( m_sdlRenderer );
 
 }
 
@@ -40,7 +37,7 @@ void CanvasBase::render(const x_size &sz)
         presentToSurface( sdlSurface , sz );
     }
 
-    /// XX Don't call "presentToTexture( updateSDLTexture( sz ), m_sdlRenderer);"
+    /// XX Don't call "presentToTexture( updateSDLTexture( sz ), sdlRenderer);"
     else if constexpr (targetTp == CanvasTarget::SDLTexture ){
         auto sdlText = updateSDLTexture( sz );
         const auto sdlPxFormat   = sdlText->format;
@@ -49,8 +46,8 @@ void CanvasBase::render(const x_size &sz)
         const auto pxFormat = static_cast<PixelFormat>( sdlPxFormat);
         const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
         renderShapes(sz, pxFormat, alphTp );
-        // presentToTexture( sdlText, m_sdlRenderer);
-        presentToTexture( sdlText, m_sdlRenderer, sz);
+        // presentToTexture( sdlText, m_windowItem->sdlRenderer() );
+        presentToTexture( sdlText, m_windowItem->sdlRenderer(), sz);
     }
 
 
@@ -238,9 +235,6 @@ SDL_Surface *CanvasBase::updateSDLSurface()
 
 SDL_Texture *CanvasBase::updateSDLTexture(const x_size &sz)
 {
-    if( !m_sdlRenderer )
-        m_sdlRenderer = SDL_CreateRenderer( m_windowItem->sdlWindow(), "" );
-
     x_real ww=0;
     x_real hh=0;
     const auto res = m_sdlTexture &&
@@ -256,7 +250,7 @@ SDL_Texture *CanvasBase::updateSDLTexture(const x_size &sz)
         SDL_DestroyTexture( m_sdlTexture );
 
     m_sdlTexture = SDL_CreateTexture(
-        m_sdlRenderer,
+        m_windowItem->sdlRenderer(),
         SDL_PIXELFORMAT_XRGB8888,
         SDL_TEXTUREACCESS_STREAMING,
         sz.width,

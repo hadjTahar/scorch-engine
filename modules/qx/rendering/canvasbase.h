@@ -112,9 +112,7 @@ protected:
     x_matrix4x4           m_matrix;
     bool                  m_antialias;
 
-
     /// ## Targets
-    SDL_Renderer *m_sdlRenderer;
     SDL_Texture  *m_sdlTexture;
 
 };
