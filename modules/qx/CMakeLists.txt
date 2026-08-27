@@ -8,25 +8,7 @@ endif()
 
 
 
-# Add file sources Qx
-### ---------------
 file(GLOB_RECURSE QX_SRC_FILES *.h *.cpp)
-list(FILTER QX_SRC_FILES EXCLUDE REGEX ".*/canvas_backends/.*")
-list(APPEND QX_SRC_FILES
-    "rendering/canvas_backends/${QX_OPT_CANVAS_BACKEND}.h"
-    "rendering/canvas_backends/${QX_OPT_CANVAS_BACKEND}.cpp"
-)
-
-# SKIA Canvas
-### ---------------
-if( QX_CMK_CANVAS_SKIA )
-    list(APPEND QX_SRC_FILES
-        "rendering/canvas_backends/skia_helpers.h"
-        "rendering/canvas_backends/skia_base.h"
-        "rendering/canvas_backends/skia_base.cpp"
-    )
-endif()
-
 
 add_library(qx STATIC ${QX_SRC_FILES} )
 
@@ -72,15 +54,6 @@ target_link_libraries( qx PUBLIC filament )
 target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/flecs/include" )
 target_link_libraries( qx PUBLIC flecs_static )
 
-
-# qx_skia
-### ---------------
-### For Qx includes
-target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/qx_skia" )
-### For Skia internal includes
-target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/qx_skia/skia" )
-### INTERFACE only, no need to link
-# target_link_libraries( qx PUBLIC qx_skia )
 
 
 

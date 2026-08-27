@@ -35,27 +35,27 @@ BackendResult CanvasSDLRenderer::renderShapes(const x_size &, PixelFormat, Pixel
 
         switch (shpTp) {
         case CanvasShapeType::Rect:{
-            Qx::prv::helpers::drawRect( sdlRenderer, shp );
+            Qx::backend::renderer::drawRect( sdlRenderer, shp );
             break;
         }
         case CanvasShapeType::RRect:{
-            Qx::prv::helpers::drawRRect( sdlRenderer, shp );
+            Qx::backend::renderer::drawRRect( sdlRenderer, shp );
             break;
         }
         case CanvasShapeType::Circle:{
-            Qx::prv::helpers::drawCircle( sdlRenderer, shp );
+            Qx::backend::renderer::drawCircle( sdlRenderer, shp );
             break;
         }
         case CanvasShapeType::Path:{
-            Qx::prv::helpers::drawPath( sdlRenderer, shp );
+            Qx::backend::renderer::drawPath( sdlRenderer, shp );
             break;
         }
         case CanvasShapeType::Text:{
-            Qx::prv::helpers::drawText( sdlRenderer, shp );
+            Qx::backend::renderer::drawText( sdlRenderer, shp );
             break;
         }
         case CanvasShapeType::Image:{
-            Qx::prv::helpers::drawImage( sdlRenderer, shp );
+            Qx::backend::renderer::drawImage( sdlRenderer, shp );
             break;
         }
 

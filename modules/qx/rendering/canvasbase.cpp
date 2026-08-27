@@ -22,38 +22,38 @@ CanvasBase::~CanvasBase()
 
 void CanvasBase::render(const x_size &sz)
 {
-    const CanvasTarget targetTp = QX_DEF_CANVAS_TARGET;
+    // const CanvasTarget targetTp = QX_DEF_CANVAS_TARGET;
 
-    if constexpr (targetTp == CanvasTarget::SDLSurface ){
-        auto sdlSurface = updateSDLSurface();
-        const auto sdlPxFormat   = sdlSurface->format;
-        const auto *sdlPxDetails = SDL_GetPixelFormatDetails( sdlPxFormat );
+    // if constexpr (targetTp == CanvasTarget::SDLSurface ){
+    //     auto sdlSurface = updateSDLSurface();
+    //     const auto sdlPxFormat   = sdlSurface->format;
+    //     const auto *sdlPxDetails = SDL_GetPixelFormatDetails( sdlPxFormat );
 
-        const auto pxFormat = static_cast<PixelFormat>( sdlPxFormat);
-        const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
-        renderShapes(sz, pxFormat, alphTp );
-        presentToSurface( sdlSurface , sz );
-    }
+    //     const auto pxFormat = static_cast<PixelFormat>( sdlPxFormat);
+    //     const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
+    //     renderShapes(sz, pxFormat, alphTp );
+    //     presentToSurface( sdlSurface , sz );
+    // }
 
-    /// XX Don't call "presentToTexture( updateSDLTexture( sz ), sdlRenderer);"
-    else if constexpr (targetTp == CanvasTarget::SDLTexture ){
-        auto sdlText = updateSDLTexture( sz );
-        const auto sdlPxFormat   = sdlText->format;
-        const auto *sdlPxDetails = SDL_GetPixelFormatDetails( sdlPxFormat );
+    // /// XX Don't call "presentToTexture( updateSDLTexture( sz ), sdlRenderer);"
+    // else if constexpr (targetTp == CanvasTarget::SDLTexture ){
+    //     auto sdlText = updateSDLTexture( sz );
+    //     const auto sdlPxFormat   = sdlText->format;
+    //     const auto *sdlPxDetails = SDL_GetPixelFormatDetails( sdlPxFormat );
 
-        const auto pxFormat = static_cast<PixelFormat>( sdlPxFormat);
-        const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
-        renderShapes(sz, pxFormat, alphTp );
-        // presentToTexture( sdlText, m_windowItem->sdlRenderer() );
-        presentToTexture( sdlText, m_windowItem->sdlRenderer(), sz);
-    }
+    //     const auto pxFormat = static_cast<PixelFormat>( sdlPxFormat);
+    //     const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
+    //     renderShapes(sz, pxFormat, alphTp );
+    //     // presentToTexture( sdlText, m_windowItem->sdlRenderer() );
+    //     presentToTexture( sdlText, m_windowItem->sdlRenderer(), sz);
+    // }
 
 
-    else if constexpr (targetTp == CanvasTarget::GoolgeFilament )
-        dbg_assert( false ) << "CanvasTarget::GoolgeFilament is Not supported yet";
-    else
-        dbg_assert( false ) << "No supported canvas target selected, check QX_OPT_CANVAS_TARGET";
-    m_shapes.clear();
+    // else if constexpr (targetTp == CanvasTarget::GoolgeFilament )
+    //     dbg_assert( false ) << "CanvasTarget::GoolgeFilament is Not supported yet";
+    // else
+    //     dbg_assert( false ) << "No supported canvas target selected, check QX_OPT_CANVAS_TARGET";
+    // m_shapes.clear();
 }
 
 

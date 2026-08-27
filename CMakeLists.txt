@@ -15,19 +15,7 @@ set( QX_OPT_SDL_INIT_OPTIONS         "SDL_INIT_VIDEO")
 set( QX_OPT_SDL_WINDOW_OPTIONS
     "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY  /*|SDL_WINDOW_OPENGL*/")
 
-### Check "qx/rendering/canvas_backends" for available backends
-### Clear the cmake configs, after chaning the backend,
-### "skia_opengl" needs "SDL_WINDOW_OPENGL", but filament won't work
-set( QX_OPT_CANVAS_BACKEND "skia_raster" )
 
-set(QX_CMK_CANVAS_SKIA "$<$<MATCHES:${QX_OPT_CANVAS_BACKEND},^skia_>:ON,OFF>")
-
-
-### filament clashes with SDL rendering
-### If you want filament 3D along with canvas 2D
-### Choose "CanvasTarget::GoolgeFilament"
-### For more options check CanvasTarget enum in flags.h
-set( QX_OPT_CANVAS_TARGET CanvasTarget::SDLSurface )
 
 set( QX_OPT_ENABLE_2D_Z_SORTING      true )
 

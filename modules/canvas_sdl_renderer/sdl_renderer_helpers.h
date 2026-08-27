@@ -6,11 +6,11 @@
 #include <rendering/canvasshape.h>
 
 
-namespace Qx::prv::helpers {
+namespace Qx::backend::renderer {
 
 
 
-static inline void drawRect( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
+static inline void drawRect( SDL_Renderer *sdlRenderer, const prv::CanvasShape &shp)
 {
     dbg_print() << "drawRect not implemented yet";
 
@@ -22,27 +22,27 @@ static inline void drawRect( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
     SDL_RenderRect(sdlRenderer, &sdlRC);
 }
 
-static inline void drawRRect( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
+static inline void drawRRect( SDL_Renderer *sdlRenderer, const prv::CanvasShape &shp)
 {
     dbg_print() << "drawRRect not implemented yet";
 }
 
-static inline void drawCircle( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
+static inline void drawCircle( SDL_Renderer *sdlRenderer, const prv::CanvasShape &shp)
 {
     dbg_print() << "drawCircle not implemented yet";
 }
 
-static inline void drawPath( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
+static inline void drawPath( SDL_Renderer *sdlRenderer, const prv::CanvasShape &shp)
 {
     dbg_print() << "drawPath not implemented yet";
 }
 
-static inline void drawText( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
+static inline void drawText( SDL_Renderer *sdlRenderer, const prv::CanvasShape &shp)
 {
     dbg_print() << "drawText not implemented yet";
 }
 
-static inline void drawImage( SDL_Renderer *sdlRenderer, const CanvasShape &shp)
+static inline void drawImage( SDL_Renderer *sdlRenderer, const prv::CanvasShape &shp)
 {
     dbg_print() << "drawImage not implemented yet";
 }
