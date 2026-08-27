@@ -6,10 +6,10 @@
 namespace Qx::prv
 {
 
-CanvasBase::CanvasBase(SDL_Window *sdlWin, filament::Scene *filScn):
-    m_sdlWindow{ sdlWin },
-    m_filamentEngine{ GraphicsWindow::filamentEngine() },
-    m_filamentScene{ filScn },
+CanvasBase::CanvasBase(GraphicsWindow *winItm,
+                       filament::Scene *filamentScn):
+    m_windowItem{ winItm },
+    m_filamentScene{filamentScn},
     m_sdlTexture{ nullptr },
     m_sdlRenderer{ nullptr }
 {
@@ -194,7 +194,7 @@ void CanvasBase::setAntialias(bool newAntialias)
 
 filament::Engine *CanvasBase::filamentEngine() const
 {
-    return m_filamentEngine;
+    return m_windowItem->filamentEngine();
 }
 
 
@@ -232,14 +232,14 @@ PixelAlphaType CanvasBase::pixelAlphaType(SDL_PixelFormat sdlPxFormat,
 
 SDL_Surface *CanvasBase::updateSDLSurface()
 {
-    auto ret = SDL_GetWindowSurface( m_sdlWindow );
+    auto ret = SDL_GetWindowSurface( m_windowItem->sdlWindow() );
     return ret;
 }
 
 SDL_Texture *CanvasBase::updateSDLTexture(const x_size &sz)
 {
     if( !m_sdlRenderer )
-        m_sdlRenderer = SDL_CreateRenderer( m_sdlWindow, "" );
+        m_sdlRenderer = SDL_CreateRenderer( m_windowItem->sdlWindow(), "" );
 
     x_real ww=0;
     x_real hh=0;

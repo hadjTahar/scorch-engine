@@ -17,7 +17,7 @@ BackendResult GraphicsScene2D::initCanvas(GraphicsWindow *winItm)
 {
     if( m_canvas )
         return BackendResult::SUCCESS;
-    m_canvas = make_unique_meta<Canvas>( winItm->sdlWindow(), m_filamentScene );
+    m_canvas = make_unique_meta<Canvas>( winItm, m_filamentScene );
     return m_canvas->initBackend( winItm->properties.size() );
 }
 

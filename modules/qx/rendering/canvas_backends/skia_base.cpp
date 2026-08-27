@@ -27,8 +27,9 @@
 namespace Qx::prv
 {
 
-SkiaBase::SkiaBase(SDL_Window *sdlWin, filament::Scene *filScn):
-    CanvasBase{sdlWin, filScn},
+SkiaBase::SkiaBase(GraphicsWindow *winItm,
+                   filament::Scene *filamentScn):
+    CanvasBase{winItm, filamentScn},
     m_skiaCanvas{ nullptr },
     m_skiaFontsManager{SkFontMgr_New_Custom_Empty()}
 {
@@ -168,7 +169,7 @@ void SkiaBase::presentToSurface(SDL_Surface *sdlSurface,
 
     if (SDL_MUSTLOCK(sdlSurface))
         SDL_UnlockSurface(sdlSurface);
-    SDL_UpdateWindowSurface(m_sdlWindow);
+    SDL_UpdateWindowSurface( m_windowItem->sdlWindow() );
 }
 
 void SkiaBase::presentToTexture(SDL_Texture *sdlTexture,

@@ -14,12 +14,15 @@
 namespace Qx::prv
 {
 
+class GraphicsWindow;
+
 class CanvasBase : public MetaObject
 {
     QX_META_OBJECT( CanvasBase, MetaItemType::NA, MetaItemType::NA)
 
 public:
-    CanvasBase(SDL_Window *sdlWin, filament::Scene *filScn );
+    CanvasBase( GraphicsWindow *winItm,
+               filament::Scene *filamentScn);
     virtual ~CanvasBase();
 
     virtual BackendResult initBackend(const x_size &sz)
@@ -101,9 +104,10 @@ private:
     SDL_Texture *updateSDLTexture(const x_size &sz);
 
 protected:
-    std::vector<CanvasShape> m_shapes;
-    SDL_Window           *m_sdlWindow;
-    filament::Engine     *m_filamentEngine;
+    std::vector<CanvasShape>  m_shapes;
+    GraphicsWindow           *m_windowItem;
+    // SDL_Window           *m_sdlWindow;
+    // filament::Engine     *m_filamentEngine;
     filament::Scene      *m_filamentScene;
     x_matrix4x4           m_matrix;
     bool                  m_antialias;

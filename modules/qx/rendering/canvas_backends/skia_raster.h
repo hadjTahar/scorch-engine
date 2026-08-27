@@ -13,12 +13,12 @@ namespace Qx::prv
 class SkiaRASTER : public SkiaBase
 {
 public:
-    SkiaRASTER(SDL_Window *sdlWin, filament::Scene *filScn);
+    SkiaRASTER(GraphicsWindow *winItm,
+               filament::Scene *filamentScn);
     virtual BackendResult initBackend(const x_size &sz) override;
     virtual BackendResult renderShapes(const x_size &sz,
                                        PixelFormat pxFormat,
                                        PixelAlphaType pxAlphaTp) override;
-
 };
 
 

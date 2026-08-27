@@ -45,11 +45,10 @@ public:
     static filament::Engine *filamentEngine();
     static filament::Renderer *filamentRenderer();
     filament::SwapChain *filamentSwapChain() const;
-
-protected:
     SDL_Window   *sdlWindow() const;
 
 
+protected:
     void initWindow();
     void processComponents(x_real dlt);
     void render(Canvas*)override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}

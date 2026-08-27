@@ -24,7 +24,8 @@ class SkiaBase : public CanvasBase
     friend class GraphicsScene;
 
 public:
-    SkiaBase(SDL_Window *sdlWin, filament::Scene *filScn);
+    SkiaBase( GraphicsWindow *winItm,
+             filament::Scene *filamentScn);
     void snapshot( const std::string &flName );
 
 
