@@ -178,7 +178,15 @@ App
 - Scene graph API
 	- QML and Godot like
 
+
+There are two main classes 
+
+- Items: For rendering
+- Components:Behavior: mouse events, animations, timers
+
 #### Rendering (backends)
+
+
 
  
 ### 2D VS 3D

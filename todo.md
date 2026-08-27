@@ -42,7 +42,8 @@ enum class DetailsLevel : uint8_t {
 
 
 ------------------------------------------------------------------------------------
-
+- comn_examples, that have nor rendering, like timers nad ecs
+- Enable disable scene, no render no components process 
 - Add colorsPool
 	- Update worldItem using colors
 	- enableShader/enableMaterial
@@ -123,7 +124,20 @@ enum class DetailsLevel : uint8_t {
 	- Generate item files that later can be used to load the items
 	- Add scene 3d
 	- Add add canvas scene
-	- When you compome and run, add items from the files
+	- When you compile and run, add items from the files
+	- Check Esoterica engine 
+	- You add an item
+		- Attach a component, and each component has a panel, options, code, …
+	- You can add ECSItem
+		- Then add entities
+		- And set or add ECSComponent s to each entity 
+	- Eg:
+		- Add ecs component mesh
+		- Add ecs component collision 
+		- Add ecs system, then you code the system or use a pre existing one, like gravity, boids system , turret system, 
+
+
+
 - Document the classes:
 	- Properties, like size, color, and propagation system
 	- Items
@@ -184,9 +198,7 @@ enum class DetailsLevel : uint8_t {
 		Load sheet
 		Auto index = Add row (x y )
 		play index 
-
 		Time speed, fps?
-
 		Or addFrame(index, x, y)
 		Play(index)
 	- 3D filling a tank with balls test example
@@ -216,3 +228,4 @@ enum class DetailsLevel : uint8_t {
         ShakerEffect /Component
         PulserEffect /Component
         ScalerEffect /Component
+- Check if you can use abseil, AnyInvocable for callbacks, like time, container, maps for assets

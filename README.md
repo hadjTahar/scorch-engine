@@ -9,18 +9,27 @@ A cross platform game engine/framework, that can be used to develop both 2D and 
 It’s a game engine and an application development framework, using open source C++ libraries:
 This is a low level game engine, it gives basic features and let’s you build your game style however you wish it to be.
 
+It’s very modular, everything is done with modules, you can have the same app or items rendered using different backends and keep the same logic and behavior 
 
-### One engine to rule them all.
+You can even add your own 2d or 3d render backend
 
-- Games and apps.
-- Desktop, mobile and possibly consoles.
-- 2D and 3D.
 
 Built on the shoulders of powerful C++ libraries: SDL, Skia, Filament, and more.
 
 There are incredible C++ libraries for almost every part of application and game development. What I find missing is a framework that brings them together into one coherent, modern, cross-platform engine.
 
+
+
 That's Scorch.
+
+
+### Targets:
+
+When fully functional, it should work on:
+
+- Desktop, mobile and possibly consoles.
+- 2D and 3D.
+- Games and apps.
 
 ### Vendors:
 

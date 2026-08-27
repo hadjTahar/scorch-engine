@@ -13,20 +13,24 @@ If you use Filament Canvas with no filament??
 
 ----------------------------------------------------------------------------------------
 Use this approach
-Don't init filament, unless it's requested
-Both FilamentScene and Filament Canvas, can request filament
+	- Don't init filament, unless it's requested
+	- Both FilamentScene and Filament Canvas, can request filament
+	- And it's on them to initialize it, if null, from the window
+
+
+Remove scen2D, 3D
+Add RenderBackend 
+		CanvasBase
+		3DBase
+		with virtual or static renderViews(views, items)
+		Then add the Back end to the scene
+
 
 ----------------------------------------------------------------------------------------
 
 
-FilamentWindow
-	filamentBaseCanvas
-	if used automaicly use skia_raster
-
-
 skia mods
 	canvas_none
-
 	canvas_sdl_raster
 	canvas_sdl_gpu
 
@@ -34,21 +38,9 @@ skia mods
 	canvas_skia_opengl
 	canvas_skia_vulkan
 
-	
-
 
 
 filament based canvas
-	FilamentBaseCanvas class
-	filament_canvas_skia
-		### Raster into filament, instead of sdl renderer
-		### assert filament can't be null
-		### Check if filament is not null
-		### if null, 
-		### print( filament must be linked )
+	FilamentBaseCanvas: base class
+	filament_canvas_skia must be raster
 	filament_canvas_none
-		### Raster into filament, instead of sdl renderer
-		### assert filament can't be null
-		### Check if filament is not null
-		### if null, 
-		### print( filament must be linked )
