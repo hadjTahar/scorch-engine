@@ -1,5 +1,5 @@
-#ifndef SKIA_RASTER_H
-#define SKIA_RASTER_H
+#ifndef CANVASSKIARASTERTEXTURE_H
+#define CANVASSKIARASTERTEXTURE_H
 
 
 #include "../../canvas_skia_base/skia_base.h"
@@ -10,10 +10,10 @@ namespace Qx::prv
 {
 
 
-class SkiaRASTER : public SkiaBase
+class CanvasSkiaRasterTexture : public SkiaBase
 {
 public:
-    SkiaRASTER(GraphicsWindow *winItm);
+    CanvasSkiaRasterTexture(GraphicsWindow *winItm);
     virtual BackendResult initBackend(const x_size &sz) override;
     virtual BackendResult renderShapes(const x_size &sz,
                                        PixelFormat pxFormat,
@@ -22,10 +22,6 @@ public:
 
 
 }
-namespace Qx
-{
-// using Canvas = prv::SkiaRASTER;
 
-}
 
-#endif // SKIA_RASTER_H
+#endif // CANVASSKIARASTERTEXTURE_H

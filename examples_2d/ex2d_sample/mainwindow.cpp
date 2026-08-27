@@ -4,6 +4,8 @@
 #include <core/graphicsitem2d.h>
 #include <core/graphicsscene2d.h>
 #include <backends/canvassdlrenderer.h>
+#include <backends/canvasskiarastersurface.h>
+#include <backends/canvasskiarastertexture.h>
 
 
 
@@ -13,7 +15,9 @@ MainWindow::MainWindow(CoreItem *parent):
 
 
 
-    auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSDLRenderer> >();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSDLRenderer> >();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaRasterSurface> >();
+    auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaRasterTexture> >();
     auto vw0   = scene->addView();
     auto cam0  = vw0->camera();
     cam0->reset2DOrthoCamera( screen() );

@@ -27,12 +27,6 @@ private:
     sk_sp<const GrGLInterface>  m_skiaInterface;
 };
 
-
-}
-namespace Qx
-{
-using Canvas = prv::SkiaOPENGL;
-
 }
 
 

@@ -11,6 +11,7 @@ namespace Qx::prv
 CanvasSDLRenderer::CanvasSDLRenderer(GraphicsWindow *winItm):
     CanvasBase{winItm}
 {
+    m_canvasTarget = CanvasTarget::SDLRenderer;
 
 }
 
@@ -21,7 +22,9 @@ BackendResult CanvasSDLRenderer::initBackend(const x_size &sz)
     return BackendResult::SUCCESS;
 }
 
-BackendResult CanvasSDLRenderer::renderShapes(const x_size &, PixelFormat, PixelAlphaType)
+BackendResult CanvasSDLRenderer::renderShapes(const x_size &,
+                                              PixelFormat,
+                                              PixelAlphaType)
 {
     auto sdlRenderer = m_windowItem->sdlRenderer();
     SDL_SetRenderDrawColor(sdlRenderer, 255, 255, 255, 255);

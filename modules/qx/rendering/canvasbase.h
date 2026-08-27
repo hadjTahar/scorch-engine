@@ -14,6 +14,8 @@ namespace Qx::prv
 
 class GraphicsWindow;
 
+
+
 class CanvasBase : public MetaObject
 {
     QX_META_OBJECT( CanvasBase, MetaItemType::NA, MetaItemType::NA)
@@ -100,9 +102,10 @@ private:
 
 protected:
     std::vector<CanvasShape>  m_shapes;
-    GraphicsWindow           *m_windowItem;
+    GraphicsWindow       *m_windowItem;
     x_matrix4x4           m_matrix;
     bool                  m_antialias;
+    CanvasTarget          m_canvasTarget;
 
     /// ## Targets
     SDL_Texture  *m_sdlTexture;

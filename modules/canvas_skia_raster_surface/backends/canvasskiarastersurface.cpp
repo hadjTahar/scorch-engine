@@ -1,4 +1,4 @@
-#include "skia_raster.h"
+#include "canvasskiarastersurface.h"
 
 
 
@@ -6,18 +6,19 @@ namespace Qx::prv
 {
 
 
-SkiaRASTER::SkiaRASTER(GraphicsWindow *winItm):
+CanvasSkiaRasterSurface::CanvasSkiaRasterSurface(GraphicsWindow *winItm):
     Qx::prv::SkiaBase{ winItm }
 {
+    m_canvasTarget = CanvasTarget::SDLSurface;
 }
 
-BackendResult SkiaRASTER::initBackend(const x_size &sz)
+BackendResult CanvasSkiaRasterSurface::initBackend(const x_size &sz)
 {
     // m_skiaSurface = SkSurfaces::Raster(SkImageInfo::MakeN32Premul(10, 10));
     return BackendResult::SUCCESS;
 }
 
-BackendResult SkiaRASTER::renderShapes(const x_size &sz,
+BackendResult CanvasSkiaRasterSurface::renderShapes(const x_size &sz,
                                        PixelFormat pxFormat,
                                        PixelAlphaType pxAlphaTp)
 {
@@ -39,6 +40,7 @@ BackendResult SkiaRASTER::renderShapes(const x_size &sz,
         dbg_assert( m_skiaSurface.get() ) << "Invalid SkCanvas";
     }
     drawSkiaShapes();
+
     return BackendResult::SUCCESS;
 }
 

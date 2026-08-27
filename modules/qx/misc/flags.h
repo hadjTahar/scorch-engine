@@ -122,8 +122,11 @@ enum class AppResult
 // };
 
 
+
 enum class CanvasTarget
 {
+    None,
+    SDLRenderer,
     SDLSurface,
     SDLTexture,
     GoolgeFilament
