@@ -11,4 +11,4 @@ set( QX_CMK_ORG_NAME "QxOrg" )
 include( "${CMAKE_SOURCE_DIR}/cmakes/app.cmake" )
 
 
-qx_app_use_module( module_sample )
+qx_app_use_module( canvas_sdl_renderer )

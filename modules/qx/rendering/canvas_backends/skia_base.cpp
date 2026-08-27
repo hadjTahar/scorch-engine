@@ -75,9 +75,6 @@ void SkiaBase::drawSkiaShapes()
     if( !m_skiaCanvas )
         return;
 
-
-
-
     m_skiaCanvas->clear(SK_ColorWHITE);
     // m_skiaCanvas->clear(SK_ColorTRANSPARENT);
     for ( const auto &shp : m_shapes) {

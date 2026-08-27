@@ -33,12 +33,14 @@ class CoreItem : public MetaObject
 
     friend class GraphicsApp;
     friend class GraphicsScene;
-    friend class GraphicsScene2D;
     friend class GraphicsScene3D;
     friend class GraphicsItem;
     friend class CoreComponent;
     friend class GraphicsWindow;
     friend class CameraController;
+
+    template <typename Canvas>
+    friend class GraphicsScene2D;
 
 public:
 

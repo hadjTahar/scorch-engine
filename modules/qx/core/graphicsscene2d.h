@@ -4,11 +4,13 @@
 #include "graphicsscene.h"
 
 #include <rendering/canvas.h>
+#include <glm/gtc/matrix_access.hpp>
 
 
 namespace Qx::prv
 {
 
+template <typename Canvas>
 class GraphicsScene2D : public prv::GraphicsScene
 {
 
@@ -17,10 +19,92 @@ class GraphicsScene2D : public prv::GraphicsScene
                    MetaItemType::GraphicsItem2D )
 
 public:
-    GraphicsScene2D(CoreItem *parent);
-    BackendResult initCanvas(GraphicsWindow *winItm) override final;
+    GraphicsScene2D(CoreItem *parent):
+        GraphicsScene{ parent }
+    {
+        m_itemType = ItemType::GraphicsScene2D;
+    }
+    BackendResult initCanvas(GraphicsWindow *winItm) override final
+    {
+        if( m_canvas )
+            return BackendResult::SUCCESS;
+        m_canvas = make_unique_meta<Canvas>( winItm );
+        return m_canvas->initBackend( winItm->properties.size() );
+    }
 
-    void renderViews(GraphicsWindow *winItm ) override final;
+    void renderViews(GraphicsWindow *winItm ) override final
+    {
+
+        if( !m_canvas )
+            return;
+
+        for ( auto &vwPtr : m_views)
+        {
+            auto vw    = vwPtr.get();
+            auto cam2D = vw->camera();
+            const auto gvwMatrix      = vw->transform();
+            const auto canvasMatrix  = ItemTransform::canvasMatrix( gvwMatrix,
+                                                                  cam2D->viewMatrix(),
+                                                                  cam2D->projectionMatrix() );
+
+            /// ## 2D Z sorting
+            /// ---------------
+            if constexpr(QX_DEF_ENABLE_2D_Z_SORTING){
+                const auto camMd = cam2D->properties.mode();
+                // const x_vector4 matRow{
+                //     canvasMatrix[2][0],
+                //     canvasMatrix[2][1],
+                //     canvasMatrix[2][2],
+                //     canvasMatrix[2][3]
+                // };
+
+                const auto matRow = glm::row(canvasMatrix, 2);
+                /// ## Collect camera z values to avoid std::sort from re-computing them
+                for ( auto itm : m_items){
+                    /// ## TODO: Should we ignore camera here too?
+                    const auto pos = itm->transform.position();
+                    auto depth = matRow.x * pos.z + matRow.y * pos.z +
+                                 matRow.z * pos.z + matRow.w;
+                    if( camMd == CameraMode::PERSPECTIVE )
+                        depth = (matRow.w==0)? depth : depth/matRow.w;
+
+                    /// Check if parentItem() is a graphics Item?
+                    auto pItm = itm->parentItem();
+                    if( pItm->isGraphicsItem() )
+                        depth += itm->graphicsParentItem()->cameraZValue();
+
+                    itm->setCameraZValue(depth);
+                }
+
+                std::sort(m_items.begin(), m_items.end(),
+                          [](const GraphicsItem* a, const GraphicsItem* b)
+                          {
+                              auto depthA = a->cameraZValue();
+                              auto depthB = b->cameraZValue();
+                              return depthA > depthB;
+                          });
+            }
+
+            /// ## 2D Canvas Rendering
+            /// ---------------
+            for ( auto itm : m_items)
+            {
+                auto graphicsItm    = castItem<GraphicsItem>( itm );
+                const auto itmRdr   = itm->rendering;
+                const auto finalMat = graphicsItm->transform.cameraTransform( gvwMatrix,
+                                                                             canvasMatrix,
+                                                                             itmRdr.ignoreCamera()
+                                                                             );
+                m_canvas->setMatrix( finalMat );
+
+
+                graphicsItm->renderItem( m_canvas.get() );
+                graphicsItm->resetPropertyStates();
+            }
+        }
+        m_canvas->render( winItm->properties.size() );
+
+    }
 
 protected:
     std::unique_ptr<Canvas>      m_canvas;

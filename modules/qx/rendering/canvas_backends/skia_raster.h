@@ -24,7 +24,7 @@ public:
 }
 namespace Qx
 {
-using Canvas = prv::SkiaRASTER;
+// using Canvas = prv::SkiaRASTER;
 
 }
 

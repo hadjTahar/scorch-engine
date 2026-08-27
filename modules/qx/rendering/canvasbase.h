@@ -109,6 +109,13 @@ protected:
 
 };
 
+
+
+}
+
+namespace Qx {
+using Canvas = prv::CanvasBase;
+
 }
 
 #endif // CANVASBASE_H

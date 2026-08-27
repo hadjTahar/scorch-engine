@@ -26,7 +26,7 @@ target_link_libraries( canvas_sdl_renderer PUBLIC qx )
 ### Name must be qx_link_+module name
 ### ---------------------------------------------------
 
-function( canvas_sdl_renderer target )
+function( qx_link_canvas_sdl_renderer target )
     target_include_directories( ${target} PUBLIC "${CMAKE_SOURCE_DIR}/modules/canvas_sdl_renderer" )
     target_link_libraries( ${target} PUBLIC canvas_sdl_renderer )
 endfunction()

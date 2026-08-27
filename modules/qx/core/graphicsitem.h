@@ -17,6 +17,12 @@ class GraphicsScene;
 class GraphicsItem : public prv::CoreItem
 {
 
+    friend class GraphicsWindow;
+    friend class GraphicsScene3D;
+
+    template <typename Canvas>
+    friend class GraphicsScene2D;
+
 public:
     GraphicsItem(CoreItem *parent);
     ~GraphicsItem();
@@ -44,9 +50,7 @@ public:
 
 
 protected:
-    friend class GraphicsWindow;
-    friend class prv::GraphicsScene2D;
-    friend class prv::GraphicsScene3D;
+
     void handleMouseEvent( const MouseEvent &event);
     void updateScreenSize(ScreenSize sz );
 
