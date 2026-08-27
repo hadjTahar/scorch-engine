@@ -2,7 +2,7 @@
 #define CANVASSKIARASTERSURFACE_H
 
 
-#include "../../canvas_skia_base/skia_base.h"
+#include <backends/canvasskiarasterbase.h>
 
 
 
@@ -10,14 +10,10 @@ namespace Qx::prv
 {
 
 
-class CanvasSkiaRasterSurface : public SkiaBase
+class CanvasSkiaRasterSurface : public CanvasSkiaRasterBase
 {
 public:
     CanvasSkiaRasterSurface(GraphicsWindow *winItm);
-    virtual BackendResult initBackend(const x_size &sz) override;
-    virtual BackendResult renderShapes(const x_size &sz,
-                                       PixelFormat pxFormat,
-                                       PixelAlphaType pxAlphaTp) override;
 };
 
 

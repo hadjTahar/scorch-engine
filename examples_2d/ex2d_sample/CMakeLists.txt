@@ -14,3 +14,4 @@ include( "${CMAKE_SOURCE_DIR}/cmakes/app.cmake" )
 qx_app_use_module( canvas_sdl_renderer )
 qx_app_use_module( canvas_skia_raster_surface )
 qx_app_use_module( canvas_skia_raster_texture )
+

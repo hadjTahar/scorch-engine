@@ -16,9 +16,9 @@ target_compile_features(canvas_skia_raster_texture PUBLIC cxx_std_20)
 target_include_directories(canvas_skia_raster_texture PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
 target_link_libraries( canvas_skia_raster_texture PUBLIC qx )
 
-# # Link qx_skia
-# target_include_directories(canvas_skia_raster_texture PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
-# target_link_libraries( canvas_skia_raster_texture PUBLIC qx )
+# # Link canvas_skia_base
+target_include_directories(canvas_skia_raster_texture PUBLIC  "${CMAKE_SOURCE_DIR}/modules/canvas_skia_base")
+target_link_libraries( canvas_skia_raster_texture PUBLIC canvas_skia_base )
 
 
 

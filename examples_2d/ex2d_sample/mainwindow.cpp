@@ -13,8 +13,6 @@ MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
 
-
-
     // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSDLRenderer> >();
     // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaRasterSurface> >();
     auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaRasterTexture> >();

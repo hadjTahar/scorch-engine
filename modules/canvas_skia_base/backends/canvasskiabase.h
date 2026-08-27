@@ -1,5 +1,5 @@
-#ifndef SKIA_BASE_H
-#define SKIA_BASE_H
+#ifndef CANVASSKIABASE_H
+#define CANVASSKIABASE_H
 
 #include "skia_helpers.h"
 
@@ -26,12 +26,12 @@ namespace Qx::prv
 {
 
 
-class SkiaBase : public CanvasBase
+class CanvasSkiaBase : public CanvasBase
 {
     friend class GraphicsScene;
 
 public:
-    SkiaBase( GraphicsWindow *winItm):
+    CanvasSkiaBase( GraphicsWindow *winItm):
         CanvasBase{winItm},
         m_skiaCanvas{ nullptr },
         m_skiaFontsManager{SkFontMgr_New_Custom_Empty()}
@@ -47,7 +47,6 @@ public:
         loadFontsDB();
 
     }
-
     void snapshot( const std::string &flName )
     {
         if( !m_skiaSurface )
@@ -67,7 +66,6 @@ public:
         // std::ofstream out(flName, std::ios::binary);
         // out.write((const char*)png->data(), png->size());
     }
-
 
 protected:
     void drawSkiaShapes()
@@ -222,7 +220,7 @@ protected:
     void loadFontsDB()
     {
         /// ## ToDO: Use Qx::HostEnv::OS::systemFonts();
-        dbg_warning() << "SkiaBase::loadFontsDB is not loading system fonts";
+        dbg_warning() << "CanvasSkiaBase::loadFontsDB is not loading system fonts";
         const auto fontsNames = Qx::Assets::fileNames( ":/fonts" );
 
         dbg_info() << "Loading Skia Canvas fonts ... ";
@@ -258,4 +256,4 @@ protected:
 };
 
 }
-#endif // SKIA_BASE_H
+#endif // CANVASSKIABASE_H
