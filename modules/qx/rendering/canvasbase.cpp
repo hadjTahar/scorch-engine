@@ -6,10 +6,8 @@
 namespace Qx::prv
 {
 
-CanvasBase::CanvasBase(GraphicsWindow *winItm,
-                       filament::Scene *filamentScn):
+CanvasBase::CanvasBase(GraphicsWindow *winItm):
     m_windowItem{ winItm },
-    m_filamentScene{filamentScn},
     m_sdlTexture{ nullptr }
 {
 }
@@ -189,16 +187,7 @@ void CanvasBase::setAntialias(bool newAntialias)
     m_antialias = newAntialias;
 }
 
-filament::Engine *CanvasBase::filamentEngine() const
-{
-    return m_windowItem->filamentEngine();
-}
 
-
-filament::Scene *CanvasBase::filamentScene() const
-{
-    return m_filamentScene;
-}
 
 x_matrix4x4 CanvasBase::matrix() const
 {

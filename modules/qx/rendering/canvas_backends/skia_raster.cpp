@@ -6,9 +6,8 @@ namespace Qx::prv
 {
 
 
-SkiaRASTER::SkiaRASTER( GraphicsWindow *winItm,
-                       filament::Scene *filamentScn):
-    Qx::prv::SkiaBase{ winItm, filamentScn }
+SkiaRASTER::SkiaRASTER(GraphicsWindow *winItm):
+    Qx::prv::SkiaBase{ winItm }
 {
 }
 

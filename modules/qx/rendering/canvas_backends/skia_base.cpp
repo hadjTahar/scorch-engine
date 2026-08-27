@@ -27,9 +27,8 @@
 namespace Qx::prv
 {
 
-SkiaBase::SkiaBase(GraphicsWindow *winItm,
-                   filament::Scene *filamentScn):
-    CanvasBase{winItm, filamentScn},
+SkiaBase::SkiaBase(GraphicsWindow *winItm):
+    CanvasBase{winItm},
     m_skiaCanvas{ nullptr },
     m_skiaFontsManager{SkFontMgr_New_Custom_Empty()}
 {
@@ -222,39 +221,6 @@ void SkiaBase::presentToTexture(SDL_Texture *sdlTexture,
 
 
 
-
-
-// void SkiaBase::startViewTransform(GraphicsScene *, GraphicsView *view)
-// {
-//     const auto projMat = view->camera()->projectionMatrix();
-//     const auto viewMat = view->camera()->viewMatrix();
-
-//     const auto mat = projMat * viewMat;
-
-
-//     m_skiaCanvas->save();
-//     // m_skiaCanvas->concat( SkM44::ColMajor(glm::value_ptr(scene->transform.worldMatrix() )) );
-//     m_skiaCanvas->concat( SkM44::ColMajor(glm::value_ptr(view->transform())) );
-//     m_skiaCanvas->concat( SkM44::ColMajor(glm::value_ptr( mat )) );
-
-// }
-
-// void SkiaBase::endViewTransform(GraphicsView *view)
-// {
-//     m_skiaCanvas->restore();
-// }
-
-// void SkiaBase::startItemTransform(const x_matrix4x4 &mat)
-// {
-//     m_skiaCanvas->save();
-//     const auto sk4x4 = SkM44::ColMajor(glm::value_ptr(mat));
-//     m_skiaCanvas->concat( sk4x4 );
-// }
-
-// void SkiaBase::endItemTransform()
-// {
-//     m_skiaCanvas->restore();
-// }
 
 void SkiaBase::loadFontsDB()
 {

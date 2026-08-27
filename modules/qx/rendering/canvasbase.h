@@ -8,8 +8,6 @@
 #include <misc/pixelformats.h>
 
 #include <SDL3/SDL_render.h>
-#include <filament/Engine.h>
-#include <filament/Scene.h>
 
 namespace Qx::prv
 {
@@ -21,8 +19,7 @@ class CanvasBase : public MetaObject
     QX_META_OBJECT( CanvasBase, MetaItemType::NA, MetaItemType::NA)
 
 public:
-    CanvasBase( GraphicsWindow *winItm,
-               filament::Scene *filamentScn);
+    CanvasBase( GraphicsWindow *winItm);
     virtual ~CanvasBase();
 
     virtual BackendResult initBackend(const x_size &sz)
@@ -57,6 +54,7 @@ public:
                        "CanvasBase::presentToTexture";
     }
 
+public:
 
     void render(const x_size &sz);
 
@@ -89,9 +87,6 @@ public:
     bool antialias() const;
     void setAntialias(bool newAntialias);
 
-    filament::Engine   *filamentEngine() const;
-    filament::Scene    *filamentScene() const;
-
     x_matrix4x4 matrix() const;
     void setMatrix(const x_matrix4x4 &newMatrix);
 
@@ -106,9 +101,6 @@ private:
 protected:
     std::vector<CanvasShape>  m_shapes;
     GraphicsWindow           *m_windowItem;
-    // SDL_Window           *m_sdlWindow;
-    // filament::Engine     *m_filamentEngine;
-    filament::Scene      *m_filamentScene;
     x_matrix4x4           m_matrix;
     bool                  m_antialias;
 
