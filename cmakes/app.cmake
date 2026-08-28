@@ -46,11 +46,11 @@ add_executable(${QX_CMK_APP_NAME} ${SRC_FILES} )
 target_compile_features(${QX_CMK_APP_NAME} PUBLIC cxx_std_20)
 
 
-function( qx_app_use_module module )
+function( qx_use_module module )
     cmake_language(CALL qx_link_${module} ${QX_CMK_APP_NAME})
 endfunction()
 
-qx_app_use_module( qx )
+qx_use_module( qx )
 
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_NAME=\"${QX_CMK_APP_NAME}\"" )
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_ORG_NAME=\"${QX_CMK_ORG_NAME}\"" )
