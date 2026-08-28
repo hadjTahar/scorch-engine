@@ -2,14 +2,14 @@
 
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
-CanvasSkiaOpenGLTexture::CanvasSkiaOpenGLTexture(GraphicsWindow *winItm):
-    Qx::prv::CanvasSkiaOpenGLBase{ winItm }
+CanvasSkiaOpenGLTexture::CanvasSkiaOpenGLTexture(prv::GraphicsWindow *winItm):
+    CanvasSkiaOpenGLBase{ winItm }
 {
-    m_canvasTarget = CanvasTarget::SDLTexture;
+    m_canvasTarget = prv::CanvasTarget::SDLTexture;
 }
 
 

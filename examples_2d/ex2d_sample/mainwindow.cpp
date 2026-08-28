@@ -15,12 +15,12 @@ MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
 
-    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSDLRenderer> >();
-    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaRasterSurface> >();
-    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaRasterTexture> >();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSDLRenderer> >();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaRasterSurface> >();
+    auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaRasterTexture> >();
 
-    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaOpenGLSurface> >();
-    auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::prv::CanvasSkiaOpenGLTexture> >();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaOpenGLSurface> >();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaOpenGLTexture> >();
 
     auto vw0   = scene->addView();
     auto cam0  = vw0->camera();

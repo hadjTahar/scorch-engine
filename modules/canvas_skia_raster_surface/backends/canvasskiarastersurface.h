@@ -6,14 +6,14 @@
 
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
 class CanvasSkiaRasterSurface : public CanvasSkiaRasterBase
 {
 public:
-    CanvasSkiaRasterSurface(GraphicsWindow *winItm);
+    CanvasSkiaRasterSurface(prv::GraphicsWindow *winItm);
 };
 
 

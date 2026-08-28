@@ -22,17 +22,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
-class CanvasSkiaBase : public CanvasBase
+class CanvasSkiaBase : public prv::CanvasBase
 {
     friend class GraphicsScene;
 
 public:
-    CanvasSkiaBase( GraphicsWindow *winItm):
-        CanvasBase{winItm},
+    CanvasSkiaBase( prv::GraphicsWindow *winItm):
+        prv::CanvasBase{winItm},
         m_skiaCanvas{ nullptr },
         m_skiaFontsManager{SkFontMgr_New_Custom_Empty()}
     {
@@ -40,8 +40,8 @@ public:
         dbg_static_assert_same_types(x_vector2,SkPoint);
         dbg_static_assert_same_types(SkColor4f,x_rgba);
 
-        dbg_static_assert_same_types(CanvasPen::StrokeCap,SkTileMode);
-        dbg_static_assert_same_types(CanvasPen::StrokeJoin,SkPaint::Join);
+        dbg_static_assert_same_types(prv::CanvasPen::StrokeCap,SkTileMode);
+        dbg_static_assert_same_types(prv::CanvasPen::StrokeJoin,SkPaint::Join);
         dbg_static_assert_same_types(Qx::prv::PathVerb,SkPathVerb);
         dbg_static_assert_same_types(Qx::CanvasPath::FillType,SkPathFillType);
         loadFontsDB();
@@ -83,28 +83,28 @@ protected:
             const auto shpTp = shp.type;
 
             switch (shpTp) {
-            case CanvasShapeType::Rect:{
-                helpers::drawRect( m_skiaCanvas, shp );
+            case prv::CanvasShapeType::Rect:{
+                prv::helpers::drawRect( m_skiaCanvas, shp );
                 break;
             }
-            case CanvasShapeType::RRect:{
-                helpers::drawRRect( m_skiaCanvas, shp );
+            case prv::CanvasShapeType::RRect:{
+                prv::helpers::drawRRect( m_skiaCanvas, shp );
                 break;
             }
-            case CanvasShapeType::Circle:{
-                helpers::drawCircle( m_skiaCanvas, shp );
+            case prv::CanvasShapeType::Circle:{
+                prv::helpers::drawCircle( m_skiaCanvas, shp );
                 break;
             }
-            case CanvasShapeType::Path:{
-                helpers::drawPath( m_skiaCanvas, shp );
+            case prv::CanvasShapeType::Path:{
+                prv::helpers::drawPath( m_skiaCanvas, shp );
                 break;
             }
-            case CanvasShapeType::Text:{
-                helpers::drawSimpleText( m_skiaCanvas, shp );
+            case prv::CanvasShapeType::Text:{
+                prv::helpers::drawSimpleText( m_skiaCanvas, shp );
                 break;
             }
-            case CanvasShapeType::Image:{
-                helpers::drawImage( m_skiaCanvas, shp );
+            case prv::CanvasShapeType::Image:{
+                prv::helpers::drawImage( m_skiaCanvas, shp );
                 break;
             }
 
@@ -229,7 +229,7 @@ protected:
 
             dbg_info() << ftName;
             const auto fntData  = Qx::Assets::load( ftName ).data();
-            const auto data     = helpers::MakeSkData( fntData.data(), fntData.size() );
+            const auto data     = prv::helpers::MakeSkData( fntData.data(), fntData.size() );
             const auto typeface = m_skiaFontsManager->makeFromData( data );
 
             SkString name;
@@ -240,7 +240,7 @@ protected:
             fnt.familyName = fntAlias;
             fnt.bold       = typeface->isBold();
             fnt.italic     = typeface->isItalic();
-            helpers::m_typefaceList[fnt] = typeface;
+            prv::helpers::m_typefaceList[fnt] = typeface;
         }
 
     }

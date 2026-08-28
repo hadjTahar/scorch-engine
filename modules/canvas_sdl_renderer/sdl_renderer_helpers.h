@@ -6,7 +6,7 @@
 #include <rendering/canvasshape.h>
 
 
-namespace Qx::backend::renderer {
+namespace Qx::Backend {
 
 
 

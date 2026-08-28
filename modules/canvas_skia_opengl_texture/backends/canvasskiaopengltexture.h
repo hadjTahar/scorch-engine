@@ -6,14 +6,14 @@
 
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
 class CanvasSkiaOpenGLTexture : public CanvasSkiaOpenGLBase
 {
 public:
-    CanvasSkiaOpenGLTexture(GraphicsWindow *winItm);
+    CanvasSkiaOpenGLTexture(prv::GraphicsWindow *winItm);
 };
 
 

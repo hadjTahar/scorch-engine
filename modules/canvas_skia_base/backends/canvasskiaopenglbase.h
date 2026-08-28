@@ -12,15 +12,15 @@
 
 #include "canvasskiabase.h"
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
 class CanvasSkiaOpenGLBase : public CanvasSkiaBase
 {
 public:
-    CanvasSkiaOpenGLBase(GraphicsWindow *winItm):
-        Qx::prv::CanvasSkiaBase{ winItm },
+    CanvasSkiaOpenGLBase( prv::GraphicsWindow *winItm):
+        Backend::CanvasSkiaBase{ winItm },
         m_sdlGLContext{ nullptr }
     {
     }
@@ -35,7 +35,7 @@ public:
         }
     }
 
-    virtual BackendResult initBackend(const x_size &sz) override
+    virtual prv::BackendResult initBackend(const x_size &sz) override
     {
         dbg_assert( !m_sdlGLContext ) << "SDL GL Context already exists";
         auto sdlWindow = m_windowItem->sdlWindow();
@@ -52,23 +52,23 @@ public:
         dbg_assert( m_skiaContext.get() ) <<
             "Invalid Opengl GrDirectContext, make sure skia is built with skia_use_gl=true";
 
-        return BackendResult::SUCCESS;
+        return prv::BackendResult::SUCCESS;
     }
 
 
-    virtual BackendResult renderShapes(const x_size &sz,
-                                       PixelFormat pxFormat,
-                                       PixelAlphaType pxAlphaTp) override
+    virtual prv::BackendResult renderShapes(const x_size &sz,
+                                       prv::PixelFormat pxFormat,
+                                       prv::PixelAlphaType pxAlphaTp) override
     {
         if( !m_skiaContext )
-            return BackendResult::ERROR;
+            return prv::BackendResult::ERROR;
 
         const auto ww = m_skiaSurface? m_skiaSurface->width() : 0;
         const auto hh = m_skiaSurface? m_skiaSurface->height() : 0;
         const auto sameSize = (ww == sz.width) && (hh == sz.height);
         if( !sameSize )
         {
-            const auto pxPair = helpers::skiaSdlPXFormats(pxFormat,pxAlphaTp);
+            const auto pxPair = prv::helpers::skiaSdlPXFormats(pxFormat,pxAlphaTp);
             SkImageInfo info  = SkImageInfo::Make(sz.width,
                                                  sz.height,
                                                  pxPair.colorType,
@@ -93,7 +93,7 @@ public:
         if( m_skiaContext ){
             m_skiaContext->flushAndSubmit();
         }
-        return BackendResult::SUCCESS;
+        return prv::BackendResult::SUCCESS;
     }
 private:
     SDL_GLContext m_sdlGLContext;

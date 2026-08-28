@@ -7,14 +7,14 @@
 
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
 class CanvasSkiaRasterTexture : public CanvasSkiaRasterBase
 {
 public:
-    CanvasSkiaRasterTexture(GraphicsWindow *winItm);
+    CanvasSkiaRasterTexture(prv::GraphicsWindow *winItm);
 };
 
 

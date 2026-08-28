@@ -2,14 +2,14 @@
 
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
-CanvasSkiaRasterTexture::CanvasSkiaRasterTexture(GraphicsWindow *winItm):
-    Qx::prv::CanvasSkiaRasterBase{ winItm }
+CanvasSkiaRasterTexture::CanvasSkiaRasterTexture(prv::GraphicsWindow *winItm):
+    CanvasSkiaRasterBase{ winItm }
 {
-    m_canvasTarget = CanvasTarget::SDLTexture;
+    m_canvasTarget = prv::CanvasTarget::SDLTexture;
 }
 
 }

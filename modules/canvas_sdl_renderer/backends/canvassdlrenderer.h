@@ -4,20 +4,20 @@
 #include <rendering/canvasbase.h>
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
-class CanvasSDLRenderer : public CanvasBase
+class CanvasSDLRenderer : public prv::CanvasBase
 {
 public:
-    CanvasSDLRenderer(GraphicsWindow *winItm);
+    CanvasSDLRenderer(prv::GraphicsWindow *winItm);
 
 
-    BackendResult initBackend(const x_size &sz) override;
-    BackendResult renderShapes(const x_size &,
-                               PixelFormat,
-                               PixelAlphaType ) override;
+    prv::BackendResult initBackend(const x_size &sz) override;
+    prv::BackendResult renderShapes(const x_size &,
+                               prv::PixelFormat,
+                               prv::PixelAlphaType ) override;
 
     void presentToSurface(SDL_Surface *,
                           const x_size &) override;

@@ -6,33 +6,33 @@
 
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
 class CanvasSkiaRasterBase : public CanvasSkiaBase
 {
 public:
-    CanvasSkiaRasterBase(GraphicsWindow *winItm):
-        Qx::prv::CanvasSkiaBase{ winItm }
+    CanvasSkiaRasterBase(prv::GraphicsWindow *winItm):
+        CanvasSkiaBase{ winItm }
     {
-        m_canvasTarget = CanvasTarget::None;
+        m_canvasTarget = prv::CanvasTarget::None;
     }
-    virtual BackendResult initBackend(const x_size &sz) override
+    virtual prv::BackendResult initBackend(const x_size &sz) override
     {
         // m_skiaSurface = SkSurfaces::Raster(SkImageInfo::MakeN32Premul(10, 10));
-        return BackendResult::SUCCESS;
+        return prv::BackendResult::SUCCESS;
     }
-    virtual BackendResult renderShapes(const x_size &sz,
-                                       PixelFormat pxFormat,
-                                       PixelAlphaType pxAlphaTp) override
+    virtual prv::BackendResult renderShapes(const x_size &sz,
+                                       prv::PixelFormat pxFormat,
+                                       prv::PixelAlphaType pxAlphaTp) override
     {
         const auto ww = m_skiaSurface? m_skiaSurface->width() : 0;
         const auto hh = m_skiaSurface? m_skiaSurface->height() : 0;
         const auto sameSize = (ww == sz.width) && (hh == sz.height);
         if( !sameSize )
         {
-            const auto pxPair = helpers::skiaSdlPXFormats(pxFormat,pxAlphaTp);
+            const auto pxPair = prv::helpers::skiaSdlPXFormats(pxFormat,pxAlphaTp);
             m_skiaSurface = SkSurfaces::Raster(
                 SkImageInfo::Make(sz.width,
                                   sz.height,
@@ -46,7 +46,7 @@ public:
         }
         drawSkiaShapes();
 
-        return BackendResult::SUCCESS;
+        return prv::BackendResult::SUCCESS;
     }
 };
 

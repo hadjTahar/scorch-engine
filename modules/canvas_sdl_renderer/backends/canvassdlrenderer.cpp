@@ -4,27 +4,27 @@
 #include <core/graphicswindow.h>
 
 
-namespace Qx::prv
+namespace Qx::Backend
 {
 
 
-CanvasSDLRenderer::CanvasSDLRenderer(GraphicsWindow *winItm):
-    CanvasBase{winItm}
+CanvasSDLRenderer::CanvasSDLRenderer(prv::GraphicsWindow *winItm):
+    prv::CanvasBase{winItm}
 {
-    m_canvasTarget = CanvasTarget::SDLRenderer;
+    m_canvasTarget = prv::CanvasTarget::SDLRenderer;
 
 }
 
-BackendResult CanvasSDLRenderer::initBackend(const x_size &sz)
+prv::BackendResult CanvasSDLRenderer::initBackend(const x_size &sz)
 {
     const auto sdlRenderer = m_windowItem->sdlRenderer();
     dbg_assert( sdlRenderer ) << "Invalid SDL renderer...";
-    return BackendResult::SUCCESS;
+    return prv::BackendResult::SUCCESS;
 }
 
-BackendResult CanvasSDLRenderer::renderShapes(const x_size &,
-                                              PixelFormat,
-                                              PixelAlphaType)
+prv::BackendResult CanvasSDLRenderer::renderShapes(const x_size &,
+                                              prv::PixelFormat,
+                                              prv::PixelAlphaType)
 {
     auto sdlRenderer = m_windowItem->sdlRenderer();
     SDL_SetRenderDrawColor(sdlRenderer, 255, 255, 255, 255);
@@ -37,28 +37,28 @@ BackendResult CanvasSDLRenderer::renderShapes(const x_size &,
         const auto shpTp = shp.type;
 
         switch (shpTp) {
-        case CanvasShapeType::Rect:{
-            Qx::backend::renderer::drawRect( sdlRenderer, shp );
+        case prv::CanvasShapeType::Rect:{
+            Qx::Backend::drawRect( sdlRenderer, shp );
             break;
         }
-        case CanvasShapeType::RRect:{
-            Qx::backend::renderer::drawRRect( sdlRenderer, shp );
+        case prv::CanvasShapeType::RRect:{
+            Qx::Backend::drawRRect( sdlRenderer, shp );
             break;
         }
-        case CanvasShapeType::Circle:{
-            Qx::backend::renderer::drawCircle( sdlRenderer, shp );
+        case prv::CanvasShapeType::Circle:{
+            Qx::Backend::drawCircle( sdlRenderer, shp );
             break;
         }
-        case CanvasShapeType::Path:{
-            Qx::backend::renderer::drawPath( sdlRenderer, shp );
+        case prv::CanvasShapeType::Path:{
+            Qx::Backend::drawPath( sdlRenderer, shp );
             break;
         }
-        case CanvasShapeType::Text:{
-            Qx::backend::renderer::drawText( sdlRenderer, shp );
+        case prv::CanvasShapeType::Text:{
+            Qx::Backend::drawText( sdlRenderer, shp );
             break;
         }
-        case CanvasShapeType::Image:{
-            Qx::backend::renderer::drawImage( sdlRenderer, shp );
+        case prv::CanvasShapeType::Image:{
+            Qx::Backend::drawImage( sdlRenderer, shp );
             break;
         }
 
@@ -72,7 +72,7 @@ BackendResult CanvasSDLRenderer::renderShapes(const x_size &,
     }
 
     SDL_RenderPresent(sdlRenderer);
-    return BackendResult::SUCCESS;
+    return prv::BackendResult::SUCCESS;
 }
 
 void CanvasSDLRenderer::presentToSurface(SDL_Surface *,
