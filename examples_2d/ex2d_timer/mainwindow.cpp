@@ -3,6 +3,7 @@
 #include <items/rectangle.h>
 #include <core/graphicsitem2d.h>
 #include <core/graphicsscene2d.h>
+#include <backends/canvasskiarastersurface.h>
 
 #include <components/timer.h>
 
@@ -17,13 +18,13 @@
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
-    auto scene = addItem<Qx::prv::GraphicsScene2D>();
-    auto vw0 = scene->addView();
-    auto cam0 = vw0->camera();
+    auto scene  = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaRasterSurface> >();
+    auto vw0    = scene->addView();
+    auto cam0   = vw0->camera();
     cam0->reset2DOrthoCamera( screen() );
-    auto itm = scene->addItem<Qx::Rectangle>();;
+    auto itm    = scene->addItem<Qx::Rectangle>();;
 
-    auto timer = itm->attach<Qx::Timer>();
+    auto timer  = itm->attach<Qx::Timer>();
     timer->start( 22222, 1000 );
     timer->timeout = [this,itm]
     {

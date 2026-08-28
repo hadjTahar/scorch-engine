@@ -1,7 +1,7 @@
 #ifndef CANVASSDLRENDERER_H
 #define CANVASSDLRENDERER_H
 
-#include <rendering/canvasbase.h>
+#include <canvas/canvasbase.h>
 
 
 namespace Qx::Backend

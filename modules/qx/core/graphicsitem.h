@@ -20,7 +20,7 @@ class GraphicsItem : public prv::CoreItem
     friend class GraphicsWindow;
     friend class GraphicsScene3D;
 
-    template <typename Canvas>
+    template <typename CanvasType>
     friend class GraphicsScene2D;
 
 public:

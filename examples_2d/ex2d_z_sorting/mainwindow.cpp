@@ -3,19 +3,17 @@
 #include <items/rectangle.h>
 #include <core/graphicsitem2d.h>
 #include <core/graphicsscene2d.h>
+#include <backends/canvasskiarastersurface.h>
 
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
-    auto scene = addItem<Qx::prv::GraphicsScene2D>();
-    auto vw0 = scene->addView();
-    auto cam0 = vw0->camera();
+    auto scene  = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaRasterSurface> >();
+    auto vw0    = scene->addView();
+    auto cam0   = vw0->camera();
     cam0->reset2DOrthoCamera( screen() );
-
     cam0->resetUICamera( screen() );
-
-
-    auto itm = scene->addItem<Qx::Rectangle>();
+    auto itm    = scene->addItem<Qx::Rectangle>();
 
 
     auto itm_z_3 = itm->addItem<Qx::Rectangle>();
@@ -40,7 +38,7 @@ MainWindow::MainWindow(CoreItem *parent):
     itm_z_1->style.setColor( Qx::blue() );
 
     itm_z_3->transform.setPosition( {0,0,3} );
-        itm_z_4->transform.setPosition( {0,0,5} );
+        itm_z_4->transform.setPosition( {20,20,5} );
     itm_z_2->transform.setPosition( {50,50,2} );
     itm_z_1->transform.setPosition( {100,100,1} );
 }

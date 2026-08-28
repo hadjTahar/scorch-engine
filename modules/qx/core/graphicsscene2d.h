@@ -3,14 +3,14 @@
 
 #include "graphicsscene.h"
 
-#include <rendering/canvas.h>
+#include <canvas/canvas.h>
 #include <glm/gtc/matrix_access.hpp>
 
 
 namespace Qx::prv
 {
 
-template <typename Canvas>
+template <typename CanvasType>
 class GraphicsScene2D : public prv::GraphicsScene
 {
 
@@ -28,7 +28,7 @@ public:
     {
         if( m_canvas )
             return BackendResult::SUCCESS;
-        m_canvas = make_unique_meta<Canvas>( winItm );
+        m_canvas = make_unique_meta<CanvasType>( winItm );
         return m_canvas->initBackend( winItm->properties.size() );
     }
 
@@ -107,7 +107,7 @@ public:
     }
 
 protected:
-    std::unique_ptr<Canvas>      m_canvas;
+    std::unique_ptr<CanvasType>      m_canvas;
 
 };
 

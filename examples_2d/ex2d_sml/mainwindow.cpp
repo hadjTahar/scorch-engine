@@ -5,6 +5,7 @@
 #include <core/graphicsscene2d.h>
 #include <components/keycomponent.h>
 #include <components/statemachinecomponent.h>
+#include <backends/canvasskiarastersurface.h>
 #include <misc/keyevent.h>
 
 
@@ -68,11 +69,11 @@ struct PlayerController {
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
-    auto scene = addItem<Qx::prv::GraphicsScene2D>();
-    auto vw0 = scene->addView();
-    auto cam0 = vw0->camera();
+    auto scene  = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaRasterSurface> >();
+    auto vw0    = scene->addView();
+    auto cam0   = vw0->camera();
     cam0->reset2DOrthoCamera( screen() );
-    auto itm = scene->addItem<Qx::Rectangle>();
+    auto itm    = scene->addItem<Qx::Rectangle>();
     itm->style.setColor( Qx::red() );
     // itm->transform.setPosition( {10, 10, 0 } );
     itm->transform.setPosition( {} );

@@ -7,7 +7,7 @@
 #include <misc/debugprint.h>
 #include <misc/assets.h>
 
-#include <rendering/canvasshape.h>
+#include <canvas/canvasshape.h>
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_pixels.h>
 

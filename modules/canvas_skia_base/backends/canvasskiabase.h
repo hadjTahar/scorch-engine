@@ -3,7 +3,7 @@
 
 #include "skia_helpers.h"
 
-#include <rendering/canvasbase.h>
+#include <canvas/canvasbase.h>
 #include <core/graphicswindow.h>
 
 #include <skia/include/core/SkCanvas.h>

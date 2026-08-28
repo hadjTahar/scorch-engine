@@ -3,7 +3,7 @@
 
 #include <misc/vecs.h>
 #include <SDL3/SDL_render.h>
-#include <rendering/canvasshape.h>
+#include <canvas/canvasshape.h>
 
 
 namespace Qx::Backend {
