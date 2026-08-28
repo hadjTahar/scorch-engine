@@ -7,13 +7,13 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 ### -----------------
 ### Rendering Options
-### ------------------
+### ------------------x
 
 set( QX_OPT_SDL_INIT_OPTIONS         "SDL_INIT_VIDEO")
 
 ### Filament does not like the "SDL_WINDOW_OPENGL" option
 set( QX_OPT_SDL_WINDOW_OPTIONS
-    "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY  /*|SDL_WINDOW_OPENGL*/")
+    "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY |SDL_WINDOW_OPENGL")
 
 
 
@@ -43,8 +43,8 @@ set( QX_OPT_DEBUG_DETAILS            4)
 ### 5 : + dbg_warning
 ### 6 : + dbg_info
 ### 7 : + dbg_tips
-set( QX_OPT_DEBUG_LEVEL              2)
-
+set( QX_OPT_DEBUG_LEVEL              2  )
+set( QX_OPT_HIDE_TERMINAL            OFF)
 
 
 ## Disables, asserts, leak tracking, and meta item

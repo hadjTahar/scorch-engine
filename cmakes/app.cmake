@@ -56,7 +56,7 @@ target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_NAME=\"${QX_CM
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_ORG_NAME=\"${QX_CMK_ORG_NAME}\"" )
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_SRC=\"${CMAKE_CURRENT_SOURCE_DIR}\"" )
 
-if (WIN32 AND MSVC AND QX_OPT_SDL_STATIC_BUILD)
+if (WIN32 AND MSVC AND QX_OPT_SDL_STATIC_BUILD AND QX_OPT_HIDE_TERMINAL )
     ### Hide console
     set_target_properties(${QX_CMK_APP_NAME} PROPERTIES
            WIN32_EXECUTABLE TRUE

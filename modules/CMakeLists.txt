@@ -9,3 +9,6 @@ add_subdirectory( canvas_skia_base              qx_canvas_skia_base )
 add_subdirectory( canvas_sdl_renderer           qx_canvas_sdl_renderer )
 add_subdirectory( canvas_skia_raster_surface    qx_canvas_skia_raster_surface )
 add_subdirectory( canvas_skia_raster_texture    qx_canvas_skia_raster_texture )
+
+add_subdirectory( canvas_skia_opengl_surface    qx_canvas_skia_opengl_surface )
+add_subdirectory( canvas_skia_opengl_texture    qx_canvas_skia_opengl_texture )

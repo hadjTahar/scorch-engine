@@ -108,6 +108,7 @@ void GraphicsWindow::initWindow()
         QX_DEF_SDL_WINDOW_OPTIONS    // window flags
         );
 
+
     if( !m_sdlWindow )
         GraphicsApp::app->exit( "SDL_CreateWindow can't create a window" );
 
