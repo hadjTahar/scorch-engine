@@ -15,6 +15,9 @@ public:
     FilamentBackend( prv::GraphicsWindow *winItm);
 
 
+    virtual prv::BackendResult initBackend(const x_size &sz);
+    virtual prv::BackendResult renderMeshModel(const MeshModel *mshModel);
+
 protected:
 
     inline static filament::Engine   *m_filamentEngine{nullptr};

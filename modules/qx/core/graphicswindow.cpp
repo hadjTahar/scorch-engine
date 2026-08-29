@@ -46,8 +46,6 @@ GraphicsWindow::GraphicsWindow(CoreItem *parent):
     dbg_assert( m_filamentRenderer ) << "Invalid m_filamentRenderer";
 
 
-
-
     // Set up the clear options
     filament::Renderer::ClearOptions clearOptions;
     clearOptions.clearColor = {0.f, 0.f, 0.f, 1.0f}; // Set to dark grey

@@ -28,11 +28,10 @@ void RenderBackendBase::setWindowSwapChain(void *swc)
 {
     if( !m_windowItem )
         return;
-    if( m_windowItem->m_renderBackendSwapChain ){
-        dbg_assert( m_windowItem->m_renderBackendSwapChain == swc ) <<
-            "Swap chains for same window supposed to be the same";
-        return;
-    }
+    dbg_assert( !m_windowItem->m_renderBackendSwapChain) <<
+        "Window already has a swap chain, "
+        "use ::windowSwapChain to get it";
+    return;
     m_windowItem->m_renderBackendSwapChain = swc;
 }
 
