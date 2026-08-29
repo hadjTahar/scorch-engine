@@ -3,6 +3,7 @@
 #include <items/rectangle.h>
 #include <core/graphicsitem2d.h>
 #include <core/graphicsscene2d.h>
+#include <backends/canvasskiarastersurface.h>
 
 #include <components/timer.h>
 
@@ -11,12 +12,12 @@ MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
 
-    auto scene = addItem<Qx::prv::GraphicsScene2D>();
-    auto vw0 = scene->addView();
-    auto cam0 = vw0->camera();
+    auto scene  = addItem<Qx::prv::GraphicsScene2D<Qx::Backend::CanvasSkiaRasterSurface> >();
+    auto vw0    = scene->addView();
+    auto cam0   = vw0->camera();
     cam0->reset2DOrthoCamera( screen() );
-    auto itm = scene->addItem<Qx::Rectangle>();;
-    auto pCmp = itm->attach<Qx::prv::CoreComponent>();
+    auto itm    = scene->addItem<Qx::Rectangle>();;
+    auto pCmp   = itm->attach<Qx::prv::CoreComponent>();
 
 
 
@@ -26,7 +27,7 @@ MainWindow::MainWindow(CoreItem *parent):
     pCmp->process = [cam0](Qx::x_real dlt)
     {
         const Qx::x_vector3 pos = cam0->properties.position();
-        // cam0->properties.setPosition( { pos.x+.71,pos.y+.71, pos.z } );
+        cam0->properties.setPosition( { pos.x+.71,pos.y+.71, pos.z } );
     };
 
 

@@ -3,6 +3,6 @@
 
 
 
-#include QX_DEF_CANVAS_BACKEND
+#include "canvasbase.h"
 
 #endif // CANVAS_H

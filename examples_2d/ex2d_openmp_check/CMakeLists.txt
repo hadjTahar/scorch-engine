@@ -12,3 +12,4 @@ set( QX_CMK_ORG_NAME "QxOrg" )
 
 include( "${CMAKE_SOURCE_DIR}/cmakes/app.cmake" )
 # target_link_libraries( openmp_check PUBLIC OpenMP::OpenMP_CXX)
+qx_use_module( canvas_skia_raster_surface )

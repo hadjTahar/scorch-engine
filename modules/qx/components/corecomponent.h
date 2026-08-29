@@ -1,7 +1,6 @@
 #ifndef CORECOMPONENT_H
 #define CORECOMPONENT_H
 
-#include <rendering/canvas.h>
 #include <core/metaobject.h>
 #include <misc/callbacks.h>
 

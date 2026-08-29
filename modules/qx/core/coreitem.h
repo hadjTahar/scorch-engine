@@ -5,7 +5,7 @@
 #include "metaobject.h"
 
 #include <misc/flags.h>
-#include <rendering/canvas.h>
+#include <canvas/canvas.h>
 #include <rendering/graphicsmodel.h>
 #include <components/corecomponent.h>
 #include <bitset>
@@ -33,12 +33,14 @@ class CoreItem : public MetaObject
 
     friend class GraphicsApp;
     friend class GraphicsScene;
-    friend class GraphicsScene2D;
     friend class GraphicsScene3D;
     friend class GraphicsItem;
     friend class CoreComponent;
     friend class GraphicsWindow;
     friend class CameraController;
+
+    template <typename CanvasType>
+    friend class GraphicsScene2D;
 
 public:
 

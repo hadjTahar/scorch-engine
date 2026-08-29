@@ -26,7 +26,7 @@ class GraphicsWindow : public prv::CoreItem
     friend class CoreComponent;
     friend class Qx::MouseComponent;
     friend class Qx::KeyComponent;
-    friend class GraphicsScene2D;
+    // friend class GraphicsScene2D;
 
     QX_META_OBJECT( GraphicsWindow,
                    MetaItemType::Window,
@@ -45,11 +45,11 @@ public:
     static filament::Engine *filamentEngine();
     static filament::Renderer *filamentRenderer();
     filament::SwapChain *filamentSwapChain() const;
+    SDL_Window   *sdlWindow() const;
+    SDL_Renderer *sdlRenderer();
+
 
 protected:
-    SDL_Window   *sdlWindow() const;
-
-
     void initWindow();
     void processComponents(x_real dlt);
     void render(Canvas*)override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
@@ -85,6 +85,7 @@ private:
     filament::SwapChain       *m_filamentSwapChain;
 
     SDL_Window        *m_sdlWindow;
+    SDL_Renderer      *m_sdlRenderer;
     MouseComponent    *m_lastPresed;
     KeyComponent      *m_focusKeyComponent;
     SequenceEvent      m_sequenceEvent;

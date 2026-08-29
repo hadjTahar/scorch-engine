@@ -54,7 +54,6 @@ enum class DetailsLevel : uint8_t {
 - Fix: Camera controler is flipping the world when mouse clicked
 	- Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
 - Trigs vs strips for better performance
-- Copy qx_old notes
 - Add TypedFunctions to unit tests
 - Filament Canvas:
 	- Filament Canvas 
@@ -93,11 +92,6 @@ enum class DetailsLevel : uint8_t {
 	- Nanolann, ECS (ECSComponent), hash maps, filament, skia, and most vendors as modules
 	- Doc: modular functionalities, it's up to the end user to use or remove modules
 		scene 2D and scene3D as modules???
-	- Folder structure
-		- apps
-		- examples 2D and 3D
-		- modules
-		- vendors
 - Multiple views:
 	- Untested
 	- Fix or remove multiple views
@@ -217,6 +211,15 @@ enum class DetailsLevel : uint8_t {
 	- Ballistic example
 	- Pendulum 
 	- Orbitor
+	- https://haxeflixel.com/demos/FlxSpine/
+	- CSS Examples : 
+    - https://css-tricks.com/how-css-perspective-works/
+    - https://animista.net/play/basic/slide-rotate
+- Example:
+    - https://www.youtube.com/watch?v=27xtugVHhaM
+    - https://www.youtube.com/watch?v=N5MveKXGZo0
+    - https://www.youtube.com/watch?v=gFObo1K-fk0
+    - https://www.youtube.com/watch?v=8v5SrgkC_dI
 	- Particle sim with DynamicVelocity and dynamic fade?
 	- Add Japan example white and red circle
 	- Flight instruments module, Flight Indicator instruments module widgets
@@ -229,3 +232,14 @@ enum class DetailsLevel : uint8_t {
         PulserEffect /Component
         ScalerEffect /Component
 - Check if you can use abseil, AnyInvocable for callbacks, like time, container, maps for assets
+
+
+### On the look-out for
+
+- https://renderdoc.org/
+- https://github.com/wolfpld/tracy
+- https://github.com/google/sanitizers/wiki/addresssanitizer
+- https://github.com/sammycage/lunasvg?tab=readme-ov-file
+- https://github.com/litehtml/litehtml
+- https://github.com/plutoprint/plutobook
+- https://github.com/lumia431/reaction

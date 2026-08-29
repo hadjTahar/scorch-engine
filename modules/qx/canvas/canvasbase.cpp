@@ -6,12 +6,10 @@
 namespace Qx::prv
 {
 
-CanvasBase::CanvasBase(SDL_Window *sdlWin, filament::Scene *filScn):
-    m_sdlWindow{ sdlWin },
-    m_filamentEngine{ GraphicsWindow::filamentEngine() },
-    m_filamentScene{ filScn },
+CanvasBase::CanvasBase(GraphicsWindow *winItm):
+    m_windowItem{ winItm },
     m_sdlTexture{ nullptr },
-    m_sdlRenderer{ nullptr }
+    m_canvasTarget{CanvasTarget::None}
 {
 }
 
@@ -20,16 +18,21 @@ CanvasBase::~CanvasBase()
     if( m_sdlTexture )
         SDL_DestroyTexture( m_sdlTexture );
 
-    if( m_sdlRenderer )
-        SDL_DestroyRenderer( m_sdlRenderer );
 
 }
 
 void CanvasBase::render(const x_size &sz)
 {
-    const CanvasTarget targetTp = QX_DEF_CANVAS_TARGET;
 
-    if constexpr (targetTp == CanvasTarget::SDLSurface ){
+    switch ( m_canvasTarget) {
+    case CanvasTarget::None:
+        dbg_assert( false ) << "CanvasTarget::None is Not supported yet";
+        break;
+    case CanvasTarget::SDLRenderer:
+        renderShapes( sz, {}, {} );
+        break;
+    case CanvasTarget::SDLSurface:
+    {
         auto sdlSurface = updateSDLSurface();
         const auto sdlPxFormat   = sdlSurface->format;
         const auto *sdlPxDetails = SDL_GetPixelFormatDetails( sdlPxFormat );
@@ -38,10 +41,12 @@ void CanvasBase::render(const x_size &sz)
         const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
         renderShapes(sz, pxFormat, alphTp );
         presentToSurface( sdlSurface , sz );
-    }
 
-    /// XX Don't call "presentToTexture( updateSDLTexture( sz ), m_sdlRenderer);"
-    else if constexpr (targetTp == CanvasTarget::SDLTexture ){
+        break;
+    }
+    case CanvasTarget::SDLTexture:
+    {
+        /// XX Don't call "presentToTexture( updateSDLTexture( sz ), sdlRenderer);"
         auto sdlText = updateSDLTexture( sz );
         const auto sdlPxFormat   = sdlText->format;
         const auto *sdlPxDetails = SDL_GetPixelFormatDetails( sdlPxFormat );
@@ -49,15 +54,20 @@ void CanvasBase::render(const x_size &sz)
         const auto pxFormat = static_cast<PixelFormat>( sdlPxFormat);
         const auto alphTp   = pixelAlphaType( sdlPxFormat, sdlPxDetails );
         renderShapes(sz, pxFormat, alphTp );
-        // presentToTexture( sdlText, m_sdlRenderer);
-        presentToTexture( sdlText, m_sdlRenderer, sz);
+        // presentToTexture( sdlText, m_windowItem->sdlRenderer() );
+        presentToTexture( sdlText, m_windowItem->sdlRenderer(), sz);
+        break;
     }
-
-
-    else if constexpr (targetTp == CanvasTarget::GoolgeFilament )
+    case CanvasTarget::GoolgeFilament:
+    {
         dbg_assert( false ) << "CanvasTarget::GoolgeFilament is Not supported yet";
-    else
-        dbg_assert( false ) << "No supported canvas target selected, check QX_OPT_CANVAS_TARGET";
+        break;
+
+    }
+    default:
+        dbg_assert( false ) << "CanvasTarget::default is Not supported yet";
+        break;
+    }
     m_shapes.clear();
 }
 
@@ -192,16 +202,7 @@ void CanvasBase::setAntialias(bool newAntialias)
     m_antialias = newAntialias;
 }
 
-filament::Engine *CanvasBase::filamentEngine() const
-{
-    return m_filamentEngine;
-}
 
-
-filament::Scene *CanvasBase::filamentScene() const
-{
-    return m_filamentScene;
-}
 
 x_matrix4x4 CanvasBase::matrix() const
 {
@@ -232,15 +233,12 @@ PixelAlphaType CanvasBase::pixelAlphaType(SDL_PixelFormat sdlPxFormat,
 
 SDL_Surface *CanvasBase::updateSDLSurface()
 {
-    auto ret = SDL_GetWindowSurface( m_sdlWindow );
+    auto ret = SDL_GetWindowSurface( m_windowItem->sdlWindow() );
     return ret;
 }
 
 SDL_Texture *CanvasBase::updateSDLTexture(const x_size &sz)
 {
-    if( !m_sdlRenderer )
-        m_sdlRenderer = SDL_CreateRenderer( m_sdlWindow, "" );
-
     x_real ww=0;
     x_real hh=0;
     const auto res = m_sdlTexture &&
@@ -256,7 +254,7 @@ SDL_Texture *CanvasBase::updateSDLTexture(const x_size &sz)
         SDL_DestroyTexture( m_sdlTexture );
 
     m_sdlTexture = SDL_CreateTexture(
-        m_sdlRenderer,
+        m_windowItem->sdlRenderer(),
         SDL_PIXELFORMAT_XRGB8888,
         SDL_TEXTUREACCESS_STREAMING,
         sz.width,

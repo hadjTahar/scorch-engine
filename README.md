@@ -18,6 +18,8 @@ Built on the shoulders of powerful C++ libraries: SDL, Skia, Filament, and more.
 
 There are incredible C++ libraries for almost every part of application and game development. What I find missing is a framework that brings them together into one coherent, modern, cross-platform engine.
 
+It's not a fully fleged engine, but it gives you the tools and the foundations to build and expand it on your own.
+
 
 
 That's Scorch.

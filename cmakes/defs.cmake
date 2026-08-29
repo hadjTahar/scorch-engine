@@ -61,8 +61,6 @@ target_compile_definitions( qx PUBLIC "QX_DEF_VERTEX_COUNT_WARNNING=${QX_OPT_VER
 target_compile_definitions( qx PUBLIC "QX_DEF_INDEX_COUNT_WARNNING=${QX_OPT_INDEX_COUNT_WARNNING}" )
 target_compile_definitions( qx PUBLIC "QX_DEF_3D_GEOMETRY_TRACKERS=${QX_OPT_3D_GEOMETRY_TRACKERS}" )
 
-target_compile_definitions( qx PUBLIC QX_DEF_CANVAS_BACKEND=\"canvas_backends/${QX_OPT_CANVAS_BACKEND}.h\" )
-target_compile_definitions( qx PUBLIC "QX_DEF_CANVAS_TARGET=${QX_OPT_CANVAS_TARGET}" )
 
 
 

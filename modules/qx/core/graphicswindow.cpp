@@ -25,6 +25,7 @@ GraphicsWindow::GraphicsWindow(CoreItem *parent):
     properties{ *this },
     m_filamentSwapChain{ nullptr },
     m_sdlWindow{ nullptr },
+    m_sdlRenderer{ nullptr },
     m_lastPresed{ nullptr },
     m_focusKeyComponent{ nullptr },
     m_sequenceEvent{0,0,0,0}
@@ -67,6 +68,10 @@ GraphicsWindow::~GraphicsWindow()
     m_filamentEngine->destroy( m_filamentSwapChain );
     m_filamentEngine->flushAndWait();
     GraphicsApp::app->windowRemoved( this );
+
+    if( m_sdlRenderer )
+        SDL_DestroyRenderer( m_sdlRenderer );
+
     if( m_sdlWindow )
         SDL_DestroyWindow( m_sdlWindow );
 }
@@ -102,6 +107,7 @@ void GraphicsWindow::initWindow()
         hh,                          // height
         QX_DEF_SDL_WINDOW_OPTIONS    // window flags
         );
+
 
     if( !m_sdlWindow )
         GraphicsApp::app->exit( "SDL_CreateWindow can't create a window" );
@@ -479,6 +485,16 @@ filament::SwapChain *GraphicsWindow::filamentSwapChain() const
 SDL_Window *GraphicsWindow::sdlWindow() const
 {
     return m_sdlWindow;
+}
+
+SDL_Renderer *GraphicsWindow::sdlRenderer()
+{
+    if( !m_sdlRenderer ){
+        m_sdlRenderer = SDL_CreateRenderer( m_sdlWindow, "" );
+        dbg_assert( m_sdlRenderer ) << "Could not create SDL Renderer";
+    }
+
+    return m_sdlRenderer;
 }
 
 

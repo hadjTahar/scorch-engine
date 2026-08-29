@@ -8,18 +8,20 @@
 #include <misc/pixelformats.h>
 
 #include <SDL3/SDL_render.h>
-#include <filament/Engine.h>
-#include <filament/Scene.h>
 
 namespace Qx::prv
 {
+
+class GraphicsWindow;
+
+
 
 class CanvasBase : public MetaObject
 {
     QX_META_OBJECT( CanvasBase, MetaItemType::NA, MetaItemType::NA)
 
 public:
-    CanvasBase(SDL_Window *sdlWin, filament::Scene *filScn );
+    CanvasBase( GraphicsWindow *winItm);
     virtual ~CanvasBase();
 
     virtual BackendResult initBackend(const x_size &sz)
@@ -54,6 +56,7 @@ public:
                        "CanvasBase::presentToTexture";
     }
 
+public:
 
     void render(const x_size &sz);
 
@@ -86,9 +89,6 @@ public:
     bool antialias() const;
     void setAntialias(bool newAntialias);
 
-    filament::Engine   *filamentEngine() const;
-    filament::Scene    *filamentScene() const;
-
     x_matrix4x4 matrix() const;
     void setMatrix(const x_matrix4x4 &newMatrix);
 
@@ -101,19 +101,23 @@ private:
     SDL_Texture *updateSDLTexture(const x_size &sz);
 
 protected:
-    std::vector<CanvasShape> m_shapes;
-    SDL_Window           *m_sdlWindow;
-    filament::Engine     *m_filamentEngine;
-    filament::Scene      *m_filamentScene;
+    std::vector<CanvasShape>  m_shapes;
+    GraphicsWindow       *m_windowItem;
     x_matrix4x4           m_matrix;
     bool                  m_antialias;
-
+    CanvasTarget          m_canvasTarget;
 
     /// ## Targets
-    SDL_Renderer *m_sdlRenderer;
     SDL_Texture  *m_sdlTexture;
 
 };
+
+
+
+}
+
+namespace Qx {
+using Canvas = prv::CanvasBase;
 
 }
 

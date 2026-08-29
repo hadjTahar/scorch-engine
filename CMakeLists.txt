@@ -7,27 +7,15 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 ### -----------------
 ### Rendering Options
-### ------------------
+### ------------------x
 
 set( QX_OPT_SDL_INIT_OPTIONS         "SDL_INIT_VIDEO")
 
 ### Filament does not like the "SDL_WINDOW_OPENGL" option
 set( QX_OPT_SDL_WINDOW_OPTIONS
-    "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY  /*|SDL_WINDOW_OPENGL*/")
-
-### Check "qx/rendering/canvas_backends" for available backends
-### Clear the cmake configs, after chaning the backend,
-### "skia_opengl" needs "SDL_WINDOW_OPENGL", but filament won't work
-set( QX_OPT_CANVAS_BACKEND "skia_raster" )
-
-set(QX_CMK_CANVAS_SKIA "$<$<MATCHES:${QX_OPT_CANVAS_BACKEND},^skia_>:ON,OFF>")
+    "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY |SDL_WINDOW_OPENGL")
 
 
-### filament clashes with SDL rendering
-### If you want filament 3D along with canvas 2D
-### Choose "CanvasTarget::GoolgeFilament"
-### For more options check CanvasTarget enum in flags.h
-set( QX_OPT_CANVAS_TARGET CanvasTarget::SDLSurface )
 
 set( QX_OPT_ENABLE_2D_Z_SORTING      true )
 
@@ -55,8 +43,8 @@ set( QX_OPT_DEBUG_DETAILS            4)
 ### 5 : + dbg_warning
 ### 6 : + dbg_info
 ### 7 : + dbg_tips
-set( QX_OPT_DEBUG_LEVEL              2)
-
+set( QX_OPT_DEBUG_LEVEL              2  )
+set( QX_OPT_HIDE_TERMINAL            OFF)
 
 
 ## Disables, asserts, leak tracking, and meta item
@@ -131,7 +119,7 @@ add_subdirectory( vendors )
 ### ----------------
 
 add_subdirectory( examples_2d   examples_2d_build)
-add_subdirectory( examples_3d   examples_3d_build)
+# add_subdirectory( examples_3d   examples_3d_build)
 # add_subdirectory( tests         tests_build)
 # add_subdirectory( benchmarks    benchmarks_build)
 
