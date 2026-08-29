@@ -1,5 +1,7 @@
 # Temporary To do:
-
+Create FilamantModel
+Graphics Model to MeshModel
+GraphicsModel must not copy the vectors data
 
 qx_3D
 
