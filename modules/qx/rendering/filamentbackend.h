@@ -3,6 +3,7 @@
 
 #include "renderbackendbase.h"
 #include <filament/Engine.h>
+#include <properties/cameraproperties.h>
 
 
 
@@ -13,20 +14,42 @@ class FilamentBackend : public prv::RenderBackendBase
 {
 public:
     FilamentBackend( prv::GraphicsWindow *winItm);
+    ~FilamentBackend();
+
+    /// ## Called when scene destroy
+    void destroyScene();
+
+    /// ## Called when window destroy
+    void destroySwapChain();
+
+    /// ## Called when app destroy
+    static void destroyEngine();
 
 
-    virtual prv::BackendResult initBackend(const x_size &sz);
-    virtual prv::BackendResult renderMeshModel(const MeshModel *mshModel);
+
+
+
+    prv::BackendResult beginFrame() override;
+    prv::BackendResult endFrame() override;
+    prv::BackendResult initBackend(const x_size &sz) override;
+    prv::BackendResult renderGraphicsView( prv::GraphicsView *grphxView ) override;
+    prv::BackendResult renderMeshModel(const MeshModel *mshModel) override;
+
+
+protected:
+    void applyCamera( const prv::CameraProperties &camProperties );
 
 protected:
 
+    inline static bool                m_created{false};
     inline static filament::Engine   *m_filamentEngine{nullptr};
     inline static filament::Renderer *m_filamentRenderer{nullptr};
 
 
-    filament::SwapChain       *m_filamentSwapChain;
-
-    /// ## Scene, view, camera
+    filament::SwapChain *m_filamentSwapChain;
+    filament::Scene     *m_filamentScene;
+    filament::View      *m_filamentView;
+    filament::Camera    *m_filamentCamera;
 
 
 };

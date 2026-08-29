@@ -44,9 +44,6 @@ public:
     void setFullScreen();
     Screen screen() const;
 
-    static filament::Engine *filamentEngine();
-    static filament::Renderer *filamentRenderer();
-    filament::SwapChain *filamentSwapChain() const;
     SDL_Window   *sdlWindow() const;
     SDL_Renderer *sdlRenderer();
 
@@ -82,9 +79,6 @@ private:
     static bool sortCmp(CoreComponent *cmp0, CoreComponent *cmp1);
 
 private:
-    static filament::Engine   *m_filamentEngine;
-    static filament::Renderer *m_filamentRenderer;
-    filament::SwapChain       *m_filamentSwapChain;
 
     void              *m_renderBackendSwapChain;
 

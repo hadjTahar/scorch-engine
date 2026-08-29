@@ -18,8 +18,6 @@ MainWindow::MainWindow(CoreItem *parent):
     auto vw0     = scene3D->addView();
     auto cam0    = vw0->camera();
     cam0->reset3DPerspectiveCamera( screen() );
-    // cam0->reset3DOrthoCamera( screen(),
-    //                          Qx::x_aabb{{-1920, -1080, -1000 },{1920, 1080, 1000}} );
 
 
     auto wrldItm = scene3D->addItem<Qx::WorldItem>();

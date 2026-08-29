@@ -17,6 +17,27 @@ BackendResult RenderBackendBase::initBackend(const x_size &sz)
     return BackendResult::SUCCESS;
 }
 
+BackendResult RenderBackendBase::beginFrame()
+{
+    dbg_print() << "beginFrame is not implemented, defaulting to "
+                   "BackendResult::beginFrame";
+    return BackendResult::SUCCESS;
+}
+
+BackendResult RenderBackendBase::endFrame()
+{
+    dbg_print() << "beginFrame is not implemented, defaulting to "
+                   "BackendResult::beginFrame";
+    return BackendResult::SUCCESS;
+}
+
+BackendResult RenderBackendBase::renderGraphicsView(prv::GraphicsView *grphxView)
+{
+    dbg_print() << "renderGraphicsView is not implemented, defaulting to "
+                   "BackendResult::renderGraphicsView";
+    return BackendResult::SUCCESS;
+}
+
 BackendResult RenderBackendBase::renderMeshModel(const MeshModel *mshModel)
 {
     dbg_print() << "renderMeshModel is not implemented, defaulting to "

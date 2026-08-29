@@ -26,7 +26,6 @@ public:
     virtual void renderViews( GraphicsWindow *winItm ) = 0;
     std::vector<GraphicsItem *> items() const;
 
-    filament::Scene *filamentScene() const;
 
 protected:
     void render(Canvas *) override final{}
@@ -57,7 +56,6 @@ private:
 protected:
     std::vector<std::unique_ptr<GraphicsView>> m_views;
     std::vector<GraphicsItem*>   m_items;
-    filament::Scene             *m_filamentScene;
 
 };
 

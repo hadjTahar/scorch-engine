@@ -1,19 +1,14 @@
 #include "graphicsscene.h"
 
 Qx::prv::GraphicsScene::GraphicsScene(CoreItem *parent):
-    GraphicsItem{ parent },
-    m_filamentScene{ nullptr }
+    GraphicsItem{ parent }
 {
     m_graphicsScene = this;
-    auto engine = GraphicsWindow::filamentEngine();
-    m_filamentScene  = engine->createScene();
 }
 
 Qx::prv::GraphicsScene::~GraphicsScene()
 {
     m_items.clear();
-    auto engine = GraphicsWindow::filamentEngine();
-    engine->destroy( m_filamentScene );
 }
 
 void Qx::prv::GraphicsScene::registerItem(GraphicsItem *itm)
@@ -52,7 +47,3 @@ Qx::prv::GraphicsView *Qx::prv::GraphicsScene::addView()
 }
 
 
-filament::Scene *Qx::prv::GraphicsScene::filamentScene() const
-{
-    return m_filamentScene;
-}

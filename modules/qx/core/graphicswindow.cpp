@@ -17,13 +17,9 @@
 namespace Qx::prv
 {
 
-filament::Engine    *GraphicsWindow::m_filamentEngine   = nullptr;
-filament::Renderer  *GraphicsWindow::m_filamentRenderer = nullptr;
-
 GraphicsWindow::GraphicsWindow(CoreItem *parent):
     CoreItem{ parent },
     properties{ *this },
-    m_filamentSwapChain{ nullptr },
     m_renderBackendSwapChain{ nullptr },
     m_sdlWindow{ nullptr },
     m_sdlRenderer{ nullptr },
@@ -36,36 +32,11 @@ GraphicsWindow::GraphicsWindow(CoreItem *parent):
     initWindow();
     dbg_assert( m_sdlWindow ) << "Invalid m_sdlWindow";
 
-    if( !m_filamentEngine )
-        m_filamentEngine = filament::Engine::create();
-
-    if( !m_filamentRenderer )
-        m_filamentRenderer  = m_filamentEngine->createRenderer();
-
-    dbg_assert( m_filamentEngine )   << "Invalid m_filamentEngine";
-    dbg_assert( m_filamentRenderer ) << "Invalid m_filamentRenderer";
-
-
-    // Set up the clear options
-    filament::Renderer::ClearOptions clearOptions;
-    clearOptions.clearColor = {0.f, 0.f, 0.f, 1.0f}; // Set to dark grey
-    clearOptions.clear = true; // Enable clearing the color buffer
-    clearOptions.discard = true; // Optimization: discard contents after use
-
-    m_filamentRenderer->setClearOptions(clearOptions);
-
-
-
-    auto nativeWin = Platfrom::nativeWindowHandle(m_sdlWindow);
-    m_filamentSwapChain = m_filamentEngine->createSwapChain( nativeWin );
-    dbg_assert( m_filamentSwapChain ) << "Invalid m_filamentSwapChain";
 }
 
 GraphicsWindow::~GraphicsWindow()
 {
     clearChildren();
-    m_filamentEngine->destroy( m_filamentSwapChain );
-    m_filamentEngine->flushAndWait();
     GraphicsApp::app->windowRemoved( this );
 
     if( m_sdlRenderer )
@@ -464,22 +435,6 @@ bool GraphicsWindow::sortCmp(CoreComponent *cmp0, CoreComponent *cmp1)
     return index0 < index1;
 }
 
-
-filament::Engine *GraphicsWindow::filamentEngine()
-{
-    return m_filamentEngine;
-}
-
-filament::Renderer *GraphicsWindow::filamentRenderer()
-{
-    return m_filamentRenderer;
-}
-
-
-filament::SwapChain *GraphicsWindow::filamentSwapChain() const
-{
-    return m_filamentSwapChain;
-}
 
 SDL_Window *GraphicsWindow::sdlWindow() const
 {

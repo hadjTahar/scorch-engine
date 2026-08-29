@@ -37,6 +37,22 @@ public:
 
         if( !m_backend )
             return;
+
+        /// ## Render the models to the views
+        const auto res = m_backend->beginFrame() == BackendResult::SUCCESS;
+        dbg_print() << res;
+        // dbg_assert( res ) << "Renderer::beginFrame failed : " << res;
+        if( !res ){
+            dbg_print() << "Renderer::beginFrame failed : " << res;
+            return;
+        }
+
+        const auto vldSz = m_views.empty() || m_views.size() == 1;
+        dbg_assert( vldSz ) << "3D only supports one GraphicsView for now";
+        for ( auto &vw : m_views)
+            m_backend->renderGraphicsView( vw.get() );
+
+        m_backend->endFrame();
     }
 
 protected:

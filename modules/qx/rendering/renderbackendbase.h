@@ -20,6 +20,9 @@ class RenderBackendBase : public MetaObject
 public:
     RenderBackendBase(GraphicsWindow *winItm);
     virtual BackendResult initBackend(const x_size &sz);
+    virtual BackendResult beginFrame();
+    virtual BackendResult endFrame();
+    virtual BackendResult renderGraphicsView( prv::GraphicsView *grphxView );
     virtual BackendResult renderMeshModel(const MeshModel *mshModel);
 
 protected:
