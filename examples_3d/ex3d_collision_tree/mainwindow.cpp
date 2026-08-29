@@ -74,11 +74,11 @@ struct CollisionsContainer {
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
-    auto scene = addItem<Qx::prv::GraphicsScene2D>();
-    auto vw0 = scene->addView();
-    auto cam0 = vw0->camera();
-    auto itm = scene->addItem<Qx::Rectangle>();
+    // auto scene = addItem<Qx::prv::GraphicsScene2D>();
+    // auto vw0 = scene->addView();
+    // auto cam0 = vw0->camera();
+    // auto itm = scene->addItem<Qx::Rectangle>();
 
-    CollisionsContainer cloud;
-    Qx::CollisionsTree<CollisionsContainer>::search( cloud, 1 );
+    // CollisionsContainer cloud;
+    // Qx::CollisionsTree<CollisionsContainer>::search( cloud, 1 );
 }

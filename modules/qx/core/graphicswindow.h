@@ -26,6 +26,8 @@ class GraphicsWindow : public prv::CoreItem
     friend class CoreComponent;
     friend class Qx::MouseComponent;
     friend class Qx::KeyComponent;
+    friend class RenderBackendBase;
+
     // friend class GraphicsScene2D;
 
     QX_META_OBJECT( GraphicsWindow,
@@ -83,6 +85,8 @@ private:
     static filament::Engine   *m_filamentEngine;
     static filament::Renderer *m_filamentRenderer;
     filament::SwapChain       *m_filamentSwapChain;
+
+    void              *m_renderBackendSwapChain;
 
     SDL_Window        *m_sdlWindow;
     SDL_Renderer      *m_sdlRenderer;

@@ -12,8 +12,9 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set( QX_OPT_SDL_INIT_OPTIONS         "SDL_INIT_VIDEO")
 
 ### Filament does not like the "SDL_WINDOW_OPENGL" option
+# |SDL_WINDOW_OPENGL
 set( QX_OPT_SDL_WINDOW_OPTIONS
-    "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY |SDL_WINDOW_OPENGL")
+    "SDL_WINDOW_MAXIMIZED|SDL_WINDOW_RESIZABLE|SDL_WINDOW_HIGH_PIXEL_DENSITY")
 
 
 
@@ -118,8 +119,8 @@ add_subdirectory( vendors )
 ### Executables
 ### ----------------
 
-add_subdirectory( examples_2d   examples_2d_build)
-# add_subdirectory( examples_3d   examples_3d_build)
+# add_subdirectory( examples_2d   examples_2d_build)
+add_subdirectory( examples_3d   examples_3d_build)
 # add_subdirectory( tests         tests_build)
 # add_subdirectory( benchmarks    benchmarks_build)
 

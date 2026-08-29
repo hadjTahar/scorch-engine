@@ -3,14 +3,18 @@
 #include <items/rectangle.h>
 #include <core/graphicsitem2d.h>
 #include <core/graphicsscene3d.h>
+#include <core/newgraphicsscene3d.h>
 #include <primitives/cube.h>
 #include <primitives/worlditem.h>
 #include <components/cameracontroller.h>
+#include <rendering/filamentbackend.h>
+#include <rendering/renderbackendbase.h>
 
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
-    auto scene3D = addItem<Qx::prv::GraphicsScene3D>();
+    auto scene3D = addItem<Qx::prv::NewGraphicsScene3D<Qx::Backend::FilamentBackend> >();
+
     auto vw0     = scene3D->addView();
     auto cam0    = vw0->camera();
     cam0->reset3DPerspectiveCamera( screen() );

@@ -24,6 +24,7 @@ GraphicsWindow::GraphicsWindow(CoreItem *parent):
     CoreItem{ parent },
     properties{ *this },
     m_filamentSwapChain{ nullptr },
+    m_renderBackendSwapChain{ nullptr },
     m_sdlWindow{ nullptr },
     m_sdlRenderer{ nullptr },
     m_lastPresed{ nullptr },
