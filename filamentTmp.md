@@ -1,21 +1,4 @@
-#include "graphicsscene3d.h"
-
-
-#include <utils/EntityManager.h>
-#include <filament/Viewport.h>
-#include <filament/View.h>
-#include <filament/Renderer.h>
-#include <filament/Scene.h>
-
-#include <filament/IndexBuffer.h>
-#include <filament/VertexBuffer.h>
-#include <filament/RenderableManager.h>
-
-#include <filament/Material.h>
-#include <filament/MaterialInstance.h>
-#include <filament/Camera.h>
-#include <filament/Skybox.h>
-#include <filament/Engine.h>
+Work on resetCounters and ready
 
 ------------------------------------------------------------
 

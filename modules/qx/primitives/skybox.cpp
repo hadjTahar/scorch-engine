@@ -15,7 +15,7 @@ SkyBox::~SkyBox()
 {
 }
 
-void SkyBox::updateModel()
+void SkyBox::updateModel(GraphicsModel *graphicsModel)
 {
 
     // skybox as an item

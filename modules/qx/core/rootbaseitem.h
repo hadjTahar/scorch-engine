@@ -29,7 +29,7 @@ public:
 
 protected:
     void render(Canvas*)        override final{dbg_assert(false) << "RootBaseItem::render should never be called";}
-    void updateModel() override final{dbg_assert(false) << "RootBaseItem::render should never be called";}
+    void updateModel( GraphicsModel * ) override final{dbg_assert(false) << "RootBaseItem::render should never be called";}
 };
 
 }

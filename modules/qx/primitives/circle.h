@@ -22,7 +22,7 @@ public:
     ~Circle();
 
 protected:
-    void updateModel() override;
+    void updateModel( GraphicsModel *graphicsModel ) override;
 
 };
 

@@ -28,12 +28,21 @@ class GraphicsWindow;
 class CoreItem;
 using SmartItem = std::unique_ptr<CoreItem>;
 
+
+template <typename CanvasType>
+class GraphicsScene2D;
+
+
+template <typename BackendType>
+class NewGraphicsScene3D;
+
+
+
 class CoreItem : public MetaObject
 {
 
     friend class GraphicsApp;
     friend class GraphicsScene;
-    friend class GraphicsScene3D;
     friend class GraphicsItem;
     friend class CoreComponent;
     friend class GraphicsWindow;
@@ -41,6 +50,9 @@ class CoreItem : public MetaObject
 
     template <typename CanvasType>
     friend class GraphicsScene2D;
+
+    template <typename BackendType>
+    friend class NewGraphicsScene3D;
 
 public:
 
@@ -148,7 +160,7 @@ protected:
 
 protected:
     virtual void render(Canvas *canvas) = 0;
-    virtual void updateModel() = 0;
+    virtual void updateModel( GraphicsModel *graphicsModel ) = 0;
 
     void updateItem(MetaItemType sceneType );
 

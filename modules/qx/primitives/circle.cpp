@@ -7,34 +7,36 @@ namespace Qx {
 Circle::Circle(CoreItem *parent):
     prv::GraphicsItem3D{ parent }
 {
-
-    m_graphicsModel->initModel( 4, 6);
-    m_graphicsModel->shaderSource = ":/materials/glow.filamat";
-    m_graphicsModel->shaderName   = "glow";
-
-    // m_graphicsModel->shaderSource = ":/materials/blue.filamat";
-    // m_graphicsModel->shaderName   = "blue";
-
-
-    m_graphicsModel->enableIndices   = true;
-    m_graphicsModel->enablePositions = true;
-    m_graphicsModel->enableUVS       = true;
-    m_graphicsModel->autoReset       = true;
-
-    m_graphicsModel->aabb = {{ 0.0f,  20.0f,  .0f }, { 20.0f, 0.0f,  .0f }};
-    m_graphicsModel->culling = true;
-    m_graphicsModel->changed = true;
-    m_graphicsModel->ready   = true;
-    m_graphicsModel->primitiveType = Qx::v_primitive::Triangles;
 }
 
 Circle::~Circle()
 {
 }
 
-void Circle::updateModel()
+void Circle::updateModel(GraphicsModel *graphicsModel)
 {
-    auto mesh = m_graphicsModel->requestMesh( 4, 6 );
+
+    graphicsModel->initModel( 4, 6);
+    graphicsModel->shaderSource = ":/materials/glow.filamat";
+    graphicsModel->shaderName   = "glow";
+
+    // graphicsModel->shaderSource = ":/materials/blue.filamat";
+    // graphicsModel->shaderName   = "blue";
+
+
+    graphicsModel->enableIndices   = true;
+    graphicsModel->enablePositions = true;
+    graphicsModel->enableUVS       = true;
+    graphicsModel->autoReset       = true;
+
+    graphicsModel->aabb = {{ 0.0f,  20.0f,  .0f }, { 20.0f, 0.0f,  .0f }};
+    graphicsModel->culling = true;
+    graphicsModel->changed = true;
+    graphicsModel->ready   = true;
+    graphicsModel->primitiveType = Qx::v_primitive::Triangles;
+
+
+    auto mesh = graphicsModel->requestMesh( 4, 6 );
 
     // // Define 4 corners of a flat quad/rectangle
     mesh.copyVertexPositions(

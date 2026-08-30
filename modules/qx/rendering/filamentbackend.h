@@ -35,6 +35,12 @@ public:
     prv::BackendResult renderMeshModel(const MeshModel *mshModel) override;
 
 
+    filament::Scene *filamentScene() const;
+
+    static filament::Engine *filamentEngine();
+
+    static filament::Renderer *filamentRenderer();
+
 protected:
     prv::BackendResult addView( prv::GraphicsView *vw );
     void applyCamera( filament::Camera* flmntCam,

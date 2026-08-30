@@ -8,26 +8,41 @@ WorldItem::WorldItem(CoreItem *parent):
     m_worldMax{  100,  100,  100 }
 {
 
-    m_graphicsModel->initModel( 8, 24);
-
-    m_graphicsModel->enableIndices   = true;
-    m_graphicsModel->enablePositions = true;
-    m_graphicsModel->enableUVS       = false;
-    m_graphicsModel->autoReset       = false;
 
 
-    m_graphicsModel->shaderSource = ":/materials/wireframe.filamat";
-    m_graphicsModel->shaderName   = "wireframe";
-    m_graphicsModel->aabb = {
+
+    auto wrldCmp  =  attach<prv::CoreComponent>();
+    wrldCmp->process = [this]( x_real )
+    {
+        updateRender();
+    };
+
+}
+
+void WorldItem::updateModel( GraphicsModel *graphicsModel )
+{
+    if( graphicsModel->ready )
+        return;
+    graphicsModel->initModel( 8, 24);
+
+    graphicsModel->enableIndices   = true;
+    graphicsModel->enablePositions = true;
+    graphicsModel->enableUVS       = false;
+    graphicsModel->autoReset       = false;
+
+
+    graphicsModel->shaderSource = ":/materials/wireframe.filamat";
+    graphicsModel->shaderName   = "wireframe";
+    graphicsModel->aabb = {
         { m_worldMin.x,  m_worldMin.y, m_worldMin.z },
         { m_worldMax.x,  m_worldMax.y, m_worldMax.z }
     };
-    m_graphicsModel->culling = true;
-    m_graphicsModel->changed = true;
-    m_graphicsModel->ready   = true;
-    m_graphicsModel->primitiveType = Qx::v_primitive::Lines;
+    graphicsModel->culling = true;
+    graphicsModel->changed = true;
+    graphicsModel->ready   = true;
+    graphicsModel->primitiveType = Qx::v_primitive::Lines;
 
-    auto mesh = m_graphicsModel->requestMesh( 8, 24);
+    auto mesh = graphicsModel->requestMesh( 8, 24);
     mesh.copyVertexPositions(
         {
             {m_worldMin.x, m_worldMin.y, m_worldMin.z}, // 0
@@ -49,19 +64,6 @@ WorldItem::WorldItem(CoreItem *parent):
             // Vertical connec ting edges
             0, 4,  1, 5,  2, 6,  3, 7
         });
-
-
-    auto wrldCmp  =  attach<prv::CoreComponent>();
-    wrldCmp->process = [this]( x_real )
-    {
-        updateRender();
-    };
-
-}
-
-void WorldItem::updateModel()
-{
-
 }
 
 x_vector3 WorldItem::worldMax() const

@@ -52,7 +52,7 @@ protected:
     void initWindow();
     void processComponents(x_real dlt);
     void render(Canvas*)override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
-    void updateModel()override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
+    void updateModel( GraphicsModel * )override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
     inline AppResult processEvents();
     AppResult event(const SDL_Event * const event);
     AppResult handleEvent(const SDL_Event * const event);

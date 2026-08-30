@@ -97,7 +97,7 @@ prv::BackendResult FilamentBackend::initBackend(const x_size &sz)
 
     // Set up the clear options
     filament::Renderer::ClearOptions clearOptions;
-    clearOptions.clearColor = {1.f, 0.f, 0.f, 1.0f};
+    clearOptions.clearColor = {0.f, 0.f, 0.f, 1.0f};
     clearOptions.clear = true; // Enable clearing the color buffer
     clearOptions.discard = true; // Optimization: discard contents after use
 
@@ -232,6 +232,21 @@ void FilamentBackend::applyCamera(filament::Camera *flmntCam,
     filament::math::float3 center(camFrw.x, camFrw.y, camFrw.z);
     filament::math::float3 up(camUp.x, camUp.y, camUp.z);
     flmntCam->lookAt(eye, center, up);
+}
+
+filament::Renderer *FilamentBackend::filamentRenderer()
+{
+    return m_filamentRenderer;
+}
+
+filament::Engine *FilamentBackend::filamentEngine()
+{
+    return m_filamentEngine;
+}
+
+filament::Scene *FilamentBackend::filamentScene() const
+{
+    return m_filamentScene;
 }
 
 

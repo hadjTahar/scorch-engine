@@ -34,12 +34,51 @@ public:
 
     void renderViews(GraphicsWindow *winItm ) override final
     {
-        // return;
 
         if( !m_backend )
             return;
 
+
+        auto filamentEng = BackendType::filamentEngine();
+        auto filamentRdr = BackendType::filamentRenderer();
+        auto filamentScn = m_backend->filamentScene();
+
+        /// ## Update the models
+        for (auto itm : m_items) {
+            auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
+            const auto itmRdr = item3D->rendering;
+            auto model  = item3D->graphicsModel();
+
+
+            // if( model->autoReset ){
+            //     model->ready = false;
+            //     model->resetMeshCounters();
+            // }
+            item3D->updateModel( model );
+            if( !model->ready )
+                continue;
+
+
+            model->setTransform( item3D->transform.pivotTransform() );
+            if( itmRdr.ignoreCamera() ){
+                dbg_warning() << "Ignore camera is not supported for 3D items...";
+                /// ## We can ignore the camera by using the inverse matrix of
+                /// ## the camera, but which camera,
+                /// ## One solution would be, to push items with 'ignoreCamera'
+                /// ## to a vector, and add an internal loop inside 'for ( auto &vw : m_views)'
+                /// ## to apply the inverse matrix
+            }
+            /// ## Matrix transfoms are handled in ::renderModel
+            model->renderModel( filamentEng, filamentScn );
+        }
+
+        GraphicsModel::printTrackers( filamentScn );
+
+
+
+
         /// ## Render the models to the views
+        /// ## ---------------------------------------
         const auto res = m_backend->beginFrame() == BackendResult::SUCCESS;
         // dbg_assert( res ) << "Renderer::beginFrame failed : " << res;
         if( !res ){
@@ -55,7 +94,6 @@ public:
             auto &vw = m_views[idx];
             m_backend->renderGraphicsView( vw.get(), idx );
         }
-
         m_backend->endFrame();
     }
 

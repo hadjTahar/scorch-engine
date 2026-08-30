@@ -23,7 +23,9 @@ void GraphicsItem3D::render(Canvas *)
 
 GraphicsModel *GraphicsItem3D::graphicsModel() const
 {
-    return m_graphicsModel.get();
+    auto ret = m_graphicsModel.get();
+    dbg_assert( ret )<< "m_graphicsModel is null";
+    return ret;
 }
 
 

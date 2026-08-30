@@ -43,6 +43,10 @@ enum class v_primitive : uint8_t
 
 namespace prv {
 class GraphicsScene3D;
+
+template <typename BackendType>
+class NewGraphicsScene3D;
+
 }
 
 class GraphicsModel : public prv::MetaObject
@@ -55,7 +59,9 @@ class GraphicsModel : public prv::MetaObject
 public:
     GraphicsModel();
     ~GraphicsModel();
-    friend class prv::GraphicsScene3D;
+
+    template <typename BackendType>
+    friend class prv::NewGraphicsScene3D;
 
 public:
 
