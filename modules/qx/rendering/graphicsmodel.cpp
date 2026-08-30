@@ -16,7 +16,7 @@ GraphicsModel::GraphicsModel()
 
 GraphicsModel::~GraphicsModel()
 {
-    resetModel( true );
+    clearBackendBuffers();
 }
 
 void GraphicsModel::initModel(x_count maxVertices, x_count maxIndices )
@@ -252,11 +252,11 @@ void GraphicsModel::updateEntity()
     renderEntity();
 }
 
-void GraphicsModel::resetModel(bool resetMat)
+void GraphicsModel::clearBackendBuffers()
 {
+    dbg_print() << "GraphicsModel::clearBackendBuffers" << std::endl;
     resetEntity();
-    if( resetMat )
-        resetMaterial();
+    resetMaterial();
     resetVertexBuffers();
     resetIndexBuffer();
 }

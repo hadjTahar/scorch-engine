@@ -1,36 +1,29 @@
 Work on resetCounters and ready
 
-------------------------------------------------------------
 
-MeshModelBase
 
-Part data buffers 
-Other part backend buffers
-But how to set the other half?
 
 ------------------------------------------------------------
 
-virtual MeshModelBase RenderBackend::createMeshModel()
+### MeshModelBase:
 
-If null don’t call updateModel
-Rename it to updateMeshModel
-FilamantModel : public MeshModelBase
+- Part data buffers 
+- Other part backend buffers
 
-------------------------------------------------------------
 
-Make it private and pass it to updateModel
-What about requesting 
+- If null don’t call updateModel
+- Rename it to updateMeshModel
+- FilamantModel : public MeshModelBase
+- virtual void clearBackendBuffers()
+- virtual MeshModelBase RenderBackend::createMeshModel()
 
 ------------------------------------------------------------------
 
-FilamentBackend::destroyEngine
+Check that filament backend is destroying everything
 m_filamentView->setViewport, size from GraphicsView, fixed or relative
 Doc: Filament for now only supports beign used for one scene only
 
-------------------------------------------------------------------
+- Abstract the filament options, bloom, and render, make them part of GraphicsView
 
-Add multiple views:
-	- renderView( view, index )
-	- assert the index
 
 

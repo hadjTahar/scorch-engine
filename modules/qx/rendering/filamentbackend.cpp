@@ -23,6 +23,7 @@ FilamentBackend::FilamentBackend(prv::GraphicsWindow *winItm):
 
 FilamentBackend::~FilamentBackend()
 {
+    dbg_print() << "~FilamentBackend";
     destroyScene();
     destroySwapChain();
     destroyEngine();

@@ -23,6 +23,19 @@ public:
     {
         m_itemType = ItemType::GraphicsScene3D;
     }
+    ~NewGraphicsScene3D()
+    {
+        /// ## Make sure the models clear buffers
+        /// ## before filament scene is destroyed
+        ///
+        for (auto itm : m_items) {
+            auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
+            auto model  = item3D->graphicsModel();
+            model->clearBackendBuffers();
+        }
+
+    }
+
 
     BackendResult initCanvas(GraphicsWindow *winItm) override final
     {
@@ -50,10 +63,10 @@ public:
             auto model  = item3D->graphicsModel();
 
 
-            // if( model->autoReset ){
-            //     model->ready = false;
-            //     model->resetMeshCounters();
-            // }
+            if( model->autoReset ){
+                // model->ready = false;
+                // model->resetMeshCounters();
+            }
             item3D->updateModel( model );
             if( !model->ready )
                 continue;

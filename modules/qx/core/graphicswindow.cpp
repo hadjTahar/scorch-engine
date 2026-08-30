@@ -1,7 +1,6 @@
 #include "graphicswindow.h"
 #include "graphicsapp.h"
 #include "graphicsscene2d.h"
-#include "graphicsscene3d.h"
 #include "graphicsitem2d.h"
 #include <components/mousecomponent.h>
 #include <components/keycomponent.h>

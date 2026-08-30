@@ -7,8 +7,6 @@ namespace Qx {
 Cube::Cube(CoreItem *parent):
     prv::GraphicsItem3D{ parent }
 {
-
-
 }
 
 Cube::~Cube()
@@ -17,14 +15,9 @@ Cube::~Cube()
 
 void Cube::updateModel(GraphicsModel *graphicsModel)
 {
-    /// ## Choose one
-    // setMesh(graphicsModel);
-    copyMesh(graphicsModel);
+    if( graphicsModel->ready )
+        return;
 
-}
-
-void Cube::setMesh(GraphicsModel *graphicsModel)
-{
     graphicsModel->initModel( 8, 36 );
     const auto sz = transform.size();
     const auto ww = sz.width;
@@ -46,6 +39,21 @@ void Cube::setMesh(GraphicsModel *graphicsModel)
     graphicsModel->changed = true;
     graphicsModel->ready   = true;
     graphicsModel->primitiveType = Qx::v_primitive::Triangles;
+
+    /// ## Choose one
+    // setMesh(graphicsModel);
+    copyMesh(graphicsModel);
+
+}
+
+void Cube::setMesh(GraphicsModel *graphicsModel)
+{
+
+
+    const auto sz = transform.size();
+    const auto ww = sz.width;
+    const auto hh = sz.height;
+    const auto dd = sz.depth;
 
 
 

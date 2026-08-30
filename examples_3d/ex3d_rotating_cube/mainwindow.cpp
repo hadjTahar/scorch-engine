@@ -2,7 +2,6 @@
 
 #include <items/rectangle.h>
 #include <core/graphicsitem2d.h>
-#include <core/graphicsscene3d.h>
 #include <core/newgraphicsscene3d.h>
 #include <primitives/cube.h>
 #include <primitives/worlditem.h>
@@ -26,52 +25,52 @@ MainWindow::MainWindow(CoreItem *parent):
     campCpm->resetControllers();
 
 
-    // auto cubeItm = wrldItm->addItem<Qx::Cube>();
-    // auto rotationCpm = wrldItm->attach <Qx::prv::CoreComponent>();
+    auto cubeItm = wrldItm->addItem<Qx::Cube>();
+    auto rotationCpm = wrldItm->attach <Qx::prv::CoreComponent>();
 
-    // cubeItm->transform.setPosition({100,100,100});
+    cubeItm->transform.setPosition({100,100,100});
 
-    // Qx::x_pivot pvPt{ Qx::PivotType::BoundingSize,
-    //                     Qx::PivotAxis::Mid,
-    //                     Qx::PivotAxis::Mid,
-    //                     Qx::PivotAxis::Mid};
+    Qx::x_pivot pvPt{ Qx::PivotType::BoundingSize,
+                        Qx::PivotAxis::Mid,
+                        Qx::PivotAxis::Mid,
+                        Qx::PivotAxis::Mid};
 
-    // cubeItm->transform.setPivot( pvPt );
-
-
-    // rotationCpm->process = [cubeItm](Qx::x_real dlt)
-    // {
-    //     // auto pos = cubeItm->transform.position();
-    //     // pos += (dlt/1000.f) * Qx::x_vector3{3,3,3};
-    //     // cubeItm->transform.setPosition( pos );
+    cubeItm->transform.setPivot( pvPt );
 
 
-    //     auto& transform = cubeItm->transform;
+    rotationCpm->process = [cubeItm](Qx::x_real dlt)
+    {
+        // auto pos = cubeItm->transform.position();
+        // pos += (dlt/1000.f) * Qx::x_vector3{3,3,3};
+        // cubeItm->transform.setPosition( pos );
 
-    //     const float rotationSpeed = glm::radians( 30.0f);
-    //     const float deltaTime = dlt / 1000.0f;
-    //     const float angle = rotationSpeed * deltaTime;
 
-    //     const glm::vec3 axis(.0f, .0f, 1.0f);
-    //     const glm::quat deltaRotation = glm::angleAxis(angle, axis);
+        auto& transform = cubeItm->transform;
 
-    //     // The actual center of the cube
-    //     const glm::vec3 center = {5,5,5};
+        const float rotationSpeed = glm::radians( 30.0f);
+        const float deltaTime = dlt / 1000.0f;
+        const float angle = rotationSpeed * deltaTime;
 
-    //     // Current position
+        const glm::vec3 axis(.0f, .0f, 1.0f);
+        const glm::quat deltaRotation = glm::angleAxis(angle, axis);
 
-    //     // Rotate position around center
-    //     // position = center + deltaRotation * (position - center);
+        // The actual center of the cube
+        const glm::vec3 center = {5,5,5};
 
-    //     // Rotate the cube itself
-    //     glm::quat rotation = transform.rotation();
-    //     rotation = deltaRotation * rotation;
-    //     rotation = glm::normalize(rotation);
+        // Current position
 
-    //     // Apply
-    //     transform.setRotation(rotation);
+        // Rotate position around center
+        // position = center + deltaRotation * (position - center);
 
-    // };
+        // Rotate the cube itself
+        glm::quat rotation = transform.rotation();
+        rotation = deltaRotation * rotation;
+        rotation = glm::normalize(rotation);
+
+        // Apply
+        transform.setRotation(rotation);
+
+    };
 
 
 

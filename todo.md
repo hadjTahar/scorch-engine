@@ -177,7 +177,6 @@ enum class DetailsLevel : uint8_t {
 - How to add normals??
 - Audio with sdl Mixer example 
 - Add Page Item for both 2D and 3D, types: stack, swipe, OverLay for games UI
-- Abstract the filament options, bloom, and render, make them part of GraphicsView
 - Clean unnecessary filament includes
 - Add options to "scripts/compile_mats.py" with optimized options
 - Search for "BackendResult" returns and handle them properly

@@ -125,7 +125,7 @@ private:
     void updateEntity();
 
 
-    void resetModel( bool resetMat );
+    void clearBackendBuffers();
 
 
     auto vertexBuffersCount();
