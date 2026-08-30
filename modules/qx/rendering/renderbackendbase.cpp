@@ -31,7 +31,8 @@ BackendResult RenderBackendBase::endFrame()
     return BackendResult::SUCCESS;
 }
 
-BackendResult RenderBackendBase::renderGraphicsView(prv::GraphicsView *grphxView)
+BackendResult RenderBackendBase::renderGraphicsView(prv::GraphicsView *grphxView,
+                                                    x_count viewIndex)
 {
     dbg_print() << "renderGraphicsView is not implemented, defaulting to "
                    "BackendResult::renderGraphicsView";
@@ -44,6 +45,13 @@ BackendResult RenderBackendBase::renderMeshModel(const MeshModel *mshModel)
                    "BackendResult::renderMeshModel";
     return BackendResult::SUCCESS;
 }
+
+// BackendResult RenderBackendBase::addView(GraphicsView *vw)
+// {
+//     dbg_print() << "addView is not implemented, defaulting to "
+//                    "BackendResult::addView";
+//     return BackendResult::SUCCESS;
+// }
 
 void RenderBackendBase::setWindowSwapChain(void *swc)
 {

@@ -10,6 +10,7 @@ namespace Qx::prv
 {
 
 class GraphicsWindow;
+class GraphicsView;
 
 
 class RenderBackendBase : public MetaObject
@@ -22,8 +23,10 @@ public:
     virtual BackendResult initBackend(const x_size &sz);
     virtual BackendResult beginFrame();
     virtual BackendResult endFrame();
-    virtual BackendResult renderGraphicsView( prv::GraphicsView *grphxView );
+    virtual BackendResult renderGraphicsView( prv::GraphicsView *grphxView,
+                                             x_count viewIndex );
     virtual BackendResult renderMeshModel(const MeshModel *mshModel);
+    // virtual BackendResult addView( GraphicsView *vw );
 
 protected:
     void setWindowSwapChain( void *swc);

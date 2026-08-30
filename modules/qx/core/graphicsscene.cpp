@@ -14,6 +14,7 @@ Qx::prv::GraphicsScene::~GraphicsScene()
 void Qx::prv::GraphicsScene::registerItem(GraphicsItem *itm)
 {
     m_items.push_back( itm );
+    itemRegistered( itm );
 }
 
 void Qx::prv::GraphicsScene::unregisterItem(GraphicsItem *itm)
@@ -43,6 +44,7 @@ Qx::prv::GraphicsView *Qx::prv::GraphicsScene::addView()
     auto ptr = std::make_unique<GraphicsView>( this, x_rect{}, ViewType::Absolute );
     auto ret = ptr.get();
     m_views.push_back( std::move( ptr ) );
+
     return ret;
 }
 

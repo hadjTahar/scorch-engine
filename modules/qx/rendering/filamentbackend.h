@@ -27,17 +27,18 @@ public:
 
 
 
-
-
     prv::BackendResult beginFrame() override;
     prv::BackendResult endFrame() override;
     prv::BackendResult initBackend(const x_size &sz) override;
-    prv::BackendResult renderGraphicsView( prv::GraphicsView *grphxView ) override;
+    prv::BackendResult renderGraphicsView( prv::GraphicsView *grphxView,
+                                          x_count viewIndex ) override;
     prv::BackendResult renderMeshModel(const MeshModel *mshModel) override;
 
 
 protected:
-    void applyCamera( const prv::CameraProperties &camProperties );
+    prv::BackendResult addView( prv::GraphicsView *vw );
+    void applyCamera( filament::Camera* flmntCam,
+                     const prv::CameraProperties &camProperties );
 
 protected:
 
@@ -48,8 +49,9 @@ protected:
 
     filament::SwapChain *m_filamentSwapChain;
     filament::Scene     *m_filamentScene;
-    filament::View      *m_filamentView;
-    filament::Camera    *m_filamentCamera;
+
+    std::vector<filament::View*>    m_filamentViews;
+    std::vector<filament::Camera*>  m_filamentCameras;
 
 
 };

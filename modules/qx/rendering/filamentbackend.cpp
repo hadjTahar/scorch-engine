@@ -13,9 +13,7 @@ namespace Qx::Backend
 FilamentBackend::FilamentBackend(prv::GraphicsWindow *winItm):
     prv::RenderBackendBase{ winItm },
     m_filamentSwapChain{ nullptr },
-    m_filamentScene{ nullptr },
-    m_filamentView{ nullptr },
-    m_filamentCamera{ nullptr }
+    m_filamentScene{ nullptr }
 {
     dbg_assert( !m_created ) <<
         "3D only supports one FilamentBackend "
@@ -35,15 +33,15 @@ void FilamentBackend::destroyScene()
     if( !m_filamentEngine )
         return;
 
-    if( m_filamentCamera ){
-        m_filamentEngine->destroyCameraComponent( m_filamentCamera->getEntity() );
-        m_filamentCamera = nullptr;
-    }
 
-    if( m_filamentView ){
-        m_filamentEngine->destroy( m_filamentView );
-        m_filamentView = nullptr;
-    }
+    for ( auto flmtCam : m_filamentCameras)
+        m_filamentEngine->destroyCameraComponent( flmtCam->getEntity() );
+
+
+    for ( auto flmtVew : m_filamentViews)
+        m_filamentEngine->destroy( flmtVew );
+
+
 
     if( m_filamentScene ){
         m_filamentEngine->destroy( m_filamentScene );
@@ -123,16 +121,52 @@ prv::BackendResult FilamentBackend::initBackend(const x_size &sz)
     if( !m_filamentScene )
         m_filamentScene  = m_filamentEngine->createScene();
 
-    if( !m_filamentView )
-        m_filamentView   = m_filamentEngine->createView();
 
-    if( !m_filamentCamera )
-        m_filamentCamera = m_filamentEngine->createCamera(utils::EntityManager::get().create());
+    return prv::BackendResult::SUCCESS;
+}
 
-    m_filamentView->setScene( m_filamentScene );
-    m_filamentView->setCamera(m_filamentCamera);
-    m_filamentView->setViewport({0, 0, 1920, 1080});
+prv::BackendResult FilamentBackend::renderGraphicsView(prv::GraphicsView *grphxView,
+                                                       x_count viewIndex)
+{
+    const auto cnt = m_filamentViews.size();
+    dbg_assert( m_filamentCameras.size() == cnt  )  <<
+        "m_filamentViews and m_filamentCameras must have the same size";
 
+    if( viewIndex >= cnt )
+        addView( grphxView );
+
+    dbg_assert( viewIndex < m_filamentViews.size()  )  <<
+        "viewIndex must be less than m_filamentViews size";
+
+    const auto camProperties = grphxView->camera()->properties;
+    auto flmntVew = m_filamentViews[viewIndex];
+    auto flmntCam = m_filamentCameras[viewIndex];
+
+    m_filamentRenderer->render( flmntVew );
+    applyCamera( flmntCam, camProperties );
+    return prv::BackendResult::SUCCESS;
+}
+
+prv::BackendResult FilamentBackend::addView(prv::GraphicsView *vw)
+{
+    // return prv::BackendResult::SUCCESS;
+
+
+    dbg_assert( m_filamentEngine )  << "Invalid m_filamentEngine";
+    dbg_assert( m_filamentScene )   << "Invalid m_filamentScene";
+
+    if( !m_filamentEngine )
+        return prv::BackendResult::FAIL;
+    if( !m_filamentScene )
+        return prv::BackendResult::FAIL;
+
+    auto flmntVew = m_filamentEngine->createView();
+    auto flmntCam = m_filamentEngine->createCamera(utils::EntityManager::get().create());
+
+
+    flmntVew->setScene( m_filamentScene );
+    flmntVew->setCamera(flmntCam);
+    flmntVew->setViewport({0, 0, 1920, 1080});
 
     filament::BloomOptions opts;
     opts.enabled = true;
@@ -141,18 +175,11 @@ prv::BackendResult FilamentBackend::initBackend(const x_size &sz)
     opts.haloThickness = .2;
     opts.haloRadius = .1;
     // BlendMode_Dissolve
-    m_filamentView->setBloomOptions( opts );
+    flmntVew->setBloomOptions( opts );
 
 
-    return prv::BackendResult::SUCCESS;
-}
-
-prv::BackendResult FilamentBackend::renderGraphicsView(prv::GraphicsView *grphxView)
-{
-    const auto camProperties = grphxView->camera()->properties;
-
-    m_filamentRenderer->render( m_filamentView );
-    applyCamera( camProperties );
+    m_filamentViews.push_back( flmntVew );
+    m_filamentCameras.push_back( flmntCam );
     return prv::BackendResult::SUCCESS;
 }
 
@@ -163,7 +190,8 @@ Qx::prv::BackendResult FilamentBackend::renderMeshModel(const MeshModel *mshMode
 
 
 
-void FilamentBackend::applyCamera(const prv::CameraProperties &camProperties)
+void FilamentBackend::applyCamera(filament::Camera *flmntCam,
+                                  const prv::CameraProperties &camProperties)
 {
     /// ## IF 2D don't modify the filamnet camera
 
@@ -181,7 +209,7 @@ void FilamentBackend::applyCamera(const prv::CameraProperties &camProperties)
         const auto camNear         = camProperties.nearPlane();
         const auto camFar          = camProperties.farPlane();
 
-        m_filamentCamera->setProjection(
+        flmntCam->setProjection(
             fovInDegrees,
             aspectRatio,
             camNear,
@@ -192,7 +220,7 @@ void FilamentBackend::applyCamera(const prv::CameraProperties &camProperties)
         const auto orthoBox = camProperties.orthoBox();
         const auto min = orthoBox.min;
         const auto max = orthoBox.max;
-        m_filamentCamera->setProjection( filament::Camera::Projection::ORTHO,
+        flmntCam->setProjection( filament::Camera::Projection::ORTHO,
                                         min.x, max.x,
                                         min.y, max.y,
                                         min.z, max.z);
@@ -203,7 +231,7 @@ void FilamentBackend::applyCamera(const prv::CameraProperties &camProperties)
     filament::math::float3 eye( camPos.x, camPos.y, camPos.z);
     filament::math::float3 center(camFrw.x, camFrw.y, camFrw.z);
     filament::math::float3 up(camUp.x, camUp.y, camUp.z);
-    m_filamentCamera->lookAt(eye, center, up);
+    flmntCam->lookAt(eye, center, up);
 }
 
 

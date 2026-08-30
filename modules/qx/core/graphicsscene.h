@@ -35,15 +35,9 @@ protected:
     void unregisterItem(GraphicsItem *itm);
     const auto &views() const{return m_views;}
 
-    // Canvas *canvas( SDL_Window *sdlWind )
-    // {
-    //     if( !m_canvas.get() )
-    //     {
-    //         m_canvas = MetaObject::make_unique_meta<Canvas>(sdlWind);
-    //         m_canvas->initBackend();
-    //     }
-    //     return m_canvas.get();
-    // }
+
+protected:
+    virtual void itemRegistered(GraphicsItem *itm){}
 
 private:
 
