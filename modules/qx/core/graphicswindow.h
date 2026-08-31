@@ -80,7 +80,7 @@ private:
 
 private:
 
-    void              *m_renderBackendSwapChain;
+    void              *m_filamentBackendSwapChain;
 
     SDL_Window        *m_sdlWindow;
     SDL_Renderer      *m_sdlRenderer;

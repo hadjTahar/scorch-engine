@@ -19,7 +19,7 @@ namespace Qx::prv
 GraphicsWindow::GraphicsWindow(CoreItem *parent):
     CoreItem{ parent },
     properties{ *this },
-    m_renderBackendSwapChain{ nullptr },
+    m_filamentBackendSwapChain{ nullptr },
     m_sdlWindow{ nullptr },
     m_sdlRenderer{ nullptr },
     m_lastPresed{ nullptr },

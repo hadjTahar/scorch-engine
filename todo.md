@@ -71,7 +71,7 @@ enum class DetailsLevel : uint8_t {
 	    - The Canvas Model
 	- GraphicsModelItem
     - GraphicsCanvasItem
-
+- Unit test orphaned items upon destruction 
 - Github:
 	- Currently tested on windows
 	- Contact?

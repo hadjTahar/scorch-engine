@@ -57,18 +57,18 @@ void RenderBackendBase::setWindowSwapChain(void *swc)
 {
     if( !m_windowItem )
         return;
-    dbg_assert( !m_windowItem->m_renderBackendSwapChain) <<
+    dbg_assert( !m_windowItem->m_filamentBackendSwapChain) <<
         "Window already has a swap chain, "
         "use ::windowSwapChain to get it";
     return;
-    m_windowItem->m_renderBackendSwapChain = swc;
+    m_windowItem->m_filamentBackendSwapChain = swc;
 }
 
 void *RenderBackendBase::windowSwapChain()
 {
     if( !m_windowItem )
         return nullptr;
-    return m_windowItem->m_renderBackendSwapChain;
+    return m_windowItem->m_filamentBackendSwapChain;
 }
 
 
