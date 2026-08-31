@@ -46,6 +46,21 @@ BackendResult RenderBackendBase::renderMeshModel(const GraphicsMeshModel *mshMod
     return BackendResult::SUCCESS;
 }
 
+void RenderBackendBase::printTrackers()
+{
+    dbg_print_st() << "printTrackers is not implemented, defaulting to "
+                   "BackendResult::printTrackers";
+}
+
+std::unique_ptr<GraphicsMeshModel> RenderBackendBase::createMeshModel()
+{
+    dbg_print_st() << "createMeshModel is not implemented, defaulting to "
+                      "BackendResult::createMeshModel";
+
+    auto ret = make_unique_meta<GraphicsMeshModel>();
+    return std::move( ret );
+}
+
 
 // BackendResult RenderBackendBase::addView(GraphicsView *vw)
 // {

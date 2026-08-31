@@ -17,33 +17,29 @@ GraphicsMeshModel::~GraphicsMeshModel()
 {
 }
 
-void GraphicsMeshModel::initModel(x_count maxVertices, x_count maxIndices )
-{
-    dbg_assert( m_maxIndices==0 && m_maxVertices==0 ) <<
-        "Model already init, can't init more than once...";
 
+void GraphicsMeshModel::resize(x_count maxVertices, x_count maxIndices)
+{
+    if( m_maxVertices == maxVertices && m_maxIndices == maxIndices )
+        return;
 
     m_maxIndices  = maxIndices;
     m_maxVertices = maxVertices;
-}
 
-void GraphicsMeshModel::resetMeshCounters()
-{
 
-    dbg_assert( m_maxIndices!=0 && m_maxVertices!=0 ) <<
-        "Model is not init, call 'GraphicsMeshModel::initModel' once";
 
     if( enableIndices && m_indexPool.size() != m_maxIndices )
-        m_indexPool.reserve( m_maxIndices );
+        m_indexPool.resize( m_maxIndices );
 
     if( enablePositions && m_positionsPool.size() != m_maxVertices )
-        m_positionsPool.reserve( m_maxVertices );
+        m_positionsPool.resize( m_maxVertices );
     if( enableUVS && m_uvsPool.size() != m_maxVertices )
-        m_uvsPool.reserve( m_maxVertices );
+        m_uvsPool.resize( m_maxVertices );
 
     m_vertexCounter = 0;
     m_indexCounter  = 0;
 }
+
 
 
 MeshView GraphicsMeshModel::requestMesh(x_count vertexBatch,

@@ -35,16 +35,8 @@ public:
     FilamentBackend( prv::GraphicsWindow *winItm);
     ~FilamentBackend();
 
-    /// ## Called when scene destroy
-    void destroyScene();
-
-    /// ## Called when window destroy
-    void destroySwapChain();
-
-    /// ## Called when app destroy
-    static void destroyEngine();
-
-
+    /// ## What a Render Backend needs
+    /// ##
 
     prv::BackendResult beginFrame() override;
     prv::BackendResult endFrame() override;
@@ -53,6 +45,7 @@ public:
                                           x_count viewIndex ) override;
     prv::BackendResult renderMeshModel(const GraphicsMeshModel *mshModel) override;
 
+    std::unique_ptr<GraphicsMeshModel> createMeshModel() override;
 
     filament::Scene *filamentScene() const;
     static filament::Engine *filamentEngine();
@@ -60,9 +53,19 @@ public:
     static void printTrackers();
 
 protected:
+    /// ## Called when scene destroy
+    void destroyScene();
+    /// ## Called when window destroy
+    void destroySwapChain();
+    /// ## Called when app destroy
+    static void destroyEngine();
+
+
     prv::BackendResult addView( prv::GraphicsView *vw );
     void applyCamera( filament::Camera* flmntCam,
                      const prv::CameraProperties &camProperties );
+
+
 
 protected:
 

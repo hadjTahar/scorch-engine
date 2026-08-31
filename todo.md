@@ -43,6 +43,7 @@ enum class DetailsLevel : uint8_t {
 
 ------------------------------------------------------------------------------------
 - initCanvas to initBackend
+- 2d render to draw(Canvas)
 - comn_examples, that have nor rendering, like timers nad ecs
 - Enable disable scene, no render no components process 
 - Add colorsPool

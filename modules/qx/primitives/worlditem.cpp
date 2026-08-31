@@ -24,12 +24,11 @@ void WorldItem::updateModel(GraphicsMeshModel *graphicsMeshModel )
     return;
     if( graphicsMeshModel->ready )
         return;
-    graphicsMeshModel->initModel( 8, 24);
+    graphicsMeshModel->resize( 8, 24);
 
     graphicsMeshModel->enableIndices   = true;
     graphicsMeshModel->enablePositions = true;
     graphicsMeshModel->enableUVS       = false;
-    graphicsMeshModel->autoReset       = false;
 
 
     graphicsMeshModel->shaderSource = ":/materials/wireframe.filamat";

@@ -14,7 +14,6 @@ Qx::prv::GraphicsScene::~GraphicsScene()
 void Qx::prv::GraphicsScene::registerItem(GraphicsItem *itm)
 {
     m_items.push_back( itm );
-    itemRegistered( itm );
 }
 
 void Qx::prv::GraphicsScene::unregisterItem(GraphicsItem *itm)

@@ -6,8 +6,7 @@ namespace Qx::prv
 {
 
 GraphicsItem3D::GraphicsItem3D(CoreItem *parent):
-    prv::GraphicsItem{ parent },
-    m_graphicsMeshModel{ make_unique_meta<GraphicsMeshModel>() }
+    prv::GraphicsItem{ parent }
 {
     m_itemType = ItemType::GraphicsItem3D;
     transform.setSize( {10,10,10 });

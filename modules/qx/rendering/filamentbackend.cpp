@@ -1,5 +1,7 @@
 #include "filamentbackend.h"
 
+#include "filamentmeshmodel.h"
+
 #include <core/graphicsview.h>
 #include <core/graphicswindow.h>
 #include <misc/platfrom.h>
@@ -31,47 +33,6 @@ FilamentBackend::~FilamentBackend()
     destroyEngine();
 }
 
-void FilamentBackend::destroyScene()
-{
-    if( !m_filamentEngine )
-        return;
-
-    for ( auto flmtCam : m_filamentCameras)
-        m_filamentEngine->destroyCameraComponent( flmtCam->getEntity() );
-
-
-    for ( auto flmtVew : m_filamentViews)
-        m_filamentEngine->destroy( flmtVew );
-
-    if( m_filamentScene ){
-        m_filamentEngine->destroy( m_filamentScene );
-        m_filamentScene = nullptr;
-    }
-}
-
-void FilamentBackend::destroySwapChain()
-{
-    if( !m_filamentEngine )
-        return;
-
-
-    if( !m_filamentSwapChain )
-        return;
-    m_filamentEngine->destroy( m_filamentSwapChain );
-    m_filamentEngine->flushAndWait();
-    m_filamentSwapChain = nullptr;
-    setWindowSwapChain( nullptr );
-}
-
-void FilamentBackend::destroyEngine()
-{
-    m_filamentEngine->flushAndWait();
-    m_filamentEngine->destroy(m_filamentRenderer);
-    filament::Engine::destroy(m_filamentEngine);
-
-    m_filamentRenderer = nullptr;
-    m_filamentEngine   = nullptr;
-}
 prv::BackendResult FilamentBackend::beginFrame()
 {
     const auto res = m_filamentRenderer->beginFrame( m_filamentSwapChain );
@@ -147,6 +108,12 @@ prv::BackendResult FilamentBackend::renderGraphicsView(prv::GraphicsView *grphxV
     return prv::BackendResult::SUCCESS;
 }
 
+std::unique_ptr<GraphicsMeshModel> FilamentBackend::createMeshModel()
+{
+    auto ret = make_unique_meta<FilamentMeshModel>();
+    return std::move( ret );
+}
+
 prv::BackendResult FilamentBackend::addView(prv::GraphicsView *vw)
 {
 
@@ -183,6 +150,8 @@ prv::BackendResult FilamentBackend::addView(prv::GraphicsView *vw)
 
 Qx::prv::BackendResult FilamentBackend::renderMeshModel(const GraphicsMeshModel *mshModel)
 {
+    /// Check data buffers sizes and recreate only when the sizes don’t match
+
     return prv::BackendResult::SUCCESS;
 }
 
@@ -253,5 +222,50 @@ void FilamentBackend::printTrackers()
 {
 
 }
+
+
+void FilamentBackend::destroyScene()
+{
+    if( !m_filamentEngine )
+        return;
+
+    for ( auto flmtCam : m_filamentCameras)
+        m_filamentEngine->destroyCameraComponent( flmtCam->getEntity() );
+
+
+    for ( auto flmtVew : m_filamentViews)
+        m_filamentEngine->destroy( flmtVew );
+
+    if( m_filamentScene ){
+        m_filamentEngine->destroy( m_filamentScene );
+        m_filamentScene = nullptr;
+    }
+}
+
+void FilamentBackend::destroySwapChain()
+{
+    if( !m_filamentEngine )
+        return;
+
+
+    if( !m_filamentSwapChain )
+        return;
+    m_filamentEngine->destroy( m_filamentSwapChain );
+    m_filamentEngine->flushAndWait();
+    m_filamentSwapChain = nullptr;
+    setWindowSwapChain( nullptr );
+}
+
+void FilamentBackend::destroyEngine()
+{
+    m_filamentEngine->flushAndWait();
+    m_filamentEngine->destroy(m_filamentRenderer);
+    filament::Engine::destroy(m_filamentEngine);
+
+    m_filamentRenderer = nullptr;
+    m_filamentEngine   = nullptr;
+}
+
+
 
 }

@@ -19,7 +19,7 @@ void Cube::updateModel(GraphicsMeshModel *graphicsMeshModel)
     if( graphicsMeshModel->ready )
         return;
 
-    graphicsMeshModel->initModel( 8, 36 );
+    graphicsMeshModel->resize( 8, 36 );
     const auto sz = transform.size();
     const auto ww = sz.width;
     const auto hh = sz.height;
@@ -34,7 +34,6 @@ void Cube::updateModel(GraphicsMeshModel *graphicsMeshModel)
     graphicsMeshModel->enableIndices   = true;
     graphicsMeshModel->enablePositions = true;
     graphicsMeshModel->enableUVS       = true;
-    graphicsMeshModel->autoReset       = true;
 
     graphicsMeshModel->culling = true;
     graphicsMeshModel->changed = true;

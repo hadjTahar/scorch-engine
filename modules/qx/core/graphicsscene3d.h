@@ -26,11 +26,13 @@ public:
     ~GraphicsScene3D()
     {
         /// ## Make sure the models clear buffers
-        /// ## before filament scene is destroyed
+        /// ## before backend's scene is destroyed
         ///
         for (auto itm : m_items) {
             auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
-            auto model  = item3D->graphicsMeshModel();
+            auto model  = item3D->m_graphicsMeshModel.get();
+            if( !model )
+                continue;
             model->clearBackendBuffers();
         }
     }
@@ -51,26 +53,19 @@ public:
             return;
 
 
-        auto filamentEng = BackendType::filamentEngine();
-        auto filamentRdr = BackendType::filamentRenderer();
-        auto filamentScn = m_backend->filamentScene();
-
         /// ## Update the models
         for (auto itm : m_items) {
             auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
             const auto itmRdr = item3D->rendering;
-            auto model  = item3D->graphicsMeshModel();
 
+            if( !item3D->m_graphicsMeshModel )
+                item3D->m_graphicsMeshModel = m_backend->createMeshModel();
 
-            if( model->autoReset ){
-                // model->ready = false;
-                // model->resetMeshCounters();
-            }
+            auto model  = item3D->m_graphicsMeshModel.get();
             item3D->updateModel( model );
+
             if( !model->ready )
                 continue;
-
-
             model->setTransform( item3D->transform.pivotTransform() );
             if( itmRdr.ignoreCamera() ){
                 dbg_warning() << "Ignore camera is not supported for 3D items...";
@@ -109,10 +104,6 @@ public:
         m_backend->endFrame();
     }
 
-    virtual void itemRegistered(GraphicsItem *itm)
-    {
-
-    }
 
 
 protected:

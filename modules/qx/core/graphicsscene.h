@@ -36,9 +36,6 @@ protected:
     const auto &views() const{return m_views;}
 
 
-protected:
-    virtual void itemRegistered(GraphicsItem *itm){}
-
 private:
 
     /// ## When accessing GraphicsScene::transform

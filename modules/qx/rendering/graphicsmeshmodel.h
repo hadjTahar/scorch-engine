@@ -41,7 +41,7 @@ class GraphicsMeshModel : public prv::MetaObject
 
 public:
     GraphicsMeshModel();
-    ~GraphicsMeshModel();
+    virtual ~GraphicsMeshModel();
 
     template <typename BackendType>
     friend class prv::GraphicsScene3D;
@@ -58,25 +58,6 @@ public:
     bool    transformable{true};
     bool    ready{false};
 
-    /// ## true:
-    /// ##     - Geometry buffers auto reset before "::updateModel" call
-    /// ##     - You need to "::requestMesh" in each "::updateModel" call
-    /// ##     - And update the geometry
-    /// ##     - For dynamic geometry, that need changes.
-    /// ## false:
-    /// ##     - You must manualy call "::resetMeshCounters"
-    /// ##     - Fixed-Static geometry :
-    /// ##          - Either once, and "::requestMesh" once too, in the constructor.
-    /// ##          - Check "rotating_cubes" and "WorldItem.cpp" examples.
-    /// ##          - Basically set once and forget.
-    /// ##     - Dynamic geometry:
-    /// ##          - Or manualy call "::resetMeshCounters" else where.
-    /// ##          - Check "ecs_rendering" example
-    /// ##
-    /// ## If you set it to false, and don't call "::resetMeshCounters"
-    /// ## You could end up with a very large accumulating vertices counts
-    /// ## While thinking you are updating the same buffers
-    bool autoReset{true};
 
 
 
@@ -89,19 +70,17 @@ public:
     v_primitive primitiveType {v_primitive::None};
 
 
-    void initModel(x_count maxVertices, x_count maxIndices);
-    void resetMeshCounters();
+    void resize(x_count maxVertices, x_count maxIndices);
     MeshView requestMesh(x_count vertexBatch,
                            x_count indexBatch);
 
 protected:
-    void clearBackendBuffers(){}
+    virtual void clearBackendBuffers(){}
 
 private:
 
     void setTransform(const x_matrix4x4 &newTransform);
     auto vertexBuffersCount();
-
 
 
 private:
