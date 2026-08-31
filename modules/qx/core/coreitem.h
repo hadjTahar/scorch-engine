@@ -6,7 +6,7 @@
 
 #include <misc/flags.h>
 #include <canvas/canvas.h>
-#include <rendering/graphicsmodel.h>
+#include <rendering/graphicsmeshmodel.h>
 #include <components/corecomponent.h>
 #include <bitset>
 
@@ -34,7 +34,7 @@ class GraphicsScene2D;
 
 
 template <typename BackendType>
-class NewGraphicsScene3D;
+class GraphicsScene3D;
 
 
 
@@ -52,7 +52,7 @@ class CoreItem : public MetaObject
     friend class GraphicsScene2D;
 
     template <typename BackendType>
-    friend class NewGraphicsScene3D;
+    friend class GraphicsScene3D;
 
 public:
 
@@ -160,7 +160,7 @@ protected:
 
 protected:
     virtual void render(Canvas *canvas) = 0;
-    virtual void updateModel( GraphicsModel *graphicsModel ) = 0;
+    virtual void updateModel( GraphicsMeshModel *meshModel ) = 0;
 
     void updateItem(MetaItemType sceneType );
 

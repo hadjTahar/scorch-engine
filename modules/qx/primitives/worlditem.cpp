@@ -19,30 +19,31 @@ WorldItem::WorldItem(CoreItem *parent):
 
 }
 
-void WorldItem::updateModel( GraphicsModel *graphicsModel )
+void WorldItem::updateModel(GraphicsMeshModel *graphicsMeshModel )
 {
-    if( graphicsModel->ready )
+    return;
+    if( graphicsMeshModel->ready )
         return;
-    graphicsModel->initModel( 8, 24);
+    graphicsMeshModel->initModel( 8, 24);
 
-    graphicsModel->enableIndices   = true;
-    graphicsModel->enablePositions = true;
-    graphicsModel->enableUVS       = false;
-    graphicsModel->autoReset       = false;
+    graphicsMeshModel->enableIndices   = true;
+    graphicsMeshModel->enablePositions = true;
+    graphicsMeshModel->enableUVS       = false;
+    graphicsMeshModel->autoReset       = false;
 
 
-    graphicsModel->shaderSource = ":/materials/wireframe.filamat";
-    graphicsModel->shaderName   = "wireframe";
-    graphicsModel->aabb = {
+    graphicsMeshModel->shaderSource = ":/materials/wireframe.filamat";
+    graphicsMeshModel->shaderName   = "wireframe";
+    graphicsMeshModel->aabb = {
         { m_worldMin.x,  m_worldMin.y, m_worldMin.z },
         { m_worldMax.x,  m_worldMax.y, m_worldMax.z }
     };
-    graphicsModel->culling = true;
-    graphicsModel->changed = true;
-    graphicsModel->ready   = true;
-    graphicsModel->primitiveType = Qx::v_primitive::Lines;
+    graphicsMeshModel->culling = true;
+    graphicsMeshModel->changed = true;
+    graphicsMeshModel->ready   = true;
+    graphicsMeshModel->primitiveType = Qx::v_primitive::Lines;
 
-    auto mesh = graphicsModel->requestMesh( 8, 24);
+    auto mesh = graphicsMeshModel->requestMesh( 8, 24);
     mesh.copyVertexPositions(
         {
             {m_worldMin.x, m_worldMin.y, m_worldMin.z}, // 0

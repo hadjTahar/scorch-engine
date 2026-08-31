@@ -22,7 +22,7 @@ class GraphicsItem : public prv::CoreItem
     friend class GraphicsScene2D;
 
     template <typename BackendType>
-    friend class NewGraphicsScene3D;
+    friend class GraphicsScene3D;
 
 
 

@@ -17,19 +17,19 @@ class GraphicsItem3D : public prv::GraphicsItem
 
 
     template <typename BackendType>
-    friend class NewGraphicsScene3D;
+    friend class GraphicsScene3D;
 
 
 public:
     GraphicsItem3D(CoreItem *parent);
-    GraphicsModel *graphicsModel() const;
+    GraphicsMeshModel *graphicsMeshModel() const;
 
 protected:
     void render(Canvas*)override final;
-    void updateModel( GraphicsModel * ) override{}
+    void updateModel( GraphicsMeshModel * ) override{}
 
 private:
-    std::unique_ptr<GraphicsModel> m_graphicsModel;
+    std::unique_ptr<GraphicsMeshModel> m_graphicsMeshModel;
 
 };
 

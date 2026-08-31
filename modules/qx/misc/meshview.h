@@ -176,7 +176,7 @@ private:
                                                 void const*const begin,
                                                 void const*const end  )
     {
-        /// ## Most likely it's not enabled check GraphicsModel::enable___
+        /// ## Most likely it's not enabled check GraphicsMeshModel::enable___
         const auto invalid = (begin == nullptr) || (end == nullptr);
         dbg_loop_assert( !invalid )
             << "Null pointers for: "
@@ -250,11 +250,11 @@ private:
     /// ## --------------------------------------------------------
 
     /// ## This object is created and populated
-    /// ## from "GraphicsModel::requestMesh and resetMeshes"
-    friend class GraphicsModel;
+    /// ## from "GraphicsMeshModel::requestMesh and resetMeshes"
+    friend class GraphicsMeshModel;
 
 
-    /// ## Where are we in the "GraphicsModel::datapools"
+    /// ## Where are we in the "GraphicsMeshModel::datapools"
     x_count     verticesOffset;
     x_count     indicesOffset;
 

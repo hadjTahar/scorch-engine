@@ -22,7 +22,7 @@ public:
     ~SkyBox();
 
 protected:
-    void updateModel( GraphicsModel *graphicsModel ) override;
+    void updateModel( GraphicsMeshModel *graphicsMeshModel ) override;
 
 };
 

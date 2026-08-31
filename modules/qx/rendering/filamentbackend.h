@@ -2,8 +2,27 @@
 #define FILAMENTBACKEND_H
 
 #include "renderbackendbase.h"
-#include <filament/Engine.h>
 #include <properties/cameraproperties.h>
+
+
+#include <filament/Engine.h>
+#include <utils/EntityManager.h>
+#include <filament/Viewport.h>
+#include <filament/View.h>
+#include <filament/Renderer.h>
+#include <filament/Scene.h>
+
+#include <filament/IndexBuffer.h>
+#include <filament/VertexBuffer.h>
+#include <filament/RenderableManager.h>
+
+#include <filament/Material.h>
+#include <filament/MaterialInstance.h>
+#include <filament/Camera.h>
+#include <filament/Skybox.h>
+#include <filament/Engine.h>
+#include <filament/SwapChain.h>
+
 
 
 
@@ -32,14 +51,13 @@ public:
     prv::BackendResult initBackend(const x_size &sz) override;
     prv::BackendResult renderGraphicsView( prv::GraphicsView *grphxView,
                                           x_count viewIndex ) override;
-    prv::BackendResult renderMeshModel(const MeshModel *mshModel) override;
+    prv::BackendResult renderMeshModel(const GraphicsMeshModel *mshModel) override;
 
 
     filament::Scene *filamentScene() const;
-
     static filament::Engine *filamentEngine();
-
     static filament::Renderer *filamentRenderer();
+    static void printTrackers();
 
 protected:
     prv::BackendResult addView( prv::GraphicsView *vw );

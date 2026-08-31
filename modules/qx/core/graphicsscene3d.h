@@ -1,5 +1,5 @@
-#ifndef NEWGRAPHICSSCENE3D_H
-#define NEWGRAPHICSSCENE3D_H
+#ifndef GRAPHICSSCENE3D_H
+#define GRAPHICSSCENE3D_H
 
 #include "graphicsscene.h"
 #include "graphicsitem3d.h"
@@ -10,30 +10,29 @@ namespace Qx::prv
 {
 
 template <typename BackendType>
-class NewGraphicsScene3D : public prv::GraphicsScene
+class GraphicsScene3D : public prv::GraphicsScene
 {
 
-    QX_META_OBJECT( NewGraphicsScene3D,
+    QX_META_OBJECT( GraphicsScene3D,
                    MetaItemType::GraphicsScene3D,
                    MetaItemType::GraphicsItem3D )
 
 public:
-    NewGraphicsScene3D(CoreItem *parent):
+    GraphicsScene3D(CoreItem *parent):
         GraphicsScene{ parent }
     {
         m_itemType = ItemType::GraphicsScene3D;
     }
-    ~NewGraphicsScene3D()
+    ~GraphicsScene3D()
     {
         /// ## Make sure the models clear buffers
         /// ## before filament scene is destroyed
         ///
         for (auto itm : m_items) {
             auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
-            auto model  = item3D->graphicsModel();
+            auto model  = item3D->graphicsMeshModel();
             model->clearBackendBuffers();
         }
-
     }
 
 
@@ -60,7 +59,7 @@ public:
         for (auto itm : m_items) {
             auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
             const auto itmRdr = item3D->rendering;
-            auto model  = item3D->graphicsModel();
+            auto model  = item3D->graphicsMeshModel();
 
 
             if( model->autoReset ){
@@ -82,10 +81,10 @@ public:
                 /// ## to apply the inverse matrix
             }
             /// ## Matrix transfoms are handled in ::renderModel
-            model->renderModel( filamentEng, filamentScn );
+            m_backend->renderMeshModel( model );
         }
 
-        GraphicsModel::printTrackers( filamentScn );
+        BackendType::printTrackers();
 
 
 
@@ -122,4 +121,4 @@ protected:
 
 
 }
-#endif // NEWGRAPHICSSCENE3D_H
+#endif // GRAPHICSSCENE3D_H

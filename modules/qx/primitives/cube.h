@@ -22,10 +22,10 @@ public:
     ~Cube();
 
 protected:
-    void updateModel( GraphicsModel *graphicsModel ) override;
+    void updateModel( GraphicsMeshModel *graphicsMeshModel ) override;
 
-    void setMesh(GraphicsModel *graphicsModel);
-    void copyMesh(GraphicsModel *graphicsModel);
+    void setMesh(GraphicsMeshModel *graphicsMeshModel);
+    void copyMesh(GraphicsMeshModel *graphicsMeshModel);
 
 };
 

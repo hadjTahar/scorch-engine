@@ -15,12 +15,6 @@ Work on resetCounters and ready
 - Rename it to updateMeshModel
 
 
-- FilamantModel : public MeshModelBase
-	- virtual void clearBackendBuffers()
-	- virtual MeshModelBase RenderBackend::createMeshModel()
-	- When you render the model to the backend 
-	- Check data buffers sizes and recreate only when the sizes don’t match 
-
 ------------------------------------------------------------------
 
 - Doc: Filament for now only supports beign used for one scene only

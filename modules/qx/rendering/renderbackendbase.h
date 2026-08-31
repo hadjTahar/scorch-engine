@@ -1,8 +1,8 @@
 #ifndef RENDERBACKENDBASE_H
 #define RENDERBACKENDBASE_H
 
+#include "graphicsmeshmodel.h"
 #include <core/metaobject.h>
-#include <misc/meshmodel.h>
 
 
 
@@ -25,8 +25,10 @@ public:
     virtual BackendResult endFrame();
     virtual BackendResult renderGraphicsView( prv::GraphicsView *grphxView,
                                              x_count viewIndex );
-    virtual BackendResult renderMeshModel(const MeshModel *mshModel);
+    virtual BackendResult renderMeshModel(const Qx::GraphicsMeshModel *mshModel);
     // virtual BackendResult addView( GraphicsView *vw );
+
+
 
 protected:
     void setWindowSwapChain( void *swc);

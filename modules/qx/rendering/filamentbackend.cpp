@@ -2,8 +2,10 @@
 
 #include <core/graphicsview.h>
 #include <core/graphicswindow.h>
-#include <filament/SwapChain.h>
 #include <misc/platfrom.h>
+
+
+
 
 
 namespace Qx::Backend
@@ -34,15 +36,12 @@ void FilamentBackend::destroyScene()
     if( !m_filamentEngine )
         return;
 
-
     for ( auto flmtCam : m_filamentCameras)
         m_filamentEngine->destroyCameraComponent( flmtCam->getEntity() );
 
 
     for ( auto flmtVew : m_filamentViews)
         m_filamentEngine->destroy( flmtVew );
-
-
 
     if( m_filamentScene ){
         m_filamentEngine->destroy( m_filamentScene );
@@ -117,7 +116,7 @@ prv::BackendResult FilamentBackend::initBackend(const x_size &sz)
     }
 
 
-    /// ## ------------------------------------------------------------------------
+    // /// ## ------------------------------------------------------------------------
 
     if( !m_filamentScene )
         m_filamentScene  = m_filamentEngine->createScene();
@@ -150,8 +149,6 @@ prv::BackendResult FilamentBackend::renderGraphicsView(prv::GraphicsView *grphxV
 
 prv::BackendResult FilamentBackend::addView(prv::GraphicsView *vw)
 {
-    // return prv::BackendResult::SUCCESS;
-
 
     dbg_assert( m_filamentEngine )  << "Invalid m_filamentEngine";
     dbg_assert( m_filamentScene )   << "Invalid m_filamentScene";
@@ -184,7 +181,7 @@ prv::BackendResult FilamentBackend::addView(prv::GraphicsView *vw)
     return prv::BackendResult::SUCCESS;
 }
 
-Qx::prv::BackendResult FilamentBackend::renderMeshModel(const MeshModel *mshModel)
+Qx::prv::BackendResult FilamentBackend::renderMeshModel(const GraphicsMeshModel *mshModel)
 {
     return prv::BackendResult::SUCCESS;
 }
@@ -235,6 +232,7 @@ void FilamentBackend::applyCamera(filament::Camera *flmntCam,
     flmntCam->lookAt(eye, center, up);
 }
 
+
 filament::Renderer *FilamentBackend::filamentRenderer()
 {
     return m_filamentRenderer;
@@ -251,5 +249,9 @@ filament::Scene *FilamentBackend::filamentScene() const
 }
 
 
+void FilamentBackend::printTrackers()
+{
+
+}
 
 }

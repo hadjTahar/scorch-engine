@@ -29,7 +29,7 @@ public:
 
 protected:
     void render(Canvas *) override final{}
-    void updateModel( GraphicsModel *) override final{}
+    void updateModel( GraphicsMeshModel *) override final{}
 
     void registerItem(GraphicsItem *itm);
     void unregisterItem(GraphicsItem *itm);

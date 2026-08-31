@@ -13,40 +13,41 @@ Cube::~Cube()
 {
 }
 
-void Cube::updateModel(GraphicsModel *graphicsModel)
+void Cube::updateModel(GraphicsMeshModel *graphicsMeshModel)
 {
-    if( graphicsModel->ready )
+    return;
+    if( graphicsMeshModel->ready )
         return;
 
-    graphicsModel->initModel( 8, 36 );
+    graphicsMeshModel->initModel( 8, 36 );
     const auto sz = transform.size();
     const auto ww = sz.width;
     const auto hh = sz.height;
     const auto dd = sz.depth;
 
-    graphicsModel->shaderSource = ":/materials/blue.filamat";
-    graphicsModel->shaderName   = "blue";
+    graphicsMeshModel->shaderSource = ":/materials/blue.filamat";
+    graphicsMeshModel->shaderName   = "blue";
 
 
-    graphicsModel->aabb = {{ .0f,  .0f,  .0f },  { ww,hh, dd }};
+    graphicsMeshModel->aabb = {{ .0f,  .0f,  .0f },  { ww,hh, dd }};
 
-    graphicsModel->enableIndices   = true;
-    graphicsModel->enablePositions = true;
-    graphicsModel->enableUVS       = true;
-    graphicsModel->autoReset       = true;
+    graphicsMeshModel->enableIndices   = true;
+    graphicsMeshModel->enablePositions = true;
+    graphicsMeshModel->enableUVS       = true;
+    graphicsMeshModel->autoReset       = true;
 
-    graphicsModel->culling = true;
-    graphicsModel->changed = true;
-    graphicsModel->ready   = true;
-    graphicsModel->primitiveType = Qx::v_primitive::Triangles;
+    graphicsMeshModel->culling = true;
+    graphicsMeshModel->changed = true;
+    graphicsMeshModel->ready   = true;
+    graphicsMeshModel->primitiveType = Qx::v_primitive::Triangles;
 
     /// ## Choose one
-    // setMesh(graphicsModel);
-    copyMesh(graphicsModel);
+    // setMesh(graphicsMeshModel);
+    copyMesh(graphicsMeshModel);
 
 }
 
-void Cube::setMesh(GraphicsModel *graphicsModel)
+void Cube::setMesh(GraphicsMeshModel *graphicsMeshModel)
 {
 
 
@@ -57,7 +58,7 @@ void Cube::setMesh(GraphicsModel *graphicsModel)
 
 
 
-    auto mesh = graphicsModel->requestMesh( 8, 36 );
+    auto mesh = graphicsMeshModel->requestMesh( 8, 36 );
 
     mesh.setVertexPositionAt(0,{ 0.0f, 0.0f, 0.0f });
     mesh.setVertexPositionAt(1,{   ww, 0.0f, 0.0f });
@@ -124,14 +125,14 @@ void Cube::setMesh(GraphicsModel *graphicsModel)
 
 }
 
-void Cube::copyMesh(GraphicsModel *graphicsModel)
+void Cube::copyMesh(GraphicsMeshModel *graphicsMeshModel)
 {
     const auto sz = transform.size();
     const auto ww = sz.width;
     const auto hh = sz.height;
     const auto dd = sz.depth;
 
-    auto mesh = graphicsModel->requestMesh( 8, 36 );
+    auto mesh = graphicsMeshModel->requestMesh( 8, 36 );
 
 
     const v_positions positions ={ { 0.0f, 0.0f, 0.0f },{   ww, 0.0f, 0.0f },

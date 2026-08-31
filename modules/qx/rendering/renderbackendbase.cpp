@@ -39,12 +39,13 @@ BackendResult RenderBackendBase::renderGraphicsView(prv::GraphicsView *grphxView
     return BackendResult::SUCCESS;
 }
 
-BackendResult RenderBackendBase::renderMeshModel(const MeshModel *mshModel)
+BackendResult RenderBackendBase::renderMeshModel(const GraphicsMeshModel *mshModel)
 {
     dbg_print() << "renderMeshModel is not implemented, defaulting to "
                    "BackendResult::renderMeshModel";
     return BackendResult::SUCCESS;
 }
+
 
 // BackendResult RenderBackendBase::addView(GraphicsView *vw)
 // {
