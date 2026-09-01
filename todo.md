@@ -2,8 +2,6 @@
 
 - Test and document git config submodule.ignore all
 
-
-
 ------------------------------------------------------------------------------------
 
 - Modules
@@ -43,6 +41,7 @@ enum class DetailsLevel : uint8_t {
 
 ------------------------------------------------------------------------------------
 - initCanvas to initBackend
+- Create "render_backend_sample"
 - 2d render to draw(Canvas)
 - comn_examples, that have nor rendering, like timers nad ecs
 - Enable disable scene, no render no components process 
@@ -119,6 +118,7 @@ enum class DetailsLevel : uint8_t {
 - Editor:
 	- Generate item files that later can be used to load the items
 	- Add scene 3d
+	- Editor use C++ DSPatch for visual programming 
 	- Add add canvas scene
 	- When you compile and run, add items from the files
 	- Check Esoterica engine 
