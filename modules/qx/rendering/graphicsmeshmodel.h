@@ -77,13 +77,13 @@ public:
 protected:
     virtual void clearBackendBuffers(){}
 
-private:
+protected:
 
     void setTransform(const x_matrix4x4 &newTransform);
-    auto vertexBuffersCount();
+    v_count vertexBuffersCount();
 
 
-private:
+protected:
 
     x_count           m_maxVertices{0};
     x_count           m_maxIndices{0};

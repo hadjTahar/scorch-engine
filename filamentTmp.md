@@ -1,4 +1,7 @@
 
+Check the material code
+Test without: graphicsMeshModel->ready
+
 - Split the old model between
 	- Filement Model : Data buffers
 	- Filement Backend : Rendering

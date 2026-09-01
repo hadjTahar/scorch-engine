@@ -8,9 +8,6 @@ WorldItem::WorldItem(CoreItem *parent):
     m_worldMax{  100,  100,  100 }
 {
 
-
-
-
     auto wrldCmp  =  attach<prv::CoreComponent>();
     wrldCmp->process = [this]( x_real )
     {
@@ -21,15 +18,18 @@ WorldItem::WorldItem(CoreItem *parent):
 
 void WorldItem::updateModel(GraphicsMeshModel *graphicsMeshModel )
 {
-    return;
     if( graphicsMeshModel->ready )
         return;
-    graphicsMeshModel->resize( 8, 24);
 
     graphicsMeshModel->enableIndices   = true;
     graphicsMeshModel->enablePositions = true;
     graphicsMeshModel->enableUVS       = false;
 
+
+    graphicsMeshModel->culling = true;
+    graphicsMeshModel->changed = true;
+    graphicsMeshModel->ready   = true;
+    graphicsMeshModel->primitiveType = Qx::v_primitive::Lines;
 
     graphicsMeshModel->shaderSource = ":/materials/wireframe.filamat";
     graphicsMeshModel->shaderName   = "wireframe";
@@ -37,11 +37,8 @@ void WorldItem::updateModel(GraphicsMeshModel *graphicsMeshModel )
         { m_worldMin.x,  m_worldMin.y, m_worldMin.z },
         { m_worldMax.x,  m_worldMax.y, m_worldMax.z }
     };
-    graphicsMeshModel->culling = true;
-    graphicsMeshModel->changed = true;
-    graphicsMeshModel->ready   = true;
-    graphicsMeshModel->primitiveType = Qx::v_primitive::Lines;
 
+    graphicsMeshModel->resize( 8, 24);
     auto mesh = graphicsMeshModel->requestMesh( 8, 24);
     mesh.copyVertexPositions(
         {

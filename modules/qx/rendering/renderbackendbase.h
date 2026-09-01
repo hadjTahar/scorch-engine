@@ -25,7 +25,7 @@ public:
     virtual BackendResult endFrame();
     virtual BackendResult renderGraphicsView( GraphicsView *grphxView,
                                              x_count viewIndex );
-    virtual BackendResult renderMeshModel(const GraphicsMeshModel *mshModel);
+    virtual BackendResult renderMeshModel( GraphicsMeshModel *mshModel);
     // virtual BackendResult addView( GraphicsView *vw );
 
     static void printTrackers();

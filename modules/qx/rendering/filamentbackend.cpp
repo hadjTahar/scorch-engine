@@ -1,6 +1,5 @@
 #include "filamentbackend.h"
 
-#include "filamentmeshmodel.h"
 
 #include <core/graphicsview.h>
 #include <core/graphicswindow.h>
@@ -148,13 +147,12 @@ prv::BackendResult FilamentBackend::addView(prv::GraphicsView *vw)
     return prv::BackendResult::SUCCESS;
 }
 
-Qx::prv::BackendResult FilamentBackend::renderMeshModel(const GraphicsMeshModel *mshModel)
+Qx::prv::BackendResult FilamentBackend::renderMeshModel( GraphicsMeshModel *mshModel)
 {
-    /// Check data buffers sizes and recreate only when the sizes don’t match
-
+    auto flmntModel = static_cast<FilamentMeshModel*>( mshModel );
+    flmntModel->renderModel( m_filamentEngine, m_filamentScene );
     return prv::BackendResult::SUCCESS;
 }
-
 
 
 void FilamentBackend::applyCamera(filament::Camera *flmntCam,

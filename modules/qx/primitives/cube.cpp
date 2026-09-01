@@ -15,21 +15,15 @@ Cube::~Cube()
 
 void Cube::updateModel(GraphicsMeshModel *graphicsMeshModel)
 {
-    return;
     if( graphicsMeshModel->ready )
         return;
 
-    graphicsMeshModel->resize( 8, 36 );
     const auto sz = transform.size();
     const auto ww = sz.width;
     const auto hh = sz.height;
     const auto dd = sz.depth;
 
-    graphicsMeshModel->shaderSource = ":/materials/blue.filamat";
-    graphicsMeshModel->shaderName   = "blue";
 
-
-    graphicsMeshModel->aabb = {{ .0f,  .0f,  .0f },  { ww,hh, dd }};
 
     graphicsMeshModel->enableIndices   = true;
     graphicsMeshModel->enablePositions = true;
@@ -40,6 +34,12 @@ void Cube::updateModel(GraphicsMeshModel *graphicsMeshModel)
     graphicsMeshModel->ready   = true;
     graphicsMeshModel->primitiveType = Qx::v_primitive::Triangles;
 
+    graphicsMeshModel->shaderSource = ":/materials/blue.filamat";
+    graphicsMeshModel->shaderName   = "blue";
+    graphicsMeshModel->aabb = {{ .0f,  .0f,  .0f },  { ww,hh, dd }};
+
+
+    graphicsMeshModel->resize( 8, 36 );
     /// ## Choose one
     // setMesh(graphicsMeshModel);
     copyMesh(graphicsMeshModel);

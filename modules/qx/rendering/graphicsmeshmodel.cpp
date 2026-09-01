@@ -1,6 +1,5 @@
 #include "graphicsmeshmodel.h"
 #include <utils/EntityManager.h>
-#include <glm/gtc/type_ptr.hpp>
 #include <misc/assets.h>
 
 
@@ -92,7 +91,7 @@ MeshView GraphicsMeshModel::requestMesh(x_count vertexBatch,
     return ret;
 }
 
-auto GraphicsMeshModel::vertexBuffersCount()
+v_count GraphicsMeshModel::vertexBuffersCount()
 {
     v_count ret = 0;
     if( enablePositions && !m_positionsPool.empty() )

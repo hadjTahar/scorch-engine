@@ -44,7 +44,7 @@ set( QX_OPT_DEBUG_DETAILS            4)
 ### 5 : + dbg_warning
 ### 6 : + dbg_info
 ### 7 : + dbg_tips
-set( QX_OPT_DEBUG_LEVEL              2  )
+set( QX_OPT_DEBUG_LEVEL              3  )
 set( QX_OPT_HIDE_TERMINAL            OFF)
 
 
