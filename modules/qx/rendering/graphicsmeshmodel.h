@@ -14,11 +14,13 @@ namespace Qx {
 
 enum class v_primitive : uint8_t
 {
-    Points,
-    Lines,
-    LineStrip,
-    Triangles,
-    TrianglesStrip,
+    /// ## Don't change the enums values (made to match Google-Filament)
+    /// ## DriverEnums.h PrimitiveType
+    Points          = 0,
+    Lines           = 1,
+    LineStrip       = 3,
+    Triangles       = 4,
+    TrianglesStrip  = 5,
 
     None
 };

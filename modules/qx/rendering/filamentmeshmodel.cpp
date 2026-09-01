@@ -15,7 +15,7 @@ FilamentMeshModel::FilamentMeshModel()
 
 FilamentMeshModel::~FilamentMeshModel()
 {
-    clearBackendBuffers();
+
 }
 
 void FilamentMeshModel::clearBackendBuffers()

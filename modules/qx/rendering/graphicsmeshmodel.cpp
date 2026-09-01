@@ -9,11 +9,11 @@ namespace Qx {
 
 GraphicsMeshModel::GraphicsMeshModel()
 {
-
 }
 
 GraphicsMeshModel::~GraphicsMeshModel()
 {
+    clearBackendBuffers();
 }
 
 
