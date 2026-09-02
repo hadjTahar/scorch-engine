@@ -1,5 +1,4 @@
 #include "graphicsmeshmodel.h"
-#include <utils/EntityManager.h>
 #include <misc/assets.h>
 
 
@@ -19,6 +18,9 @@ GraphicsMeshModel::~GraphicsMeshModel()
 
 void GraphicsMeshModel::resize(x_count maxVertices, x_count maxIndices)
 {
+    m_vertexCounter = 0;
+    m_indexCounter  = 0;
+
     if( m_maxVertices == maxVertices && m_maxIndices == maxIndices )
         return;
 
@@ -35,8 +37,7 @@ void GraphicsMeshModel::resize(x_count maxVertices, x_count maxIndices)
     if( enableUVS && m_uvsPool.size() != m_maxVertices )
         m_uvsPool.resize( m_maxVertices );
 
-    m_vertexCounter = 0;
-    m_indexCounter  = 0;
+
 }
 
 

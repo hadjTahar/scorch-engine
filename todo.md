@@ -17,19 +17,16 @@
 
 ------------------------------------------------------------------------------------
 
-Level of details 
-If .lod is true compute the distance from camera and pass it to render Item and update model
-
-
-float lodFactor =
-glm::clamp(distance / camera.farPlane, 0.0f, 1.0f);
-
+- Level of details 
+- If .lod is true compute the distance from camera and pass it to render Item and update model
+- float lodFactor =
+- glm::clamp(distance / camera.farPlane, 0.0f, 1.0f);
 0.0 ───── 0.25 ───── 0.55 ───── 0.8 ───── 1.0
            │          │          │         │
           HIGH      MEDIUM      LOW      CULLED
 
 
-enum class DetailsLevel : uint8_t {
+- enum class DetailsLevel : uint8_t {
 	None,
 	Ignore = None, /// ??
     High,
@@ -40,10 +37,24 @@ enum class DetailsLevel : uint8_t {
 
 
 ------------------------------------------------------------------------------------
+- Viewports:
+	- Viewport struct, size, and type
+	- Apply the screen size and stretch to the view 
+	- m_filamentView->setViewport, size from GraphicsView, fixed or relative
+	- Check if you can use a matrix for screen scaling for different dpi add it to camera transforms
+	- Add reference {Fixed, Relative, Reference} eg: 1920x1080 and scale it to other screens like an image
+	- Add screen or view scale transform for eg use base dpi then use the desired dpi as a scale matrix
+	- Use the matrix in view
+	- Or use sim screen or sim view to simulate different screens
+	- Before each window render set current screen and update the viewports and the screen matrix 
+
+------------------------------------------------------------------------------------
 - initCanvas to initBackend
-- Create "render_backend_sample"
 - 2d render to draw(Canvas)
 - comn_examples, that have nor rendering, like timers nad ecs
+- Fix 3D examples
+	- Use Flecs as a module
+	- Use nanoflann as a module
 - Enable disable scene, no render no components process 
 - Add colorsPool
 	- Update worldItem using colors

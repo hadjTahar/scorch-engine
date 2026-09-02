@@ -6,13 +6,15 @@
 #include <primitives/cube.h>
 #include <primitives/worlditem.h>
 #include <components/cameracontroller.h>
-#include <rendering/filamentbackend.h>
-#include <rendering/renderbackendbase.h>
+#include <backends/renderbackendsample.h>
+#include <backends/filamentbackend.h>
 
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
+    //
     auto scene3D = addItem<Qx::prv::GraphicsScene3D<Qx::Backend::FilamentBackend> >();
+    // auto scene3D = addItem<Qx::prv::GraphicsScene3D<Qx::Backend::RenderBackendSample> >();
 
     auto vw0     = scene3D->addView();
     auto cam0    = vw0->camera();

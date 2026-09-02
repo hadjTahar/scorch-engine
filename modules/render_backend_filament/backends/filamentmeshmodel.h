@@ -1,7 +1,7 @@
 #ifndef FILAMENTMESHMODEL_H
 #define FILAMENTMESHMODEL_H
 
-#include "graphicsmeshmodel.h"
+#include <rendering/graphicsmeshmodel.h>
 
 #include <glm/gtc/type_ptr.hpp>
 

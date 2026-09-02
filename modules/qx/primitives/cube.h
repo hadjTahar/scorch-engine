@@ -2,8 +2,6 @@
 #define CUBE_H
 
 #include <core/graphicsitem3d.h>
-#include <utils/Entity.h>
-#include <filament/Box.h>
 
 
 

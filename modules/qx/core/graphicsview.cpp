@@ -5,11 +5,9 @@
 #include "graphicsitem3d.h"
 #include "graphicsscene.h"
 
-#include <utils/EntityManager.h>
 
 namespace Qx::prv
 {
-
 
 GraphicsView::GraphicsView(GraphicsScene *scene,
                            const x_rect &rc,
@@ -19,7 +17,6 @@ GraphicsView::GraphicsView(GraphicsScene *scene,
     m_camera{ MetaObject::make_unique_meta<GraphicsCamera>(scene) },
     m_transform{ x_matrix4x4{1} }
 {
-
 }
 
 GraphicsView::~GraphicsView()

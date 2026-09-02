@@ -18,7 +18,7 @@ class RenderBackendBase : public MetaObject
     QX_META_OBJECT( RenderBackendBase, MetaItemType::NA, MetaItemType::NA)
 
 
-public:
+protected:
     RenderBackendBase(GraphicsWindow *winItm);
     virtual BackendResult initBackend(const x_size &sz);
     virtual BackendResult beginFrame();
@@ -26,7 +26,6 @@ public:
     virtual BackendResult renderGraphicsView( GraphicsView *grphxView,
                                              x_count viewIndex );
     virtual BackendResult renderMeshModel( GraphicsMeshModel *mshModel);
-    // virtual BackendResult addView( GraphicsView *vw );
 
     static void printTrackers();
     virtual std::unique_ptr<GraphicsMeshModel> createMeshModel();

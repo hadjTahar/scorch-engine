@@ -86,5 +86,6 @@ add_subdirectory( qx qx_build )
 
 ### 3D render backends
 ### ------------------
-add_subdirectory( render_backend_base              qx_render_backend_base )
+add_subdirectory( render_backend_sample              qx_render_backend_sample )
+add_subdirectory( render_backend_filament            qx_render_backend_filament )
 

@@ -1,11 +1,9 @@
 #ifndef FILAMENTBACKEND_H
 #define FILAMENTBACKEND_H
 
-#include "renderbackendbase.h"
-#include <properties/cameraproperties.h>
 #include "filamentmeshmodel.h"
-
-
+#include <properties/cameraproperties.h>
+#include <rendering/renderbackendbase.h>
 
 
 
@@ -14,9 +12,16 @@ namespace Qx::Backend
 
 class FilamentBackend : public prv::RenderBackendBase
 {
+
+
+    template <typename BackendType>
+    friend class Qx::prv::GraphicsScene3D;
+
 public:
     FilamentBackend( prv::GraphicsWindow *winItm);
     ~FilamentBackend();
+
+protected:
 
     /// ## What a Render Backend needs
     /// ##

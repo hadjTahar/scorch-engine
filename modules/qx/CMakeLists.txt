@@ -44,10 +44,6 @@ target_link_libraries( qx PUBLIC ${QX_CMK_SDL_LIB_NAME} )
 target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/Yoga/Yoga" )
 target_link_libraries( qx PUBLIC yogacore )
 
-# Filament
-### ---------------
-target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/filament/filament/include" )
-target_link_libraries( qx PUBLIC filament )
 
 # Flecs
 ### ---------------
@@ -64,7 +60,6 @@ target_link_libraries( qx PUBLIC flecs_static )
 
 # Header only
 target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/headers" )
-# target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/headers" )
 
 
 # OpenMP
