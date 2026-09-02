@@ -1,118 +1,33 @@
-#include "graphicsmodel.h"
-#include <utils/EntityManager.h>
-#include <filament/TransformManager.h>
-#include <glm/gtc/type_ptr.hpp>
+#include "filamentmeshmodel.h"
+
 #include <misc/assets.h>
 
+#include <filament/TransformManager.h>
 
 
 namespace Qx {
 
 
-GraphicsModel::GraphicsModel()
+FilamentMeshModel::FilamentMeshModel()
 {
 
 }
 
-GraphicsModel::~GraphicsModel()
+FilamentMeshModel::~FilamentMeshModel()
 {
-    resetModel( true );
+
 }
 
-void GraphicsModel::initModel(x_count maxVertices, x_count maxIndices )
+void FilamentMeshModel::clearBackendBuffers()
 {
-    dbg_assert( m_maxIndices==0 && m_maxVertices==0 ) <<
-        "Model already init, can't init more than once...";
-    m_maxIndices  = maxIndices;
-    m_maxVertices = maxVertices;
+    resetEntity();
+    resetMaterial();
+    resetVertexBuffers();
+    resetIndexBuffer();
 }
 
-void GraphicsModel::resetMeshCounters()
+void FilamentMeshModel::renderModel(filament::Engine *eng, filament::Scene *scn)
 {
-
-    dbg_assert( m_maxIndices!=0 && m_maxVertices!=0 ) <<
-        "Model is not init, call 'GraphicsModel::initModel' once";
-
-    if( enableIndices && m_indexPool.size() != m_maxIndices )
-        m_indexPool.reserve( m_maxIndices );
-
-    if( enablePositions && m_positionsPool.size() != m_maxVertices )
-        m_positionsPool.reserve( m_maxVertices );
-    if( enableUVS && m_uvsPool.size() != m_maxVertices )
-        m_uvsPool.reserve( m_maxVertices );
-
-    m_vertexCounter = 0;
-    m_indexCounter  = 0;
-}
-
-
-MeshView GraphicsModel::requestMesh(x_count vertexBatch,
-                                      x_count indexBatch)
-{
-    /// ## We start from where we ended last request
-    /// ## Before offsetting again
-    ///
-    const auto indicesOffset  = m_indexCounter;
-    const auto verticesOffset = m_vertexCounter;
-
-    m_indexCounter   += indexBatch;
-    m_vertexCounter  += vertexBatch;
-
-
-    if( m_indexCounter > QX_DEF_INDEX_COUNT_WARNNING )
-        dbg_warning() << "Index count too large: " << m_indexCounter;
-
-    if( m_vertexCounter > QX_DEF_VERTEX_COUNT_WARNNING )
-        dbg_warning() << "Vertex count too large: " << m_vertexCounter;
-
-
-    dbg_assert( m_indexCounter <= m_maxIndices )
-        << "Indices requested exceeded maxIndices in ::initModel, "
-           "it will cause the previous requested mesh data to be lost: "
-        << m_indexCounter << " : "  << m_maxIndices;
-
-    dbg_assert( m_vertexCounter <= m_maxVertices )
-        << "Vertices requested exceeded maxVertices in ::initModel, "
-           "it will cause the previous requested mesh data to be lost: "
-        << m_vertexCounter << " : "  << m_maxVertices;
-
-
-    /// ## resizeIndices
-    /// ## We either have no
-    if( !m_filamentIndexBuffer || m_filamentIndexBuffer->getIndexCount() < m_maxIndices ){
-        m_indexPool.resize(enableIndices? m_indexCounter : 0);
-        resetIndexBuffer();
-    }
-    /// ## resizeVertices
-    if( !m_filamentVertexBuffer || m_filamentVertexBuffer->getVertexCount() < m_maxVertices ){
-        m_positionsPool.resize( enablePositions? m_vertexCounter : 0 );
-        m_uvsPool.resize( enableUVS? m_vertexCounter : 0  );
-        resetVertexBuffers();
-    }
-
-
-    const MeshView ret
-    {
-        m_indexPool.data(),
-        m_positionsPool.data(),
-        m_uvsPool.data(),
-        /// ## Add rest of pools here
-        /// rgba, uvData, normals, tangents
-
-        indicesOffset,
-        verticesOffset,
-
-        indexBatch,
-        vertexBatch
-    };
-    return ret;
-}
-
-
-
-void GraphicsModel::renderModel(filament::Engine *eng, filament::Scene *scn)
-{
-
     m_filamentEngine = eng;
     m_filamentScene  = scn;
 
@@ -129,16 +44,13 @@ void GraphicsModel::renderModel(filament::Engine *eng, filament::Scene *scn)
     if( enableUVS )
         dbg_assert( !m_uvsPool.empty() ) << "Vertex uvs " << msg;
 
-
-
     updateVertexBuffer();
     updateIndexBuffer();
     updateMaterial();
     updateEntity();
-
 }
 
-void GraphicsModel::updateVertexBuffer()
+void FilamentMeshModel::updateVertexBuffer()
 {
     /// ## This works (sameVerticesCount) under the assumption that
     /// ## the address of the std::vector, stays the same if no size changed
@@ -170,7 +82,7 @@ void GraphicsModel::updateVertexBuffer()
     setVertexBuffers();
 }
 
-void GraphicsModel::updateIndexBuffer()
+void FilamentMeshModel::updateIndexBuffer()
 {
     /// ## This works (sameIndices) under the assumption that
     /// ## the address of the std::vector, stays the same if no size changed
@@ -204,7 +116,7 @@ void GraphicsModel::updateIndexBuffer()
     setIndexBuffer();
 }
 
-void GraphicsModel::updateMaterial()
+void FilamentMeshModel::updateMaterial()
 {
     /// ## If the material name did not change
     /// ## we have the same material
@@ -233,18 +145,7 @@ void GraphicsModel::updateMaterial()
         shaderName;
 }
 
-filament::math::mat4f convertMatrix(const x_matrix4x4& sourceGlmMatrix) {
-    filament::math::mat4f targetMatrix;
-
-    // Grabs raw float pointer, forcing a safe 64-byte block copy
-    // without invoking Filament's multi-argument vector constructors
-    const float* rawData = x_vector::value_ptr(sourceGlmMatrix);
-    std::copy(rawData, rawData + 16, &targetMatrix[0].x);
-
-    return targetMatrix;
-}
-
-void GraphicsModel::updateEntity()
+void FilamentMeshModel::updateEntity()
 {
     const auto validEntity = m_filamentEngine->getEntityManager().isAlive(m_filamentEntity);
     if( !validEntity )
@@ -252,35 +153,13 @@ void GraphicsModel::updateEntity()
     renderEntity();
 }
 
-void GraphicsModel::resetModel(bool resetMat)
-{
-    resetEntity();
-    if( resetMat )
-        resetMaterial();
-    resetVertexBuffers();
-    resetIndexBuffer();
-}
 
-auto GraphicsModel::vertexBuffersCount()
-{
-    // return 1;
-
-    v_count ret = 0;
-    if( enablePositions && !m_positionsPool.empty() )
-        ++ret;
-    if( enableUVS && !m_uvsPool.empty() )
-        ++ret;
-
-    return ret;
-}
-
-
-
-void GraphicsModel::buildVertexBuffers()
+void FilamentMeshModel::buildVertexBuffers()
 {
     increaseTracker(m_vertexBuildsTracker);
     /// ## How many buffers (or slots)
-    v_count buffersCnt = vertexBuffersCount();
+    auto buffersCnt = vertexBuffersCount();
+
 
 
     dbg_assert( buffersCnt > 0 ) << "Filament buffer count can't be 0";
@@ -306,7 +185,7 @@ void GraphicsModel::buildVertexBuffers()
     m_filamentVertexBuffer = builder.build(*m_filamentEngine);
 }
 
-void GraphicsModel::setVertexBuffers()
+void FilamentMeshModel::setVertexBuffers()
 {
     uint8_t currentSlot{0};
     if( enablePositions && !m_positionsPool.empty() ){
@@ -334,7 +213,7 @@ void GraphicsModel::setVertexBuffers()
     }
 }
 
-void GraphicsModel::resetVertexBuffers()
+void FilamentMeshModel::resetVertexBuffers()
 {
     resetEntity();
     if( !m_filamentEngine || !m_filamentVertexBuffer )
@@ -343,7 +222,7 @@ void GraphicsModel::resetVertexBuffers()
     m_filamentVertexBuffer = nullptr;
 }
 
-void GraphicsModel::buildIndexBuffer()
+void FilamentMeshModel::buildIndexBuffer()
 {
     increaseTracker(m_indexBuildsTracker);
     m_filamentIndexBuffer = filament::IndexBuffer::Builder()
@@ -352,8 +231,7 @@ void GraphicsModel::buildIndexBuffer()
                                 .build(*m_filamentEngine);
 }
 
-
-void GraphicsModel::setIndexBuffer()
+void FilamentMeshModel::setIndexBuffer()
 {
     if( !enableIndices )
         return;
@@ -367,7 +245,7 @@ void GraphicsModel::setIndexBuffer()
         );
 }
 
-void GraphicsModel::resetIndexBuffer()
+void FilamentMeshModel::resetIndexBuffer()
 {
     resetEntity();
     if( !m_filamentEngine || !m_filamentIndexBuffer )
@@ -376,7 +254,7 @@ void GraphicsModel::resetIndexBuffer()
     m_filamentIndexBuffer = nullptr;
 }
 
-void GraphicsModel::buildMaterial()
+void FilamentMeshModel::buildMaterial()
 {
     increaseTracker(m_materialBuildsTracker);
     if( m_materialData.empty() )
@@ -392,7 +270,7 @@ void GraphicsModel::buildMaterial()
     m_filamentMaterialInstance = m_filamentMaterial->createInstance();
 }
 
-void GraphicsModel::resetMaterial()
+void FilamentMeshModel::resetMaterial()
 {
     resetEntity();
     if( !m_filamentEngine ||
@@ -405,7 +283,7 @@ void GraphicsModel::resetMaterial()
     m_filamentMaterial = nullptr;
 }
 
-void GraphicsModel::buildEntity()
+void FilamentMeshModel::buildEntity()
 {
     increaseTracker(m_entityBuildsTracker);
     const auto invldBox = aabb.min == x_vector3{} &&
@@ -415,8 +293,7 @@ void GraphicsModel::buildEntity()
     m_filamentEntity = utils::EntityManager::get().create();
 }
 
-
-void GraphicsModel::resetEntity()
+void FilamentMeshModel::resetEntity()
 {
     if( !m_filamentEngine )
         return;
@@ -427,7 +304,7 @@ void GraphicsModel::resetEntity()
     m_filamentEntity.clear();
 }
 
-void GraphicsModel::renderEntity()
+void FilamentMeshModel::renderEntity()
 {
     /// ## How many enitities to build
     const filament::Box boundingBox{
@@ -459,19 +336,11 @@ void GraphicsModel::renderEntity()
     if(transformable){
         filament::TransformManager& tcm = m_filamentEngine->getTransformManager();
         auto instance = tcm.getInstance(m_filamentEntity);
-        const filament::math::mat4f filamentMatrix = convertMatrix(m_transform);
+        const auto filamentMatrix = convertMatrix(m_transform);
         tcm.setTransform(instance, filamentMatrix);
     }
 
     m_filamentScene->addEntity(m_filamentEntity);
 }
-
-void GraphicsModel::setTransform(const x_matrix4x4 &newTransform)
-{
-    m_transform = newTransform;
-}
-
-
-
 
 }

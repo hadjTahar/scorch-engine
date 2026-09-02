@@ -18,10 +18,13 @@ class GraphicsItem : public prv::CoreItem
 {
 
     friend class GraphicsWindow;
-    friend class GraphicsScene3D;
-
     template <typename CanvasType>
     friend class GraphicsScene2D;
+
+    template <typename BackendType>
+    friend class GraphicsScene3D;
+
+
 
 public:
     GraphicsItem(CoreItem *parent);

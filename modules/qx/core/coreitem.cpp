@@ -224,7 +224,7 @@ void CoreItem::renderItem(Canvas *cnvs)
  void CoreItem::renderItem()
 {
     MetaObject::check_is_alive( this );
-    updateModel();
+    // updateModel();
 }
 
 

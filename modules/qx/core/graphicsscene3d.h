@@ -2,12 +2,14 @@
 #define GRAPHICSSCENE3D_H
 
 #include "graphicsscene.h"
+#include "graphicsitem3d.h"
 
 
 
 namespace Qx::prv
 {
 
+template <typename BackendType>
 class GraphicsScene3D : public prv::GraphicsScene
 {
 
@@ -16,11 +18,96 @@ class GraphicsScene3D : public prv::GraphicsScene
                    MetaItemType::GraphicsItem3D )
 
 public:
-    GraphicsScene3D(CoreItem *parent);
-    BackendResult initCanvas(GraphicsWindow *winItm) override final;
-    void renderViews(GraphicsWindow *winItm ) override final;
+    GraphicsScene3D(CoreItem *parent):
+        GraphicsScene{ parent }
+    {
+        m_itemType = ItemType::GraphicsScene3D;
+    }
+    ~GraphicsScene3D()
+    {
+        /// ## Make sure the models clear buffers
+        /// ## before backend's scene is destroyed
+        ///
+        for (auto itm : m_items) {
+            auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
+            auto model  = item3D->m_graphicsMeshModel.get();
+            if( !model )
+                continue;
+            model->clearBackendBuffers();
+        }
+    }
+
+
+    BackendResult initCanvas(GraphicsWindow *winItm) override final
+    {
+        if( m_backend )
+            return BackendResult::SUCCESS;
+        m_backend = make_unique_meta<BackendType>( winItm );
+        return m_backend->initBackend( winItm->properties.size() );
+    }
+
+    void renderViews(GraphicsWindow *winItm ) override final
+    {
+
+        if( !m_backend )
+            return;
+
+
+        /// ## Update the models
+        for (auto itm : m_items) {
+            auto item3D = castItem<GraphicsItem3D, MetaItemType::GraphicsItem3D>( itm );
+            const auto itmRdr = item3D->rendering;
+
+            if( !item3D->m_graphicsMeshModel )
+                item3D->m_graphicsMeshModel = m_backend->createMeshModel();
+
+            auto model  = item3D->m_graphicsMeshModel.get();
+            item3D->updateModel( model );
+
+            if( !model->ready )
+                continue;
+            model->setTransform( item3D->transform.pivotTransform() );
+            if( itmRdr.ignoreCamera() ){
+                dbg_warning() << "Ignore camera is not supported for 3D items...";
+                /// ## We can ignore the camera by using the inverse matrix of
+                /// ## the camera, but which camera,
+                /// ## One solution would be, to push items with 'ignoreCamera'
+                /// ## to a vector, and add an internal loop inside 'for ( auto &vw : m_views)'
+                /// ## to apply the inverse matrix
+            }
+            /// ## Matrix transfoms are handled in ::renderModel
+            m_backend->renderMeshModel( model );
+        }
+
+        BackendType::printTrackers();
+
+
+
+
+        /// ## Render the models to the views
+        /// ## ---------------------------------------
+        const auto res = m_backend->beginFrame() == BackendResult::SUCCESS;
+        // dbg_assert( res ) << "Renderer::beginFrame failed : " << res;
+        if( !res ){
+            dbg_print() << "Renderer::beginFrame failed : " << res;
+            return;
+        }
+
+        const auto vldSz = m_views.empty() || m_views.size() == 1;
+        dbg_assert( vldSz ) << "3D only supports one GraphicsView for now";
+
+        const auto cnt = m_views.size();
+        for (auto idx = 0; idx < cnt; ++idx) {
+            auto &vw = m_views[idx];
+            m_backend->renderGraphicsView( vw.get(), idx );
+        }
+        m_backend->endFrame();
+    }
+
+
 
 protected:
+    std::unique_ptr<BackendType> m_backend;
 };
 
 

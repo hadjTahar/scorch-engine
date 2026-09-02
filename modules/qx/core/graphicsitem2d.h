@@ -21,7 +21,7 @@ public:
 
 
 protected:
-    void updateModel() override final;
+    void updateModel( GraphicsMeshModel * ) override final;
 
 protected:
     std::unique_ptr<FlexStyle> m_flexStyle;

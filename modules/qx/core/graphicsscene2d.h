@@ -98,7 +98,7 @@ public:
                 m_canvas->setMatrix( finalMat );
 
 
-                graphicsItm->renderItem( m_canvas.get() );
+                graphicsItm->render( m_canvas.get() );
                 graphicsItm->resetPropertyStates();
             }
         }

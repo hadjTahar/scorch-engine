@@ -20,7 +20,7 @@ FlexStyle *GraphicsItem2D::flexStyle()
     return m_flexStyle.get();
 }
 
-void GraphicsItem2D::updateModel()
+void GraphicsItem2D::updateModel(GraphicsMeshModel *)
 {
     dbg_assert( false )<< "Can't call ::updateModel for 2D item";
 }

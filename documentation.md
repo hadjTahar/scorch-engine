@@ -16,6 +16,10 @@ NORMALS:   N N N N N N ...
 UVS:       UV UV UV UV ...
 
 
+
+
+Filament backend for now only supports beign used for one scene only
+
 ### Transforms:
 
 Why different names? because I may be wrong about certain transforms and how each should have been implemented, so I know where each function is called, if I decided to make changes.

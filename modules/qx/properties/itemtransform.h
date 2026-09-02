@@ -116,7 +116,6 @@ public:
 
     auto pivotTransform()
     {
-        /// m_graphicsModel->matrix  = mat1 * transform.worldMatrix() * mat0;
         if( m_pivot.type == PivotType::None)
             return worldMatrix();
 

@@ -2,8 +2,6 @@
 
 - Test and document git config submodule.ignore all
 
-
-
 ------------------------------------------------------------------------------------
 
 - Modules
@@ -19,19 +17,16 @@
 
 ------------------------------------------------------------------------------------
 
-Level of details 
-If .lod is true compute the distance from camera and pass it to render Item and update model
-
-
-float lodFactor =
-glm::clamp(distance / camera.farPlane, 0.0f, 1.0f);
-
+- Level of details 
+- If .lod is true compute the distance from camera and pass it to render Item and update model
+- float lodFactor =
+- glm::clamp(distance / camera.farPlane, 0.0f, 1.0f);
 0.0 ───── 0.25 ───── 0.55 ───── 0.8 ───── 1.0
            │          │          │         │
           HIGH      MEDIUM      LOW      CULLED
 
 
-enum class DetailsLevel : uint8_t {
+- enum class DetailsLevel : uint8_t {
 	None,
 	Ignore = None, /// ??
     High,
@@ -42,7 +37,24 @@ enum class DetailsLevel : uint8_t {
 
 
 ------------------------------------------------------------------------------------
+- Viewports:
+	- Viewport struct, size, and type
+	- Apply the screen size and stretch to the view 
+	- m_filamentView->setViewport, size from GraphicsView, fixed or relative
+	- Check if you can use a matrix for screen scaling for different dpi add it to camera transforms
+	- Add reference {Fixed, Relative, Reference} eg: 1920x1080 and scale it to other screens like an image
+	- Add screen or view scale transform for eg use base dpi then use the desired dpi as a scale matrix
+	- Use the matrix in view
+	- Or use sim screen or sim view to simulate different screens
+	- Before each window render set current screen and update the viewports and the screen matrix 
+
+------------------------------------------------------------------------------------
+- initCanvas to initBackend
+- 2d render to draw(Canvas)
 - comn_examples, that have nor rendering, like timers nad ecs
+- Fix 3D examples
+	- Use Flecs as a module
+	- Use nanoflann as a module
 - Enable disable scene, no render no components process 
 - Add colorsPool
 	- Update worldItem using colors
@@ -70,7 +82,7 @@ enum class DetailsLevel : uint8_t {
 	    - The Canvas Model
 	- GraphicsModelItem
     - GraphicsCanvasItem
-
+- Unit test orphaned items upon destruction 
 - Github:
 	- Currently tested on windows
 	- Contact?
@@ -117,6 +129,7 @@ enum class DetailsLevel : uint8_t {
 - Editor:
 	- Generate item files that later can be used to load the items
 	- Add scene 3d
+	- Editor use C++ DSPatch for visual programming 
 	- Add add canvas scene
 	- When you compile and run, add items from the files
 	- Check Esoterica engine 
@@ -176,7 +189,6 @@ enum class DetailsLevel : uint8_t {
 - How to add normals??
 - Audio with sdl Mixer example 
 - Add Page Item for both 2D and 3D, types: stack, swipe, OverLay for games UI
-- Abstract the filament options, bloom, and render
 - Clean unnecessary filament includes
 - Add options to "scripts/compile_mats.py" with optimized options
 - Search for "BackendResult" returns and handle them properly

@@ -216,7 +216,7 @@ enum class ItemType : uint8_t
 enum class BackendResult
 {
     SUCCESS,
-    ERROR,
+    FAIL,
     /**/
 };
 

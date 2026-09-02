@@ -8,24 +8,28 @@ namespace Qx::prv
 {
 
 
+
 class GraphicsItem3D : public prv::GraphicsItem
 {
     QX_META_OBJECT( "GraphicsItem3D",
                    MetaItemType::GraphicsItem3D,
                    MetaItemType::GraphicsItem3D )
 
+
+    template <typename BackendType>
+    friend class GraphicsScene3D;
+
+
 public:
     GraphicsItem3D(CoreItem *parent);
-    GraphicsModel *graphicsModel() const;
+    GraphicsMeshModel *graphicsMeshModel() const;
 
 protected:
     void render(Canvas*)override final;
-    void updateModel() override{}
+    void updateModel( GraphicsMeshModel * ) override{}
 
-protected:
-    friend class prv::GraphicsScene3D;
-
-    std::unique_ptr<GraphicsModel> m_graphicsModel;
+private:
+    std::unique_ptr<GraphicsMeshModel> m_graphicsMeshModel;
 
 };
 

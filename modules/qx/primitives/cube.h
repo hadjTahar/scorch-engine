@@ -2,8 +2,6 @@
 #define CUBE_H
 
 #include <core/graphicsitem3d.h>
-#include <utils/Entity.h>
-#include <filament/Box.h>
 
 
 
@@ -22,10 +20,10 @@ public:
     ~Cube();
 
 protected:
-    void updateModel() override;
+    void updateModel( GraphicsMeshModel *graphicsMeshModel ) override;
 
-    void setMesh();
-    void copyMesh();
+    void setMesh(GraphicsMeshModel *graphicsMeshModel);
+    void copyMesh(GraphicsMeshModel *graphicsMeshModel);
 
 };
 

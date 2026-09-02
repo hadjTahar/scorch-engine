@@ -73,10 +73,19 @@ endfunction()
 add_subdirectory( qx qx_build )
 # add_subdirectory( module_sample qx_module_sample )
 
-add_subdirectory( canvas_skia_base              qx_canvas_skia_base )
-add_subdirectory( canvas_sdl_renderer           qx_canvas_sdl_renderer )
-add_subdirectory( canvas_skia_raster_surface    qx_canvas_skia_raster_surface )
-add_subdirectory( canvas_skia_raster_texture    qx_canvas_skia_raster_texture )
+### Canvas backends
+### ------------------
+# add_subdirectory( canvas_skia_base              qx_canvas_skia_base )
+# add_subdirectory( canvas_sdl_renderer           qx_canvas_sdl_renderer )
+# add_subdirectory( canvas_skia_raster_surface    qx_canvas_skia_raster_surface )
+# add_subdirectory( canvas_skia_raster_texture    qx_canvas_skia_raster_texture )
 
-add_subdirectory( canvas_skia_opengl_surface    qx_canvas_skia_opengl_surface )
-add_subdirectory( canvas_skia_opengl_texture    qx_canvas_skia_opengl_texture )
+# add_subdirectory( canvas_skia_opengl_surface    qx_canvas_skia_opengl_surface )
+# add_subdirectory( canvas_skia_opengl_texture    qx_canvas_skia_opengl_texture )
+
+
+### 3D render backends
+### ------------------
+add_subdirectory( render_backend_sample              qx_render_backend_sample )
+add_subdirectory( render_backend_filament            qx_render_backend_filament )
+

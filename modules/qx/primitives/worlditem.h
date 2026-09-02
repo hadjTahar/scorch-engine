@@ -19,7 +19,7 @@ public:
     void setWorldMax(const x_vector3 &newWorldMax);
 
 protected:
-    void updateModel() override;
+    void updateModel( GraphicsMeshModel *graphicsMeshModel ) override;
 
     x_vector3 m_worldMin;
     x_vector3 m_worldMax;

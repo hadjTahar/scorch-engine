@@ -61,7 +61,7 @@ public:
                                        prv::PixelAlphaType pxAlphaTp) override
     {
         if( !m_skiaContext )
-            return prv::BackendResult::ERROR;
+            return prv::BackendResult::FAIL;
 
         const auto ww = m_skiaSurface? m_skiaSurface->width() : 0;
         const auto hh = m_skiaSurface? m_skiaSurface->height() : 0;

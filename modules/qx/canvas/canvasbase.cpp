@@ -17,8 +17,6 @@ CanvasBase::~CanvasBase()
 {
     if( m_sdlTexture )
         SDL_DestroyTexture( m_sdlTexture );
-
-
 }
 
 void CanvasBase::render(const x_size &sz)

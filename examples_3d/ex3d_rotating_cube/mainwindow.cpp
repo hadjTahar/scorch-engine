@@ -6,16 +6,19 @@
 #include <primitives/cube.h>
 #include <primitives/worlditem.h>
 #include <components/cameracontroller.h>
+#include <backends/renderbackendsample.h>
+#include <backends/filamentbackend.h>
 
 MainWindow::MainWindow(CoreItem *parent):
     Qx::prv::GraphicsWindow{ parent }
 {
-    auto scene3D = addItem<Qx::prv::GraphicsScene3D>();
+    //
+    auto scene3D = addItem<Qx::prv::GraphicsScene3D<Qx::Backend::FilamentBackend> >();
+    // auto scene3D = addItem<Qx::prv::GraphicsScene3D<Qx::Backend::RenderBackendSample> >();
+
     auto vw0     = scene3D->addView();
     auto cam0    = vw0->camera();
     cam0->reset3DPerspectiveCamera( screen() );
-    // cam0->reset3DOrthoCamera( screen(),
-    //                          Qx::x_aabb{{-1920, -1080, -1000 },{1920, 1080, 1000}} );
 
 
     auto wrldItm = scene3D->addItem<Qx::WorldItem>();

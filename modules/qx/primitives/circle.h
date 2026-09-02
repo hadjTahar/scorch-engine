@@ -2,8 +2,6 @@
 #define CIRCLE_H
 
 #include <core/graphicsitem3d.h>
-#include <utils/Entity.h>
-#include <filament/Box.h>
 
 
 
@@ -22,7 +20,7 @@ public:
     ~Circle();
 
 protected:
-    void updateModel() override;
+    void updateModel(GraphicsMeshModel *graphicsMeshModel ) override;
 
 };
 

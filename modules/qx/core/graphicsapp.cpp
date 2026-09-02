@@ -40,9 +40,6 @@ GraphicsApp::~GraphicsApp()
     CoreItem::stepPendings();
     TimerBase::clearTimers();
 
-    GraphicsWindow::m_filamentEngine->flushAndWait();
-    GraphicsWindow::m_filamentEngine->destroy(GraphicsWindow::m_filamentRenderer);
-    filament::Engine::destroy(GraphicsWindow::m_filamentEngine);
 
 }
 

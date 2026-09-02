@@ -2,7 +2,7 @@
 #define PIXELFORMATS_H
 
 
-#include <skia/include/core/SkAlphaType.h>
+// #include <skia/include/core/SkAlphaType.h>
 #include <SDL3/SDL_pixels.h>
 
 namespace Qx::prv {
@@ -10,13 +10,13 @@ namespace Qx::prv {
 
 
 
-/// ## To march Skia SkAlphaType
+/// ## To match Skia SkAlphaType
 enum class PixelAlphaType : int
 {
-    Unknown  = kUnknown_SkAlphaType,
-    Opaque   = kOpaque_SkAlphaType,
-    Premul   = kPremul_SkAlphaType,
-    Unpremul = kUnpremul_SkAlphaType,
+    Unknown,
+    Opaque,
+    Premul,
+    Unpremul,
     // = kLastEnum_SkAlphaType,
 };
 

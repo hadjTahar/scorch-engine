@@ -26,6 +26,8 @@ class GraphicsWindow : public prv::CoreItem
     friend class CoreComponent;
     friend class Qx::MouseComponent;
     friend class Qx::KeyComponent;
+    friend class RenderBackendBase;
+
     // friend class GraphicsScene2D;
 
     QX_META_OBJECT( GraphicsWindow,
@@ -42,9 +44,6 @@ public:
     void setFullScreen();
     Screen screen() const;
 
-    static filament::Engine *filamentEngine();
-    static filament::Renderer *filamentRenderer();
-    filament::SwapChain *filamentSwapChain() const;
     SDL_Window   *sdlWindow() const;
     SDL_Renderer *sdlRenderer();
 
@@ -53,7 +52,7 @@ protected:
     void initWindow();
     void processComponents(x_real dlt);
     void render(Canvas*)override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
-    void updateModel()override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
+    void updateModel( GraphicsMeshModel * )override final{dbg_assert(false) << "GraphicsWindow::render should never be called";}
     inline AppResult processEvents();
     AppResult event(const SDL_Event * const event);
     AppResult handleEvent(const SDL_Event * const event);
@@ -80,9 +79,8 @@ private:
     static bool sortCmp(CoreComponent *cmp0, CoreComponent *cmp1);
 
 private:
-    static filament::Engine   *m_filamentEngine;
-    static filament::Renderer *m_filamentRenderer;
-    filament::SwapChain       *m_filamentSwapChain;
+
+    void              *m_filamentBackendSwapChain;
 
     SDL_Window        *m_sdlWindow;
     SDL_Renderer      *m_sdlRenderer;
