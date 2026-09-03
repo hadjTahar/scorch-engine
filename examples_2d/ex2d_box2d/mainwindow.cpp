@@ -70,16 +70,15 @@ MainWindow::MainWindow(CoreItem *parent):
 
     box2DCmp->step = [ball]()
     {
-        // b2Vec2 position = b2Body_GetPosition(ball.m_id);
-        // b2Vec2 velocity = b2Body_GetLinearVelocity(ball.m_id);
+        b2Vec2 position = ball->position();
+        b2Vec2 velocity = ball->linearVelocity();;
 
-        // std::cout
-        //     << "Position: "
-        //     << position.x << ", "
-        //     << position.y
-        //     << "  Velocity: "
-        //     << velocity.x << ", "
-        //     << velocity.y
-        //     << '\n';
+        dbg_print_st()
+            << "Position: "
+            << position.x << ", "
+            << position.y
+            << "  Velocity: "
+            << velocity.x << ", "
+            << velocity.y;
     };
 }

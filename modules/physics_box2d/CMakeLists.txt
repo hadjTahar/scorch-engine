@@ -17,8 +17,8 @@ target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
 target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx )
 
 # Box 2D
-target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/vendors/box2cpp/include")
-target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC box2cpp )
+target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/vendors/box2dcpp/include")
+target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC box2dcpp )
 
 
 
