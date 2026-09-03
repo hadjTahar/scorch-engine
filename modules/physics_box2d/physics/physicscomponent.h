@@ -1,9 +1,10 @@
 #ifndef PHYSICSCOMPONENT_H
 #define PHYSICSCOMPONENT_H
 
-#include "manager.h"
 
 #include <components/corecomponent.h>
+
+#include <box2cpp/manager.h>
 
 namespace Qx::Box2D {
 
