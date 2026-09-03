@@ -14,10 +14,13 @@ class World
 {
 
     friend class PhysicsComponent;
+    friend class Manager;
     friend class Body;
 
     struct private_ctor_t {};
 
+private:
+    World(){}
 
 public:
     World( private_ctor_t);

@@ -17,6 +17,7 @@ Body::~Body()
     /// ## Shapes and joints
     // for ( const auto &shp : m_shapes)
     //     b2DestroyShape( shp.m_shapeId, true );
+
 }
 
 Shape *Body::addShape(const Polygon &polygon)

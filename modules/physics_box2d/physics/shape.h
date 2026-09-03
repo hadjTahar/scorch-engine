@@ -14,6 +14,7 @@ class Shape
     struct private_ctor_t {};
 
 
+    Shape(){}
 
 public:
 

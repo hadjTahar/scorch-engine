@@ -1,12 +1,11 @@
 #ifndef PHYSICSCOMPONENT_H
 #define PHYSICSCOMPONENT_H
 
+#include "manager.h"
+
 #include <components/corecomponent.h>
-#include "body.h"
-#include "world.h"
 
 namespace Qx::Box2D {
-
 
 
 
@@ -17,15 +16,10 @@ public:
     World *createWorld();
 
 
-
-
 public:
     prv::x_simpleCallback step;
+    Manager m_manager;
 
-protected:
-
-    std::vector<World> m_worlds;
-    // World m_world;
 
 };
 

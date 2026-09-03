@@ -33,7 +33,6 @@ MainWindow::MainWindow(CoreItem *parent):
     itm1->transform.setPosition( {20, 20, 0 } );
     itm1->style.setColor( Qx::green() );
 
-    // test();
 
     auto box2DCmp = itm0->attach<Qx::Box2D::PhysicsComponent>();
     auto world0 = box2DCmp->createWorld();
