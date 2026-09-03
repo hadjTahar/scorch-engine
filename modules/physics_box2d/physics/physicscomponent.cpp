@@ -11,20 +11,18 @@ PhysicsComponent::PhysicsComponent(prv::GraphicsItem *gItem):
     process = [this](x_real dlt)
     {
         const auto dltSec = dlt / 1000.0f;
-        for ( auto world : m_worlds)
-            b2World_Step( world, dltSec, 4);
+        for ( auto &world : m_worlds)
+            b2World_Step( world.m_id, dltSec, 4);
 
         if( step )
             step();
     };
 }
 
-World PhysicsComponent::createWorld( const WorldOpts &wrldOpts)
+World *PhysicsComponent::createWorld()
 {
-    const auto ret = b2CreateWorld( &wrldOpts );
-
-    m_worlds.push_back( ret );
-    return ret;
+    m_worlds.emplace_back( World::private_ctor_t{} );
+    return &m_worlds.back();
 }
 
 
