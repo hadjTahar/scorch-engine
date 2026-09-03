@@ -25,6 +25,3 @@
 [submodule "vendors/box2d"]
 	path = vendors/box2d
 	url = https://github.com/erincatto/box2d.git
-[submodule "vendors/box2cpp"]
-	path = vendors/box2cpp
-	url = https://github.com/hadjTahar/box2cpp.git
