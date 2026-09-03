@@ -12,9 +12,8 @@ target_compile_features(canvas_skia_base PUBLIC cxx_std_20)
 
 
 
-# Header includes
-target_include_directories(canvas_skia_base PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
 # Link qx
+target_include_directories(canvas_skia_base PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
 target_link_libraries( canvas_skia_base PUBLIC qx )
 
 

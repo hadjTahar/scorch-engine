@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-set( QX_CMK_MOD_NAME render_backend_sample )
+set( QX_CMK_MOD_NAME physics_box2d )
 project(${QX_CMK_MOD_NAME} LANGUAGES CXX)
 
 
@@ -16,6 +16,14 @@ target_compile_features(${QX_CMK_MOD_NAME} PUBLIC cxx_std_20)
 target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
 target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx )
 
+# Box 2D
+target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/vendors/box2d/include")
+target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC box2d )
+
+
+
+
+
 ### This function defines how the end-target links it
 ### Use full links, using "CMAKE_SOURCE_DIR"
 ### Don't use "PROJECT_NAME"
@@ -25,6 +33,6 @@ target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx )
 ### ---------------------------------------------------
 
 function( qx_link_${QX_CMK_MOD_NAME} target )
-    target_include_directories( ${target} PUBLIC "${CMAKE_SOURCE_DIR}/modules/render_backend_sample" )
-    target_link_libraries( ${target} PUBLIC render_backend_sample )
+    target_include_directories( ${target} PUBLIC "${CMAKE_SOURCE_DIR}/modules/physics_box2d" )
+    target_link_libraries( ${target} PUBLIC physics_box2d )
 endfunction()

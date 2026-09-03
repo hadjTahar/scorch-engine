@@ -14,9 +14,8 @@ target_compile_features(${QX_CMK_MOD_NAME} PUBLIC cxx_std_20)
 
 
 # Link qx
-target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
+target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
 target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx )
-
 # # Link canvas_skia_base
 target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/modules/canvas_skia_base")
 target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC canvas_skia_base )

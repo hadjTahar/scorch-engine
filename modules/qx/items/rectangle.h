@@ -21,6 +21,7 @@ protected:
 
 public:
     prv::RectangleStyle style;
+    void World();
 };
 
 }

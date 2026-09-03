@@ -13,8 +13,8 @@ target_compile_features(${QX_CMK_MOD_NAME} PUBLIC cxx_std_20)
 
 
 
-# Header includes
-target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx/src")
+# Link qx
+target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
 target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx )
 
 
