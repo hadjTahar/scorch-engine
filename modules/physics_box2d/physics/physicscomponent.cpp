@@ -10,10 +10,7 @@ PhysicsComponent::PhysicsComponent(prv::GraphicsItem *gItem):
 {
     process = [this](x_real dlt)
     {
-        const auto dltSec = dlt / 1000.0f;
-        for ( auto &world : m_manager.m_worlds)
-            b2World_Step( world.m_id, dltSec, 4);
-
+        m_manager.step( dlt, 4 );
         if( step )
             step();
     };
@@ -21,7 +18,7 @@ PhysicsComponent::PhysicsComponent(prv::GraphicsItem *gItem):
 
 World *PhysicsComponent::createWorld()
 {
-   return m_manager.createWorld();
+    return m_manager.createWorld();
 }
 
 

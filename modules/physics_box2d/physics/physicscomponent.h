@@ -4,7 +4,7 @@
 
 #include <components/corecomponent.h>
 
-#include <box2cpp/manager.h>
+#include <box2dcpp/manager.h>
 
 namespace Qx::Box2D {
 
