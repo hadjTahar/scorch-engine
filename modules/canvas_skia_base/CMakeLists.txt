@@ -12,18 +12,18 @@ target_compile_features(canvas_skia_base PUBLIC cxx_std_20)
 
 
 
-# Link qx
-target_include_directories(canvas_skia_base PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
-target_link_libraries( canvas_skia_base PUBLIC qx )
+# Link qx_core
+target_include_directories(canvas_skia_base PUBLIC  "${CMAKE_SOURCE_DIR}/qx_core")
+target_link_libraries( canvas_skia_base PUBLIC qx_core )
 
 
-### Link SKIA (vendors/qx_skia)
+### Link SKIA (vendors/qx_core_skia)
 ### ---------------
 ### For Qx includes
-target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/qx_skia" )
+target_include_directories( qx_core PUBLIC "${CMAKE_SOURCE_DIR}/vendors/qx_skia" )
 ### For Skia internal includes
-target_include_directories( qx PUBLIC "${CMAKE_SOURCE_DIR}/vendors/qx_skia/skia" )
+target_include_directories( qx_core PUBLIC "${CMAKE_SOURCE_DIR}/vendors/qx_skia/skia" )
 ### INTERFACE only, no need to link
-# target_link_libraries( qx PUBLIC qx_skia )
+# target_link_libraries( qx_core PUBLIC qx_skia )
 
 

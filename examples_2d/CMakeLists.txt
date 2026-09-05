@@ -26,5 +26,6 @@
 # add_subdirectory( ex2d_velocity ) ## OK
 # add_subdirectory( ex2d_z_sorting ) ## OK
 
-add_subdirectory( ex2d_box2d ) ## OK
+# add_subdirectory( ex2d_box2d ) ## OK
+add_subdirectory( ex2d_viewports ) ## OK
 

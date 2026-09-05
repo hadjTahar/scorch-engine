@@ -97,6 +97,19 @@ enum class PivotAxis : uint8_t
     Max
 };
 
+enum class ViewType
+{
+    Fixed,
+    Relative
+};
+
+enum class ViewMode
+{
+    Stretch,
+    Fit,
+    Fill
+};
+
 
 
 }

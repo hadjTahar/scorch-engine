@@ -12,9 +12,9 @@ add_library(${QX_CMK_MOD_NAME} STATIC ${SAMPLE_SRC_FILES} )
 target_compile_features(${QX_CMK_MOD_NAME} PUBLIC cxx_std_20)
 
 
-# Link qx
-target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx")
-target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx )
+# Link qx_core
+target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/qx_core")
+target_link_libraries( ${QX_CMK_MOD_NAME} PUBLIC qx_core )
 
 # Box 2D
 target_include_directories(${QX_CMK_MOD_NAME} PUBLIC  "${CMAKE_SOURCE_DIR}/vendors/box2dcpp/include")

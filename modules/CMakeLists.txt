@@ -70,7 +70,7 @@ endfunction()
 ### ------------------------------------------------------------------------------------
 
 
-add_subdirectory( qx qx_build )
+add_subdirectory( qx_core qx_build )
 # add_subdirectory( module_sample qx_module_sample )
 
 ### Canvas backends

@@ -50,7 +50,7 @@ function( qx_use_module module )
     cmake_language(CALL qx_link_${module} ${QX_CMK_APP_NAME})
 endfunction()
 
-qx_use_module( qx )
+qx_use_module( qx_core )
 
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_APP_NAME=\"${QX_CMK_APP_NAME}\"" )
 target_compile_definitions( ${QX_CMK_APP_NAME} PUBLIC "QX_DEF_ORG_NAME=\"${QX_CMK_ORG_NAME}\"" )
