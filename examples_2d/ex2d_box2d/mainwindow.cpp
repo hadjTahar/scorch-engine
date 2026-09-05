@@ -31,8 +31,8 @@ MainWindow::MainWindow(CoreItem *parent):
     itm0->style.setColor( Qx::red() );
 
     itm1->transform.setPosition( {20, 20, 0 } );
+    itm1->transform.setSize( {20, 20, 0 } );
     itm1->style.setColor( Qx::green() );
-
 
     auto box2DCmp = itm0->attach<Qx::Box2D::PhysicsComponent>();
     auto world0 = box2DCmp->createWorld();
@@ -42,9 +42,22 @@ MainWindow::MainWindow(CoreItem *parent):
     // Create floor
     // -------------------------
 
-    auto floor = world0->addBody();
-    auto floorShp = floor->addShape( b2MakeBox(5,5) );
-    floorShp->setShapeDensity( 1, true );
+    auto floor0 = world0->addBody();
+    floor0->setPosition( {0.0f, -220.0f} );
+    auto floorShp0 = floor0->addShape( b2MakeBox(5,5) );
+    floorShp0->setDensity( 1, true );
+    floorShp0->setRestitution( .1 );
+
+
+    // -------------------------
+    // Create floor
+    // -------------------------
+
+    auto floor1 = world0->addBody();
+    floor1->setPosition( {0.0f, 20.0f} );
+    auto floorShp1 = floor1->addShape( b2MakeBox(5,5) );
+    floorShp1->setDensity( 1, true );
+    floorShp1->setRestitution( .1 );
 
 
     // -------------------------
@@ -53,32 +66,27 @@ MainWindow::MainWindow(CoreItem *parent):
 
 
     auto ball = world0->addBody();
-    ball->setPosition( {0.0f, 5.0f} );
+    ball->setPosition( {0.0f, 15.0f} );
     ball->setType( b2_dynamicBody );
 
     Qx::Box2D::Circle circle;
     circle.center = {0.0f, 0.0f};
     circle.radius = 0.5f;
     auto ballShp = ball->addShape( circle );
-    ballShp->setShapeDensity( 1.0f, true );
+    ballShp->setDensity( 1.0f, true );
+    ballShp->setRestitution( 1 );
 
 
 
     // Give ball an initial velocity.
-    ball->setLinearVelocity( {3.0f, -5.0f} );
+    ball->setLinearVelocity( {.0f, -1225.0f} );
 
 
-    box2DCmp->step = [ball]()
+    box2DCmp->step = [ball, itm1]()
     {
         b2Vec2 position = ball->position();
-        b2Vec2 velocity = ball->linearVelocity();;
 
-        dbg_print_st()
-            << "Position: "
-            << position.x << ", "
-            << position.y
-            << "  Velocity: "
-            << velocity.x << ", "
-            << velocity.y;
+        itm1->transform.setPosition( {position.x, -position.y, 0 });
+
     };
 }

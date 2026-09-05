@@ -54,6 +54,11 @@ CreateWorld( World)
 	- Use the matrix in view
 	- Or use sim screen or sim view to simulate different screens
 	- Before each window render set current screen and update the viewports and the screen matrix 
+	- Window screenTest( size, dpi )
+	- Calculate the scale use it in the view
+	- dp, px ,…:
+		Set a static current screen object and use it for calculations 
+		And a static test screen?
 
 ------------------------------------------------------------------------------------
 - initCanvas to initBackend
