@@ -29,8 +29,9 @@ protected:
     prv::BackendResult beginFrame() override;
     prv::BackendResult endFrame() override;
     prv::BackendResult initBackend(const x_size &sz) override;
-    prv::BackendResult renderGraphicsView( prv::GraphicsView *grphxView,
-                                          x_count viewIndex ) override;
+    prv::BackendResult renderGraphicsView(prv::GraphicsView *graphicsView,
+                                          x_count viewIndex,
+                                          const x_size &winSz) override;
     prv::BackendResult renderMeshModel( GraphicsMeshModel *mshModel) override;
 
     std::unique_ptr<GraphicsMeshModel> createMeshModel() override;
@@ -50,8 +51,10 @@ protected:
 
 
     prv::BackendResult addView( prv::GraphicsView *vw );
-    void applyCamera( filament::Camera* flmntCam,
-                     const prv::CameraProperties &camProperties );
+    void applyGraphicsView(prv::GraphicsView *graphicsView,
+                           filament::View* flmntVew,
+                           filament::Camera* flmntCam,
+                           const x_size &winSz);
 
 
 

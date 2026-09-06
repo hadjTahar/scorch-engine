@@ -141,6 +141,7 @@ AppResult GraphicsWindow::handleEvent(const SDL_Event * const event)
 
 AppResult GraphicsWindow::dispatchMouseEvent(const SDL_Event * const event)
 {
+    const auto windSz = properties.size();
     const auto evtTp = event->type;
 
     const auto isWheel = (evtTp == SDL_EVENT_MOUSE_WHEEL);
@@ -161,7 +162,7 @@ AppResult GraphicsWindow::dispatchMouseEvent(const SDL_Event * const event)
             /// ## ToDo: this solution will only work for one view
             /// ## For multiple view it can call leave earlier
             /// ## when the first view fails the check
-            if( !mCmp->checkEvent( mEvent, scn ) ){
+            if( !mCmp->checkEvent( mEvent, scn, windSz ) ){
                 if( mCmp->m_entered && mCmp->move ){
                     mCmp->m_entered = false;
                     mEvent.m_eventType = MouseEventType::MouseLeave;
@@ -178,7 +179,7 @@ AppResult GraphicsWindow::dispatchMouseEvent(const SDL_Event * const event)
 
         /// ## Focus events
         for ( auto kCmp : m_keyComponents) {
-            if( !kCmp->checkEvent( mEvent, scn ) )
+            if( !kCmp->checkEvent( mEvent, scn, windSz ) )
                 continue;
             if( updateFocusKeyComponent(kCmp, FocusPolicy::Click) )
                 return AppResult::CONTINUE;

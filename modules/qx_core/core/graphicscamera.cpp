@@ -35,7 +35,8 @@ x_matrix4x4 GraphicsCamera::viewMatrix() const
     const x_vector3 forward  = properties.forward();
     const x_vector3 up       = properties.up();
 
-    return glm::lookAt(position, position + forward, up);
+    return glm::lookAt(position, forward, up);
+    // return glm::lookAt(position, position + forward, up);
 }
 
 x_matrix4x4 GraphicsCamera::projectionMatrix() const
@@ -67,13 +68,20 @@ x_matrix4x4 GraphicsCamera::projectionMatrix() const
     }
 }
 
+x_matrix4x4 GraphicsCamera::transform() const
+{
+    return projectionMatrix() * viewMatrix();
+}
+
 void GraphicsCamera::resetUICamera( const Screen &scrn )
 {
+    setScreen( scrn );
     reset2DOrthoCamera( scrn );
 }
 
 void GraphicsCamera::reset2DOrthoCamera( const Screen &scrn )
 {
+    setScreen( scrn );
     properties.setPosition( {} );
     properties.setForward( {0.00f, 0.00f, -1.0f} );
     properties.setUp(      {0.00f, 1.00f, 0.00f} );
@@ -88,6 +96,7 @@ void GraphicsCamera::reset2DOrthoCamera( const Screen &scrn )
 
 void GraphicsCamera::reset2DPerspectiveCamera( const Screen &scrn )
 {
+    setScreen( scrn );
     properties.setPosition( {} );
     properties.setForward( {0.00f, 0.00f, -1.0f} );
     properties.setUp(      {0.00f, 1.00f, 0.00f} );
@@ -104,6 +113,7 @@ void GraphicsCamera::reset2DPerspectiveCamera( const Screen &scrn )
 void GraphicsCamera::reset3DOrthoCamera(const Screen &scrn,
                                         const x_aabb &aabb)
 {
+    setScreen( scrn );
     properties.setPosition( {0.0f, 0.0f, 2.0f} );
     properties.setForward(  {0.0f, 0.0f, 1.0f} );
     properties.setUp(       {0.0f, 1.0f, 0.0f} );
@@ -115,6 +125,7 @@ void GraphicsCamera::reset3DOrthoCamera(const Screen &scrn,
 
 void GraphicsCamera::reset3DOrthoCamera( const Screen &scrn )
 {
+    setScreen( scrn );
     // properties.setPosition( {0.0f, 0.0f, 2.0f} );
     // properties.setForward(  {0.0f, 0.0f, 1.0f} );
     // properties.setUp(       {0.0f, 1.0f, 0.0f} );
@@ -133,6 +144,7 @@ void GraphicsCamera::reset3DOrthoCamera( const Screen &scrn )
 
 void GraphicsCamera::reset3DPerspectiveCamera( const Screen &scrn )
 {
+    setScreen( scrn );
     // const auto sz = scrn.size();
     const auto ratio = scrn.sizeRatio();
 
@@ -145,6 +157,16 @@ void GraphicsCamera::reset3DPerspectiveCamera( const Screen &scrn )
     properties.setAspectRatio( ratio );
     properties.setNearPlane( 0.1f );
     properties.setFarPlane( 3000.f );
+}
+
+Screen GraphicsCamera::screen() const
+{
+    return m_screen;
+}
+
+void GraphicsCamera::setScreen(const Screen &scrn)
+{
+    m_screen = scrn;
 }
 
 

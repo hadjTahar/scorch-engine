@@ -25,7 +25,8 @@ prv::BackendResult RenderBackendSample::endFrame()
 }
 
 prv::BackendResult RenderBackendSample::renderGraphicsView(prv::GraphicsView *grphxView,
-                                                           x_count viewIndex)
+                                                           x_count viewIndex,
+                                                           const x_size &winSz)
 {
     return prv::BackendResult::SUCCESS;
 }

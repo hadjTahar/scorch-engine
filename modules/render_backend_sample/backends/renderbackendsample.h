@@ -23,7 +23,8 @@ protected:
     virtual prv::BackendResult beginFrame();
     virtual prv::BackendResult endFrame();
     virtual prv::BackendResult renderGraphicsView( prv::GraphicsView *grphxView,
-                                             x_count viewIndex );
+                                                  x_count viewIndex,
+                                                  const x_size &winSz);
     virtual prv::BackendResult renderMeshModel( GraphicsMeshModel *mshModel);
 
     static void printTrackers();

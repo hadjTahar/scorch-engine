@@ -4,6 +4,12 @@
 namespace Qx
 {
 
+Screen::Screen():
+    m_size{0,0,0}
+{
+
+}
+
 Screen::Screen(SDL_Window *window):
     m_size{}
 {

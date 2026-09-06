@@ -85,25 +85,27 @@ prv::BackendResult FilamentBackend::initBackend(const x_size &sz)
     return prv::BackendResult::SUCCESS;
 }
 
-prv::BackendResult FilamentBackend::renderGraphicsView(prv::GraphicsView *grphxView,
-                                                       x_count viewIndex)
+prv::BackendResult FilamentBackend::renderGraphicsView(prv::GraphicsView *graphicsView,
+                                                       x_count viewIndex,
+                                                       const x_size &winSz)
 {
     const auto cnt = m_filamentViews.size();
     dbg_assert( m_filamentCameras.size() == cnt  )  <<
         "m_filamentViews and m_filamentCameras must have the same size";
 
     if( viewIndex >= cnt )
-        addView( grphxView );
+        addView( graphicsView );
 
     dbg_assert( viewIndex < m_filamentViews.size()  )  <<
         "viewIndex must be less than m_filamentViews size";
 
-    const auto camProperties = grphxView->camera()->properties;
     auto flmntVew = m_filamentViews[viewIndex];
     auto flmntCam = m_filamentCameras[viewIndex];
 
     m_filamentRenderer->render( flmntVew );
-    applyCamera( flmntCam, camProperties );
+
+
+    applyGraphicsView( graphicsView, flmntVew, flmntCam, winSz );
     return prv::BackendResult::SUCCESS;
 }
 
@@ -155,16 +157,37 @@ Qx::prv::BackendResult FilamentBackend::renderMeshModel( GraphicsMeshModel *mshM
 }
 
 
-void FilamentBackend::applyCamera(filament::Camera *flmntCam,
-                                  const prv::CameraProperties &camProperties)
+void FilamentBackend::applyGraphicsView(prv::GraphicsView *graphicsView,
+                                        filament::View *flmntVew,
+                                        filament::Camera *flmntCam,
+                                        const x_size &winSz)
 {
     /// ## IF 2D don't modify the filamnet camera
 
+    auto graphicsCam = graphicsView->camera();
+    const prv::CameraProperties &camProperties = graphicsCam->properties;
     const auto camMd    = camProperties.mode();
 
-    const auto camPos = camProperties.position();
-    const auto camFrw = camProperties.forward();
-    const auto camUp  = camProperties.up();
+    const auto viewport = graphicsView->effectiveViwport( winSz );
+
+    const auto hh = static_cast<uint32_t>( viewport.height );
+    const auto ww = static_cast<uint32_t>( viewport.width );
+    const auto xx = static_cast<int32_t> ( viewport.x );
+    /// ## Bottom, not y coordinate
+    const auto yy = static_cast<int32_t> ( winSz.height - viewport.y-hh );
+
+    flmntVew->setViewport({ xx, yy, ww, hh });
+    const auto logicalScale = graphicsView->logicalScale( winSz );
+    flmntCam->setScaling( {logicalScale.x, logicalScale.y } );
+
+    dbg_print() << "--------------------------";
+    // dbg_print() << xx;
+    // dbg_print() << yy;
+    // dbg_print() << ww;
+    // dbg_print() << hh;
+
+    dbg_print() << logicalScale.x;
+    dbg_print() << logicalScale.y;
 
 
     if( camMd == prv::CameraMode::PERSPECTIVE)
@@ -191,6 +214,18 @@ void FilamentBackend::applyCamera(filament::Camera *flmntCam,
                                         min.z, max.z);
 
     }
+
+    auto mat0 = graphicsView->camera()->viewMatrix();
+    auto mat1 = x_vector::inverse( mat0 );
+    const auto camViewMat = FilamentMeshModel::convertMatrix( mat1 );
+    flmntCam->setModelMatrix( camViewMat );
+    return;
+
+
+
+    const auto camPos = camProperties.position();
+    const auto camFrw = camProperties.forward();
+    const auto camUp  = camProperties.up();
 
     /// ## For 2D fix these values
     filament::math::float3 eye( camPos.x, camPos.y, camPos.z);

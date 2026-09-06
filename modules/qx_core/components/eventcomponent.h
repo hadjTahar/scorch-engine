@@ -17,7 +17,7 @@ class EventComponent : public prv::CoreComponent
 {
 public:
     EventComponent(prv::GraphicsItem *parentItem);
-    bool checkEvent(const MouseEvent &event, prv::GraphicsScene *scn);
+    bool checkEvent(const MouseEvent &event, prv::GraphicsScene *scn, const x_size &windSz);
 
     MousePolicy mousePolicy() const;
     void setMousePolicy(MousePolicy newMousePolicy);

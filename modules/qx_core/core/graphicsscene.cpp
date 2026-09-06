@@ -40,7 +40,7 @@ std::vector<Qx::prv::GraphicsItem *> Qx::prv::GraphicsScene::items() const
 
 Qx::prv::GraphicsView *Qx::prv::GraphicsScene::addView()
 {
-    auto ptr = std::make_unique<GraphicsView>( this, x_rect{}, ViewType::Absolute );
+    auto ptr = std::make_unique<GraphicsView>( this );
     auto ret = ptr.get();
     m_views.push_back( std::move( ptr ) );
 

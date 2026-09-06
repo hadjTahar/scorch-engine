@@ -24,7 +24,8 @@ protected:
     virtual BackendResult beginFrame();
     virtual BackendResult endFrame();
     virtual BackendResult renderGraphicsView( GraphicsView *grphxView,
-                                             x_count viewIndex );
+                                             x_count viewIndex,
+                                             const x_size &winSz );
     virtual BackendResult renderMeshModel( GraphicsMeshModel *mshModel);
 
     static void printTrackers();

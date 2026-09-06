@@ -12,6 +12,7 @@ namespace Qx
 namespace prv
 {
 class GraphicsWindow;
+class GraphicsCamera;
 }
 
 
@@ -19,9 +20,11 @@ class Screen
 {
 
     friend class prv::GraphicsWindow;
+    friend class prv::GraphicsCamera;
 
 
 protected:
+    Screen();
     Screen(SDL_Window *window);
 
 public:

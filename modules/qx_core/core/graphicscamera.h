@@ -23,6 +23,7 @@ public:
     void propertyChanged(PropertyStates newPropertyStates) override;
     x_matrix4x4 viewMatrix() const;
     x_matrix4x4 projectionMatrix() const;
+    x_matrix4x4 transform() const;
 
     /// ## Helpers
     void resetUICamera( const Screen &scrn );
@@ -36,9 +37,16 @@ public:
 
 public:
     CameraProperties properties;
+    Screen screen() const;
+
+
+protected:
+    void setScreen(const Screen &scrn);
 
 private:
+    Screen         m_screen;
     GraphicsScene *m_scene;
+
 };
 
 }

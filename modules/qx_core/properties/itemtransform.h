@@ -126,26 +126,29 @@ public:
         return mat1 * worldMatrix() * mat0;
     }
 
-    auto cameraTransform( const x_matrix4x4 &gvwMatrix,
-                         const x_matrix4x4 &canvasMatrix,
+    auto cameraTransform(const x_matrix4x4 &cameraMatrix,
                          bool ignoreCamera)
     {
         const auto pvtTransform = pivotTransform();
         if( ignoreCamera )
-            /// ## Use the graphics view transform only
-            return pvtTransform * gvwMatrix;
+            /// ## Use the item transform only
+            return pvtTransform ;
         else
             /// ## Use the camera transform
-            return pvtTransform * canvasMatrix;
+            return pvtTransform * cameraMatrix;
     }
 
-
-    static inline auto canvasMatrix( const x_matrix4x4 &gvwMatrix,
-                                    const x_matrix4x4 &camViewMatrix,
-                                    const x_matrix4x4 &camPrjtMatrix)
+    auto logicalTransform(const x_matrix4x4 &gvwMatrix,
+                          const x_matrix4x4 &cameraMatrix,
+                          bool ignoreCamera)
     {
-        return gvwMatrix*(camPrjtMatrix * camViewMatrix);;
+        const auto itemMat  = cameraTransform( cameraMatrix,
+                                             ignoreCamera
+                                             );
+        return gvwMatrix * itemMat;
     }
+
+
 
 private:
 

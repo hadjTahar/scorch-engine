@@ -19,7 +19,9 @@ EventComponent::EventComponent(prv::GraphicsItem *parentItem):
 
 
 
-bool EventComponent::checkEvent(const MouseEvent &event, prv::GraphicsScene *scn)
+bool EventComponent::checkEvent(const MouseEvent &event,
+                                prv::GraphicsScene *scn,
+                                const x_size &windSz)
 {
     if( m_mousePolicy == MousePolicy::AlwaysCapture )
         return true;
@@ -37,19 +39,18 @@ bool EventComponent::checkEvent(const MouseEvent &event, prv::GraphicsScene *scn
     {
         auto vw    = vwPtr.get();
         auto cam2D = vw->camera();
-        const auto gvwMatrix    = vw->transform();
-        const auto canvasMatrix  = ItemTransform::canvasMatrix( gvwMatrix,
-                                                              cam2D->viewMatrix(),
-                                                              cam2D->projectionMatrix() );
-
-        const auto itmRdr   = m_graphicsItem->rendering;
-        const auto finalMat = m_graphicsItem->transform.cameraTransform( gvwMatrix,
-                                                                      canvasMatrix,
-                                                                      itmRdr.ignoreCamera()
-                                                                      );
+        const auto gvwMatrix    = vw->logicalTransform( windSz );
+        const auto cameraMatrix = cam2D->transform();
 
 
-        const auto pTest   = glm::inverse( finalMat) * eventPt;
+        const auto itmRdr  = m_graphicsItem->rendering;
+        const auto itemLogicalMat = m_graphicsItem->transform.
+                                    logicalTransform(gvwMatrix,
+                                                     cameraMatrix,
+                                                     itmRdr.ignoreCamera()
+                                                     );
+
+        const auto pTest   = glm::inverse( itemLogicalMat) * eventPt;
         x_vector3  finalPt = pTest;
         if( pTest.w != 0 )
             finalPt = x_vector3{pTest.x/pTest.w,

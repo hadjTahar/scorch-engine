@@ -32,7 +32,8 @@ BackendResult RenderBackendBase::endFrame()
 }
 
 BackendResult RenderBackendBase::renderGraphicsView(prv::GraphicsView *grphxView,
-                                                    x_count viewIndex)
+                                                    x_count viewIndex,
+                                                    const x_size &winSz)
 {
     dbg_print() << "renderGraphicsView is not implemented, defaulting to "
                    "BackendResult::renderGraphicsView";

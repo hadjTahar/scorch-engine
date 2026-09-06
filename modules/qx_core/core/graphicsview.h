@@ -15,23 +15,42 @@ class GraphicsItem;
 class GraphicsView
 {
 public:
-    GraphicsView( GraphicsScene *scene, const x_rect &rc, ViewType tp );
+    GraphicsView(GraphicsScene *scene);
     ~GraphicsView();
     bool shouldRender(GraphicsItem *itm);
 
-
     GraphicsCamera *camera() const;
-    x_matrix4x4 transform();
+
+    /// ## Used for Canvas
+    x_matrix4x4 logicalTransform( const x_size &windSz ) const;
+
+    /// ## Used for Filament
+    x_vector2   logicalScale( const x_size &windSz ) const;
+
+    x_rect viewport() const;
+    void setViewport(const x_rect &newViewport);
+    x_rect effectiveViwport(const x_size &windSz) const;
+
+    x_size logicalSize() const;
+    void setLogicalSize(x_size newLogicalSize);
+
+    ViewType type() const;
+    void setType(ViewType newType);
+
+    ViewMode mode() const;
+    void setMode(ViewMode newMode);
+
 
 private:
 
-    x_rect          m_rect;
-    ViewType        m_type;
+    x_rect   m_viewport;
+    x_size   m_logicalSize;
+    ViewType m_type;
+    ViewMode m_mode;
+
     std::unique_ptr<GraphicsCamera>  m_camera;
 
 
-protected:
-    x_matrix4x4 m_transform;
 };
 
 }

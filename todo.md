@@ -1,6 +1,18 @@
 # To do:
 
 - Test and document git config submodule.ignore all
+- Viewport::contains( windowPosition)
+- Mouse event:
+	- Replace x y with vector point ::windowPoint 
+	- itemPoint (mapped point)
+	- Mouse events
+	- itemPosition
+	- windowPosition
+	- 2D check mouse
+	- 3D check mouse
+- Check 3D viewports
+
+
 
 ------------------------------------------------------------------------------------
 
@@ -44,18 +56,13 @@ CreateWorld( World)
 
 
 ------------------------------------------------------------------------------------
-- Viewports:
-	- Viewport struct, size, and type
-	- Apply the screen size and stretch to the view 
-	- m_filamentView->setViewport, size from GraphicsView, fixed or relative
-	- Check if you can use a matrix for screen scaling for different dpi add it to camera transforms
-	- Add reference {Fixed, Relative, Reference} eg: 1920x1080 and scale it to other screens like an image
+- Screen:
+	- Screen units and screen resolutions
 	- Add screen or view scale transform for eg use base dpi then use the desired dpi as a scale matrix
-	- Use the matrix in view
 	- Or use sim screen or sim view to simulate different screens
+	- If the current screen equals the screen use identity transform
 	- Before each window render set current screen and update the viewports and the screen matrix 
 	- Window screenTest( size, dpi )
-	- Calculate the scale use it in the view
 	- dp, px ,…:
 		Set a static current screen object and use it for calculations 
 		And a static test screen?
@@ -75,8 +82,6 @@ CreateWorld( World)
 	- Create bool offScreen();
 	- Create CoreComponent::active| or enabled/disabled, if (!enabled) return, don't call process
 		- This allows some items and components to idle
-- Fix: Camera controler is flipping the world when mouse clicked
-	- Camera click only messes when apply model transform  "tcm.setTransform(instance,filamentMatrix);"
 - Trigs vs strips for better performance
 - Add TypedFunctions to unit tests
 - Filament Canvas:
@@ -95,39 +100,21 @@ CreateWorld( World)
 	- GraphicsModelItem
     - GraphicsCanvasItem
 - Unit test orphaned items upon destruction 
-- Github:
-	- Currently tested on windows
-	- Contact?
 - Remove MetaItemType::Physics
 	- Don't use "propagation" and "propagate", just get root or windowItem and set it to needsRendering	
 - QX_OPT_SDL_WINDOW_OPTIONS per OS, ask gpt
 - Recheck if there are leaks when resizing
+	- Use empty canvas and see where the leaks are
 - Recheck and Fix the time loop
 - Improve or fix the scene graph.
 	- look up scene graph data structure and a better traverse 
 	- Remove the recursive calls in the scene graph (update, render, ...)
-- Refactor modules
-	- See if you can use filament and canvas as modules
-	- Let skia modules handle all the options 
-	- Qx_use_module(skia)
-	- Qx_use_module(filament)
-	- Enable or disable linking
-	- So you can clean up, or commenting out non needed modules on release
-	- Nanolann, ECS (ECSComponent), hash maps, filament, skia, and most vendors as modules
-	- Doc: modular functionalities, it's up to the end user to use or remove modules
-		scene 2D and scene3D as modules???
-- Multiple views:
-	- Untested
-	- Fix or remove multiple views
-	- Rename renderItem to renderables()
 - Dynamic properry for camera
 	- LinearCamera
 	- BezierCamera
 	- PolynomialCamera
 	- DampedCamera
-- Mouse event:
-	- Replace x y with vector point ::windowPoint 
-	- itemPoint (mapped point)
+- Camera Limits
 - Mechanics:
 	Develop a mechanic class, that handles, that can be fed to an ECS
 	- Input: keys or mouse 
@@ -137,7 +124,6 @@ CreateWorld( World)
 		- Or Interaction, update or inform other items or entities. Eg: if a door button is pressed, inform the door to open with a signal, rewards, bullet or hit damage, sound
 		- Check Signal from Godot
 	- State:  Update internal (relative to the item) logics, memory and states. Eg: opened,closed, hit.
-
 - Editor:
 	- Generate item files that later can be used to load the items
 	- Add scene 3d
@@ -154,8 +140,6 @@ CreateWorld( World)
 		- Add ecs component mesh
 		- Add ecs component collision 
 		- Add ecs system, then you code the system or use a pre existing one, like gravity, boids system , turret system, 
-
-
 
 - Document the classes:
 	- Properties, like size, color, and propagation system
@@ -176,8 +160,6 @@ CreateWorld( World)
 		- examples
 		- tests: unit testing module
 		- benchmarks: benchmarks module
-
-- Screen units and screen resolutions
 - Remove check property : QX_OPT_CHECK_UPDATE_CHILDREN
 - Check skia effects, check:
 	- styles.h/CanvasEffects
@@ -187,16 +169,12 @@ CreateWorld( World)
 	- goolge skia gradients
 - Add atlas item for emitters and swarms
 	- or use ecs for the emitters
-- Leaks:
-	- Use empty canvas and see where the leaks are
-	
 - Keyboard events, when exiting cause crash
 - Frame transforms interpolation between updates:
   - is this necessary
   - cache the world transform, update
   - virtual ::interpolate??
   - QX_OPT_INTERPOLATE
-- Camera Limits
 - Strip vs triangles for fast rendering??
 - How to add normals??
 - Audio with sdl Mixer example 

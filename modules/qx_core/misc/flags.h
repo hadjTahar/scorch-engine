@@ -99,7 +99,7 @@ enum class PivotAxis : uint8_t
 
 enum class ViewType
 {
-    Fixed,
+    Absolute,
     Relative
 };
 
@@ -233,11 +233,6 @@ enum class BackendResult
     /**/
 };
 
-enum class ViewType
-{
-    Relative,
-    Absolute
-};
 
 template<typename E>
 struct enable_bitmask_ops : std::false_type {};

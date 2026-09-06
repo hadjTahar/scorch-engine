@@ -48,6 +48,7 @@ public:
 
     void renderViews(GraphicsWindow *winItm ) override final
     {
+        const auto windSz = winItm->properties.size();
 
         if( !m_backend )
             return;
@@ -99,7 +100,7 @@ public:
         const auto cnt = m_views.size();
         for (auto idx = 0; idx < cnt; ++idx) {
             auto &vw = m_views[idx];
-            m_backend->renderGraphicsView( vw.get(), idx );
+            m_backend->renderGraphicsView( vw.get(), idx, windSz );
         }
         m_backend->endFrame();
     }
