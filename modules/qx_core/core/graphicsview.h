@@ -18,6 +18,7 @@ public:
     GraphicsView(GraphicsScene *scene);
     ~GraphicsView();
     bool shouldRender(GraphicsItem *itm);
+    bool contains(const x_vector3 &winPos , const x_size &windSz);
 
     GraphicsCamera *camera() const;
 

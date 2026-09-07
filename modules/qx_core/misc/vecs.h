@@ -55,6 +55,14 @@ struct x_rect
     x_real 	y{0};
     x_real 	width{0};
     x_real 	height{0};
+
+    bool contains( x_real px, x_real py) const
+    {
+        return px >= x &&
+               px <= x + width &&
+               py >= y &&
+               py <= y + height;
+    }
 };
 
 

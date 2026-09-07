@@ -1,7 +1,7 @@
 #ifndef MOUSEEVENT_H
 #define MOUSEEVENT_H
 
-#include <misc/defs.h>
+#include <misc/vecs.h>
 #include <misc/flags.h>
 #include "event.h"
 
@@ -19,38 +19,39 @@ class MouseEvent : public Event
     friend class prv::GraphicsWindow;
 
 // protected:
-    MouseEvent(x_real  xx,
-               x_real  yy,
+    MouseEvent(const x_vector3 &winPos,
+               const x_vector3 &itmPos,
+               const x_vector2 &wheel,
                uint8_t btn,
-               uint8_t clks,
-               x_real wXX,
-               x_real wYY);
+               uint8_t clks);
     ~MouseEvent();
 
 public:
     MouseEvent operator=(const MouseEvent & rhs);
 
 
-    MouseEventType eventType() const;
-    x_real x() const;
-    x_real y() const;
+    MouseEventType eventType() const;    
     MouseButton button() const;
     uint8_t clicks() const;
 
-    x_real wheelX() const;
-    x_real wheelY() const;
+
+
+    x_vector3 windowPos() const;
+
+    x_vector3 itemPos() const;
+
+    x_vector2 wheel() const;
 
 protected:
 
-    MouseEventType m_eventType;
-    x_real       m_x;
-    x_real       m_y;
-    MouseButton  m_button;
-    uint8_t      m_clicks;
 
+    x_vector3       m_windowPos;
+    x_vector3       m_itemPos;
+    x_vector2       m_wheel;
+    uint8_t         m_clicks;
+    MouseButton     m_button;
+    MouseEventType  m_eventType;
 
-    x_real       m_wheelX;
-    x_real       m_wheelY;
     // x_real    m_depth;
     // v_count  m_renderableID;
     // bool      m_valid;

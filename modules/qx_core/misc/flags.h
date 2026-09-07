@@ -34,7 +34,7 @@ enum class MousePolicy{
 };
 
 
-enum class MouseEventType{
+enum class MouseEventType : uint8_t{
     MouseNone,
     MousePress,
     MouseRelease,

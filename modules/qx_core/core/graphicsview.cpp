@@ -16,8 +16,6 @@ GraphicsView::GraphicsView(GraphicsScene *scene):
     m_mode{ ViewMode::Stretch},
     m_camera{ MetaObject::make_unique_meta<GraphicsCamera>(scene) }
 {
-
-
 }
 
 GraphicsView::~GraphicsView()
@@ -39,12 +37,11 @@ ItemRendering ::rendering
     return true;
 }
 
-// std::vector<GraphicsItem *> GraphicsView::renderables(const std::vector<GraphicsItem *> lst) const
-// {
-//     dbg_warning() << "For 2D sort by z and return";
-//     return lst;
-// }
-
+bool GraphicsView::contains(const x_vector3 &winPos, const x_size &windSz)
+{
+    const auto vp  = effectiveViwport( windSz );
+    return vp.contains( winPos.x, winPos.y );
+}
 
 
 GraphicsCamera *GraphicsView::camera() const
@@ -71,8 +68,18 @@ x_matrix4x4 GraphicsView::logicalTransform(const x_size &windSz) const
 
     const auto idMat = x_matrix4x4{1};
     const auto trMat = x_vector::translate( idMat, {vp.x, vp.y,0} );
-    const auto scMat = x_vector::scale( idMat, {sc.x, sc.y, 1 } );
+    const auto scMat = x_vector::scale( idMat, {sc.x, sc.y, sc.x/sc.y } );
     return trMat * scMat;
+
+    /// ## From filament
+    // return x_matrix4x4 {
+    //     sc.x, 0.0, 0.0, vp.x,
+    //     0.0, sc.y, 0.0, vp.y,
+    //     0.0, 0.0, -0.5, 0.5,    // GL to inverted DX convention
+    //     0.0, 0.0, 0.0, 1.0
+    // };
+
+
 }
 
 x_vector2 GraphicsView::logicalScale(const x_size &windSz) const

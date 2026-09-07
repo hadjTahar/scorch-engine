@@ -145,14 +145,18 @@ AppResult GraphicsWindow::dispatchMouseEvent(const SDL_Event * const event)
     const auto evtTp = event->type;
 
     const auto isWheel = (evtTp == SDL_EVENT_MOUSE_WHEEL);
-    MouseEvent mEvent{
-        event->button.x,
-        event->button.y,
-        event->button.button,
-        event->button.clicks,
+    const auto winPos = x_vector3{event->button.x, event->button.y, 0};
+    const auto itmPos = x_vector3{0,0,0};
+    const auto wheel  = x_vector2{
         isWheel? event->wheel.x : 0,
         isWheel? event->wheel.y : 0
-
+    };
+    MouseEvent mEvent{
+        winPos,
+        itmPos,
+        wheel,
+        event->button.button,
+        event->button.clicks
     };
     const auto &scnItems = childrenView();
     for ( auto &scnItm : scnItems){

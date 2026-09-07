@@ -20,10 +20,10 @@ MainWindow::MainWindow(CoreItem *parent):
     auto cam0    = vw0->camera();
     cam0->reset3DPerspectiveCamera( screen() );
 
-    vw0->setViewport( {.0,.0, 200, 200 } );
-    vw0->setType( Qx::ViewType::Absolute );
-    vw0->setLogicalSize( {192
-                         ,108} );
+    // vw0->setViewport( {.0,.0, 200, 200 } );
+    // vw0->setType( Qx::ViewType::Absolute );
+    // vw0->setLogicalSize( {192
+    //                      ,108} );
 
 
     auto wrldItm = scene3D->addItem<Qx::WorldItem>();
@@ -77,6 +77,15 @@ MainWindow::MainWindow(CoreItem *parent):
         // Apply
         transform.setRotation(rotation);
 
+    };
+
+
+    auto cmp0 = cubeItm->attach<Qx::MouseComponent>();
+
+    cmp0->clicked = [](const Qx::MouseEvent &event)
+    {
+        dbg_print_st() << "CUBE ITEM CLICKED";
+        return true;
     };
 
 

@@ -25,9 +25,9 @@ bool EventComponent::checkEvent(const MouseEvent &event,
 {
     if( m_mousePolicy == MousePolicy::AlwaysCapture )
         return true;
-    // const auto matItem = m_graphicsItem->transform.pivotTransform();
-    const auto xx = event.x();
-    const auto yy = event.y();
+    const auto winPos = event.windowPos();
+    const auto xx = winPos.x;
+    const auto yy = winPos.y;
     const auto zz = m_graphicsItem->transform.position().z;
     const x_vector4 eventPt = {xx,yy,zz, 1 };
 
@@ -38,6 +38,8 @@ bool EventComponent::checkEvent(const MouseEvent &event,
     for ( const auto &vwPtr : vws )
     {
         auto vw    = vwPtr.get();
+        if( !vw->contains( {xx,yy, 0}, windSz) )
+            continue;
         auto cam2D = vw->camera();
         const auto gvwMatrix    = vw->logicalTransform( windSz );
         const auto cameraMatrix = cam2D->transform();

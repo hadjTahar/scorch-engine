@@ -17,6 +17,8 @@ UVS:       UV UV UV UV ...
 
 
 
+Multiple view and mouse events don’t work as expected in 3d
+
 
 Filament backend for now only supports beign used for one scene only
 

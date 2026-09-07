@@ -164,74 +164,81 @@ void FilamentBackend::applyGraphicsView(prv::GraphicsView *graphicsView,
 {
     /// ## IF 2D don't modify the filamnet camera
 
+
     auto graphicsCam = graphicsView->camera();
     const prv::CameraProperties &camProperties = graphicsCam->properties;
-    const auto camMd    = camProperties.mode();
-
-    const auto viewport = graphicsView->effectiveViwport( winSz );
-
-    const auto hh = static_cast<uint32_t>( viewport.height );
-    const auto ww = static_cast<uint32_t>( viewport.width );
-    const auto xx = static_cast<int32_t> ( viewport.x );
-    /// ## Bottom, not y coordinate
-    const auto yy = static_cast<int32_t> ( winSz.height - viewport.y-hh );
-
-    flmntVew->setViewport({ xx, yy, ww, hh });
-    const auto logicalScale = graphicsView->logicalScale( winSz );
-    flmntCam->setScaling( {logicalScale.x, logicalScale.y } );
-
-    dbg_print() << "--------------------------";
-    // dbg_print() << xx;
-    // dbg_print() << yy;
-    // dbg_print() << ww;
-    // dbg_print() << hh;
-
-    dbg_print() << logicalScale.x;
-    dbg_print() << logicalScale.y;
+    const auto fovInDegrees = camProperties.fieldOfView();
+    const auto aspectRatio  = camProperties.aspectRatio();
+    const auto camNear         = camProperties.nearPlane();
+    const auto camFar          = camProperties.farPlane();
 
 
-    if( camMd == prv::CameraMode::PERSPECTIVE)
-    {
-        const auto fovInDegrees = camProperties.fieldOfView();
-        const auto aspectRatio  = camProperties.aspectRatio();
-        const auto camNear         = camProperties.nearPlane();
-        const auto camFar          = camProperties.farPlane();
+    // const auto viewport = graphicsView->effectiveViwport( winSz );
+    // const auto hh = static_cast<uint32_t>( viewport.height );
+    // const auto ww = static_cast<uint32_t>( viewport.width );
+    // const auto xx = static_cast<int32_t> ( viewport.x );
+    // /// ## Bottom, not y coordinate
+    // const auto yy = static_cast<int32_t> ( winSz.height - viewport.y-hh );
 
-        flmntCam->setProjection(
-            fovInDegrees,
-            aspectRatio,
-            camNear,
-            camFar);
-    }
-    else
-    {
-        const auto orthoBox = camProperties.orthoBox();
-        const auto min = orthoBox.min;
-        const auto max = orthoBox.max;
-        flmntCam->setProjection( filament::Camera::Projection::ORTHO,
-                                        min.x, max.x,
-                                        min.y, max.y,
-                                        min.z, max.z);
+    // flmntVew->setViewport({ xx, yy, ww, hh });
+    // const auto logicalScale = graphicsView->logicalScale( winSz );
+    // flmntCam->setScaling( {logicalScale.x, logicalScale.y } );
 
-    }
 
-    auto mat0 = graphicsView->camera()->viewMatrix();
-    auto mat1 = x_vector::inverse( mat0 );
-    const auto camViewMat = FilamentMeshModel::convertMatrix( mat1 );
+
+
+
+
+    const auto viewMatrix  = x_vector::transpose(graphicsView->logicalTransform( winSz ));
+    const auto inverseView = graphicsView->camera()->viewMatrix();
+    const auto projection  = graphicsView->camera()->projectionMatrix();
+
+    const auto vwMatrixMat = FilamentMeshModel::convertMatrix( viewMatrix );
+    const auto camViewMat  = FilamentMeshModel::convertMatrix( inverseView );
+    const auto camProjMat  = vwMatrixMat*FilamentMeshModel::convertMatrix( projection );
     flmntCam->setModelMatrix( camViewMat );
-    return;
 
 
+    flmntCam->setCustomProjection( filament::math::mat4(camProjMat), camNear, camFar );
 
-    const auto camPos = camProperties.position();
-    const auto camFrw = camProperties.forward();
-    const auto camUp  = camProperties.up();
+    // auto graphicsCam = graphicsView->camera();
+    // const prv::CameraProperties &camProperties = graphicsCam->properties;
 
-    /// ## For 2D fix these values
-    filament::math::float3 eye( camPos.x, camPos.y, camPos.z);
-    filament::math::float3 center(camFrw.x, camFrw.y, camFrw.z);
-    filament::math::float3 up(camUp.x, camUp.y, camUp.z);
-    flmntCam->lookAt(eye, center, up);
+    // const auto camMd    = camProperties.mode();
+    // if( camMd == prv::CameraMode::PERSPECTIVE)
+    // {
+    //     const auto fovInDegrees = camProperties.fieldOfView();
+    //     const auto aspectRatio  = camProperties.aspectRatio();
+    //     const auto camNear         = camProperties.nearPlane();
+    //     const auto camFar          = camProperties.farPlane();
+
+    //     flmntCam->setProjection(
+    //         fovInDegrees,
+    //         aspectRatio,
+    //         camNear,
+    //         camFar);
+    // }
+    // else
+    // {
+    //     const auto orthoBox = camProperties.orthoBox();
+    //     const auto min = orthoBox.min;
+    //     const auto max = orthoBox.max;
+    //     flmntCam->setProjection( filament::Camera::Projection::ORTHO,
+    //                                     min.x, max.x,
+    //                                     min.y, max.y,
+    //                                     min.z, max.z);
+
+    // }
+
+    // const auto camPos = camProperties.position();
+    // const auto camFrw = camProperties.forward();
+    // const auto camUp  = camProperties.up();
+
+    // /// ## For 2D fix these values
+    // filament::math::float3 eye( camPos.x, camPos.y, camPos.z);
+    // filament::math::float3 center(camFrw.x, camFrw.y, camFrw.z);
+    // filament::math::float3 up(camUp.x, camUp.y, camUp.z);
+    // flmntCam->lookAt(eye, center, up);
 }
 
 

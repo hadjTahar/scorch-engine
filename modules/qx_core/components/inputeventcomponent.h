@@ -161,7 +161,8 @@ private:
             return;
         const auto act = m_mouseInputs[tmp];
         m_actions.push_back( act );
-        m_mouseEvents[act] = {evt.x(), evt.y(), 0 };
+        const auto winPos = evt.windowPos();
+        m_mouseEvents[act] = {winPos.x, winPos.y, 0 };
     }
 
 private:

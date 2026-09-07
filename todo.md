@@ -1,18 +1,13 @@
 # To do:
 
-- Test and document git config submodule.ignore all
-- Viewport::contains( windowPosition)
 - Mouse event:
-	- Replace x y with vector point ::windowPoint 
-	- itemPoint (mapped point)
-	- Mouse events
-	- itemPosition
-	- windowPosition
+	- checkEvent
+		- returns MouseEvent
+		- filled with mapped coords
+		- and valid as bool
 	- 2D check mouse
 	- 3D check mouse
 - Check 3D viewports
-
-
 
 ------------------------------------------------------------------------------------
 
