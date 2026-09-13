@@ -32,9 +32,15 @@ public:
     x_real sizeRatio() const;
 
 
+    x_vector2 dpi() const;
+    x_vector2 dpiScale() const;
+
+
 protected:
 
-    x_size m_size;
+    x_size      m_size;
+    x_vector2   m_dpi;
+    x_vector2   m_simDpi;
 
 };
 

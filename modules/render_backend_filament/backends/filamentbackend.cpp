@@ -173,7 +173,7 @@ void FilamentBackend::applyGraphicsView(prv::GraphicsView *graphicsView,
     const auto camFar          = camProperties.farPlane();
 
 
-    // const auto viewport = graphicsView->effectiveViwport( winSz );
+    // const auto viewport = graphicsView->effectiveViewport( winSz );
     // const auto hh = static_cast<uint32_t>( viewport.height );
     // const auto ww = static_cast<uint32_t>( viewport.width );
     // const auto xx = static_cast<int32_t> ( viewport.x );

@@ -5,9 +5,10 @@ namespace Qx
 {
 
 Screen::Screen():
-    m_size{0,0,0}
+    m_size{0,0,0},
+    m_dpi{ 96 },
+    m_simDpi{ 96 }
 {
-
 }
 
 Screen::Screen(SDL_Window *window):
@@ -31,6 +32,17 @@ x_size Screen::size() const
 x_real Screen::sizeRatio() const
 {
     return m_size.width / m_size.height;
+}
+
+x_vector2 Screen::dpi() const
+{
+    return m_dpi;
+}
+
+x_vector2 Screen::dpiScale() const
+{
+    return {1,1};
+    // return m_dpi/m_simDpi;
 }
 
 }

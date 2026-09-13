@@ -1,9 +1,6 @@
-#include "flexlayout.h"
+#include "box2dworlditem.h"
 
-#include <misc/flexmanager.h>
-#include <glm/glm.hpp>
-
-namespace Qx {
+namespace Qx::Box2D {
 
 bool areMatricesEqual(const glm::mat4& m1, const glm::mat4& m2, float epsilon = 0.00001f) {
     return glm::all(glm::epsilonEqual(m1[0], m2[0], epsilon)) &&
@@ -13,18 +10,17 @@ bool areMatricesEqual(const glm::mat4& m1, const glm::mat4& m2, float epsilon = 
 }
 
 
-FlexLayout::FlexLayout(CoreItem *parent):
-    Rectangle{ parent},
-    m_prevMat{},
-    m_prevChildren{ 0 }
-{
 
+WorldItem::WorldItem(CoreItem *parent):
+    Rectangle{ parent},
+    m_prevMat{}
+{
     m_prevMat = {-1};
     auto pCmp = attach<Qx::prv::CoreComponent>();
 
     pCmp->process = [this](Qx::x_real )
     {
-              auto &transform = this->transform;
+        auto &transform = this->transform;
         const auto  gPItem    = graphicsParentItem();
         const auto  parentSz  = gPItem->transform.size();
         const auto  mat       = transform.layoutsTransform();
@@ -34,15 +30,16 @@ FlexLayout::FlexLayout(CoreItem *parent):
             areMatricesEqual(m_prevMat, mat, eps ) &&
             transform.size() == parentSz;
 
-        if( same && m_prevChildren == childrenView().size() )
+        if( same )
             return;
 
         transform.setSize( parentSz );
-        prv::FlexManager::processFlexNodes( this );
+        transform.setPosition( {0, parentSz.height, 0 } );
         /// ## Dont re-use "mat", the transform may have changed
         m_prevMat      = transform.layoutsTransform();
-        m_prevChildren = childrenView().size();
     };
 }
+
+
 
 }

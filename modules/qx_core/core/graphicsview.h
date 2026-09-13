@@ -30,7 +30,7 @@ public:
 
     x_rect viewport() const;
     void setViewport(const x_rect &newViewport);
-    x_rect effectiveViwport(const x_size &windSz) const;
+    x_rect effectiveViewport(const x_size &windSz) const;
 
     x_size logicalSize() const;
     void setLogicalSize(x_size newLogicalSize);

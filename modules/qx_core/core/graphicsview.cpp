@@ -16,6 +16,7 @@ GraphicsView::GraphicsView(GraphicsScene *scene):
     m_mode{ ViewMode::Stretch},
     m_camera{ MetaObject::make_unique_meta<GraphicsCamera>(scene) }
 {
+    m_logicalSize = m_camera->screen().size();
 }
 
 GraphicsView::~GraphicsView()
@@ -39,7 +40,7 @@ ItemRendering ::rendering
 
 bool GraphicsView::contains(const x_vector3 &winPos, const x_size &windSz)
 {
-    const auto vp  = effectiveViwport( windSz );
+    const auto vp  = effectiveViewport( windSz );
     return vp.contains( winPos.x, winPos.y );
 }
 
@@ -51,20 +52,20 @@ GraphicsCamera *GraphicsView::camera() const
 
 x_matrix4x4 GraphicsView::logicalTransform(const x_size &windSz) const
 {
-    const auto screenSz = camera()->screen().size();
+    const auto screen   = camera()->screen();
+    const auto screenSz = screen.size();
 
-    const auto vp  = effectiveViwport( windSz );
-    const auto sc0 =logicalScale( windSz );
+    const auto vp    = effectiveViewport( windSz );
+    const auto lgcSc = logicalScale( windSz );
+    const auto vwpSc = x_vector2{ vp.width  / screenSz.width, vp.height / screenSz.height };
+    const auto dpiSc = screen.dpiScale();
 
-    const auto sc1 = x_vector2{
-        vp.width  / screenSz.width,
-        vp.height / screenSz.height
+
+    const auto sc  = x_vector3{
+        lgcSc.x * vwpSc.x * dpiSc.x,
+        lgcSc.y * vwpSc.y * dpiSc.y,
+        1
     };
-
-
-    const auto sc  = x_vector3{sc0.x*sc1.x,
-                              sc0.y*sc1.y,
-                              1};
 
     const auto idMat = x_matrix4x4{1};
     const auto trMat = x_vector::translate( idMat, {vp.x, vp.y,0} );
@@ -84,7 +85,7 @@ x_matrix4x4 GraphicsView::logicalTransform(const x_size &windSz) const
 
 x_vector2 GraphicsView::logicalScale(const x_size &windSz) const
 {
-    const auto vwPort = effectiveViwport( windSz );
+    const auto vwPort = effectiveViewport( windSz );
     const auto xx = m_logicalSize.width  / vwPort.width;
     const auto yy = m_logicalSize.height / vwPort.height;
 
@@ -120,7 +121,7 @@ void GraphicsView::setViewport(const x_rect &newViewport)
     m_viewport = newViewport;
 }
 
-x_rect GraphicsView::effectiveViwport(const x_size &windSz) const
+x_rect GraphicsView::effectiveViewport(const x_size &windSz) const
 {
     if( m_type == ViewType::Absolute )
         return viewport();
