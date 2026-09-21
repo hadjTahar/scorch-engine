@@ -63,6 +63,12 @@ CreateWorld( World)
 		And a static test screen?
 
 ------------------------------------------------------------------------------------
+
+- Box2D, check the example and check memory leaks
+- Item type is not checked while creating, the code is commented out at "makeUniqueItem"
+	- Use a static or a data member to store the types
+	
+------------------------------------------------------------------------------------
 - initCanvas to initBackend
 - 2d render to draw(Canvas)
 - comn_examples, that have nor rendering, like timers nad ecs

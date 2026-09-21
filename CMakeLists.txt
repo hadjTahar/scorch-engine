@@ -44,7 +44,7 @@ set( QX_OPT_DEBUG_DETAILS            4)
 ### 5 : + dbg_warning
 ### 6 : + dbg_info
 ### 7 : + dbg_tips
-set( QX_OPT_DEBUG_LEVEL              3  )
+set( QX_OPT_DEBUG_LEVEL              4  )
 set( QX_OPT_HIDE_TERMINAL            OFF)
 
 
@@ -119,14 +119,15 @@ add_subdirectory( vendors )
 ### Executables
 ### ----------------
 
-add_subdirectory( examples_2d   examples_2d_build)
+# add_subdirectory( examples_2d   examples_2d_build)
 # add_subdirectory( examples_3d   examples_3d_build)
 # add_subdirectory( tests         tests_build)
 # add_subdirectory( benchmarks    benchmarks_build)
 
+# add_subdirectory( apps          apps_build)
 
 
 ### Add "apps", only if it exists
-if(EXISTS "apps/CMakeLists.txt")
+if(EXISTS "${CMAKE_SOURCE_DIR}/apps/CMakeLists.txt")
     add_subdirectory( apps          apps_build)
 endif()

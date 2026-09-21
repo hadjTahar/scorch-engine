@@ -10,8 +10,8 @@
 #include <backends/canvasskiaopengltexture.h>
 
 
-#include <physics/box2dworlditem.h>
-#include <physics/physicscomponent.h>
+#include <physics/bodyitem.h>
+#include <physics/worlditem.h>
 
 
 
@@ -32,17 +32,18 @@ MainWindow::MainWindow(CoreItem *parent):
     vw0->setLogicalSize( {1920,1080} );
 
 
-    auto itm0     = scene->addItem<Qx::Box2D::WorldItem>();
-    auto ballItm  = itm0->addItem<Qx::Rectangle>();
-    auto flr0Itm  = itm0->addItem<Qx::Rectangle>();
-    // auto flr1Itm  = itm0->addItem<Qx::Rectangle>();
+    auto wrldItm  = scene->addItem<Qx::Box2D::WorldItem>();
+    auto ballItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
+    auto flr0Itm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
+    // auto flr1Itm  = wrldItm->addBodyItem<Qx::Rectangle>();
 
-    itm0->transform.setScale( {50,-50, 1} );
+    wrldItm->transform.setScale( {50,-50, 1} );
+    auto world0 = wrldItm->world();
 
 
-    itm0->style.setColor( Qx::red() );
-    itm0->style.setBorderColor( Qx::transparent() );
-    itm0->style.setBorder( 0 );
+    wrldItm->style.setColor( Qx::red() );
+    wrldItm->style.setBorderColor( Qx::transparent() );
+    wrldItm->style.setBorder( 0 );
 
     ballItm->style.setColor( Qx::yellow() );
     ballItm->style.setBorderColor( Qx::transparent() );
@@ -60,29 +61,21 @@ MainWindow::MainWindow(CoreItem *parent):
 
 
 
-
-
-
-
-    auto box2DCmp = itm0->attach<Qx::Box2D::PhysicsComponent>();
-    auto world0 = box2DCmp->createWorld();
-    // world0->setGravity( {0.0f, -9.8f} );
-
     // -------------------------
     // Create floor
     // -------------------------
 
     auto floor0 = world0->addBody();
     floor0->setPosition( {0.0f, 5+5.0f} );
-    floor0->setType( b2_staticBody );
-    auto floorShp0 = floor0->addShape( b2MakeBox(5,5) );
+    floor0->setType( Qx::Box2D::BodyType::Static );
+    auto floorShp0 = floor0->addShape( Qx::Box2D::makeBox(5,5) );
     floorShp0->setDensity( 1, true );
     floorShp0->setRestitution( .7 );
 
 
     flr0Itm->transform.setPosition( {
-        0 + .05,
-        5 + .05,
+        0,
+        5,
         0
     });
     flr0Itm->transform.setSize( { 5, .5, 0});
@@ -94,8 +87,8 @@ MainWindow::MainWindow(CoreItem *parent):
 
     auto floor1 = world0->addBody();
     floor1->setPosition( {0.0f, -5.0f} );
-    floor1->setType( b2_staticBody );
-    auto floorShp1 = floor1->addShape( b2MakeBox(5,5) );
+    floor1->setType( Qx::Box2D::BodyType::Static );
+    auto floorShp1 = floor1->addShape( Qx::Box2D::makeBox(5,5) );
     floorShp1->setDensity( 1, true );
     floorShp1->setRestitution( .7 );
 
@@ -108,37 +101,37 @@ MainWindow::MainWindow(CoreItem *parent):
 
     auto ball = world0->addBody();
     ball->setPosition( {rad, 1.5f} );
-    ball->setType( b2_dynamicBody );
+    ball->setType( Qx::Box2D::BodyType::Dynamic );
     ball->setLinearVelocity( {.0f, 15.0f} );
 
     /// ## --------------------------------------------------
 
-    auto polygon = b2MakeBox( rad , rad);
-    polygon.centroid = { rad, rad };
-    auto ballShp = ball->addShape( polygon );
-    ballShp->setDensity( 1, true );
-    ballShp->setRestitution( .7 );
+    // auto polygon = Qx::Box2D::makeBox( rad , rad);
+    // polygon.centroid = { rad, rad };
+    // auto ballShp = ball->addShape( polygon );
+    // ballShp->setDensity( 1, true );
+    // ballShp->setRestitution( .7 );
 
     /// ## --------------------------------------------------
 
 
-    // Qx::Box2D::Circle circle;
-    // circle.center = { 0, 0 };
-    // circle.radius = rad;
-    // auto ballShp = ball->addShape( circle );
-    // ballShp->setDensity( 1.0f, true );
-    // ballShp->setRestitution( 1 );
+    Qx::Box2D::Circle circle;
+    circle.center = { 0, 0 };
+    circle.radius = rad;
+    auto ballShp = ball->addShape( circle );
+    ballShp->setDensity( 1.0f, true );
+    ballShp->setRestitution( 1 );
 
 
 
-    box2DCmp->step = [ball, ballItm, rad]()
+    wrldItm->step = [ball, ballItm, rad]()
     {
-        b2Vec2 position = ball->position();
+        const auto position = ball->position();
         dbg_print_st() << position.x << " : " << position.y;
 
         ballItm->transform.setPosition( {
-            position.x - rad + .05,
-            position.y - rad + .05,
+            position.x - rad,
+            position.y - rad,
             0
         });
 
