@@ -1,8 +1,8 @@
 # To do:
 
 
-	Only if it's dynamic
-
+Worlditem sets the scale
+for created items
 
 ------------------------------------------------------------------------------------
 
