@@ -15,6 +15,14 @@ class PhysicsProperties
 public:
     PhysicsProperties(BodyItem *itm);
     void setPosition( const x_vector3 &pos );
+    void setSize( const x_size &sz );
+
+
+
+    void updateGeometry();
+
+protected:
+    void updatePhysics();
 
 protected:
     x_vector3  m_pixelScale;

@@ -1,4 +1,3 @@
-
 #include "physicsproperties.h"
 
 #include "bodyitem.h"
@@ -10,7 +9,7 @@ namespace Qx::Box2D
 
 
 PhysicsProperties::PhysicsProperties(BodyItem *itm):
-    m_pixelScale{ 1,1,1},
+    m_pixelScale{ 20,20,1},
     m_bodyItem{itm}
 {
 }
@@ -19,11 +18,64 @@ void PhysicsProperties::setPosition(const x_vector3 &pos)
 {
     m_bodyItem->transform.setPosition(
         {
-          m_pixelScale.x * pos.x,
-          m_pixelScale.y * pos.y,
-          m_pixelScale.z * pos.x}
+            m_pixelScale.x * pos.x,
+            m_pixelScale.y * pos.y,
+            m_pixelScale.z * pos.z
+        }
         );
-    m_bodyItem->m_body->setPosition( {pos.x, pos.y } );
+
+    updatePhysics();
+}
+
+void PhysicsProperties::setSize(const x_size &sz)
+{
+    m_bodyItem->transform.setSize({
+        m_pixelScale.x * sz.width,
+        m_pixelScale.y * sz.height,
+        m_pixelScale.z * sz.depth
+    });
+    updatePhysics();
+}
+
+void PhysicsProperties::updateGeometry()
+{
+    if( !m_bodyItem )
+        return;
+
+    if( !m_bodyItem->m_body )
+        return;
+
+    const auto bPos = m_bodyItem->m_body->position();
+
+    const auto pos = m_bodyItem->transform.position();
+    const auto sz  = m_bodyItem->transform.size();
+
+
+    m_bodyItem->transform.setPosition(
+        {
+          m_pixelScale.x * bPos.x  - .5f * sz.width,
+          m_pixelScale.y * bPos.y  - .5f * sz.height,
+          pos.z
+        }
+        );
+
+}
+
+void PhysicsProperties::updatePhysics()
+{
+    const auto pos = m_bodyItem->transform.position();
+    const auto sz  = m_bodyItem->transform.size();
+
+
+    m_bodyItem->m_body->setPosition(
+        {
+            (pos.x  + .5f * sz.width)  / m_pixelScale.x,
+            (pos.y  + .5f * sz.height) / m_pixelScale.y,
+        }
+        );
+
+
+
 }
 
 

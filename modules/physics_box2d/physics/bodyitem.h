@@ -2,7 +2,6 @@
 #define BODYITEM_H
 
 #include <items/rectangle.h>
-
 #include "physicsproperties.h"
 
 namespace Qx::Box2D {
@@ -11,9 +10,9 @@ namespace Qx::Box2D {
 class Body;
 
 
-class BodyItem : public Qx::Rectangle
+class BodyItem : public Rectangle
 {
-    QX_META_OBJECT( "Qx::Box::BodyItem",
+    QX_META_OBJECT( "Qx::Box2D::BodyItem",
                    prv::MetaItemType::PhysicsItem2D,
                    prv::MetaItemType::PhysicsItem2D )
 
@@ -24,8 +23,11 @@ public:
     BodyItem(CoreItem *parent);
 
 
-
 private:
+public:
+    using Rectangle::transform;
+
+public:
     Body *m_body;
 
 

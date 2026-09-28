@@ -1,5 +1,6 @@
 #include "worlditem.h"
 
+#include "bodyitem.h"
 #include "physicscomponent.h"
 
 #include <box2dcpp/world.h>
@@ -44,12 +45,7 @@ WorldItem::WorldItem(CoreItem *parent):
                                   m_worldAxis.z * 1.              / sz.depth
         };
 
-        dbg_print() << "--------------------";
-        dbg_print() << sc.x;
-        dbg_print() << sc.y;
-        dbg_print() << sc.z;
         transform.setScale( sc );
-
         const x_vector3 pos{
             m_worldAxis.x >= 0? 0 : parentSz.width,
             m_worldAxis.y >= 0? 0 : parentSz.height,
@@ -67,8 +63,17 @@ WorldItem::WorldItem(CoreItem *parent):
 
     m_physicsComponent->step = [this]()
     {
+        const auto &lst = childrenView();
+        for ( auto &chldPtr : lst) {
+            auto chldItm = castItem<BodyItem,
+                                    prv::MetaItemType::PhysicsItem2D>( chldPtr.get() );
+            chldItm->physics.updateGeometry();
+        }
         if( step )
             step();
+        // else
+        //     dbg_print_st() << "NOT CALLING STEP";
+
     };
 
 }
