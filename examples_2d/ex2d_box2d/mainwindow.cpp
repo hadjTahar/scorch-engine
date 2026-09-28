@@ -23,27 +23,38 @@ MainWindow::MainWindow(CoreItem *parent):
 
     auto vw0   = scene->addView();
     auto cam0  = vw0->camera();
-    cam0->reset2DOrthoCamera( screen() );
 
+    const auto scrn = screen();
+    cam0->reset2DOrthoCamera( scrn );
 
-
-    vw0->setViewport( {.0, .0, 1, 1 } );
+    vw0->setViewport( {.0, .0, 1., 1.} );
     vw0->setType( Qx::ViewType::Relative );
-    vw0->setLogicalSize( {1920,1080} );
+    vw0->setLogicalSize( scrn.size() );
 
 
     auto wrldItm  = scene->addItem<Qx::Box2D::WorldItem>();
-    auto ballItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
     auto flr0Itm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
-    // auto flr1Itm  = wrldItm->addBodyItem<Qx::Rectangle>();
+    auto flr1Itm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
+    auto ballItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
+    // auto flr1Itm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
 
-    wrldItm->transform.setScale( {50,-50, 1} );
+    /// ## This size will be used to scale the world item
+    /// ## relative to the window item
+    ///
+    wrldItm->transform.setSize(
+        {
+          360,
+          640,
+          1}
+        );
+    wrldItm->setWorldAxis( {1,1,1} );
     auto world0 = wrldItm->world();
 
 
+
     wrldItm->style.setColor( Qx::red() );
-    wrldItm->style.setBorderColor( Qx::transparent() );
-    wrldItm->style.setBorder( 0 );
+    wrldItm->style.setBorderColor( Qx::blue() );
+    wrldItm->style.setBorder( 10.f/100.f );
 
     ballItm->style.setColor( Qx::yellow() );
     ballItm->style.setBorderColor( Qx::transparent() );
@@ -55,40 +66,33 @@ MainWindow::MainWindow(CoreItem *parent):
     flr0Itm->style.setBorder( 0 );
 
 
-    // flr1Itm->style.setColor( Qx::yellow() );
-    // flr1Itm->style.setBorderColor( Qx::transparent() );
-    // flr1Itm->style.setBorder( 0 );
+    flr1Itm->style.setColor( Qx::yellow() );
+    flr1Itm->style.setBorderColor( Qx::transparent() );
+    flr1Itm->style.setBorder( 0 );
 
 
+    const Qx::x_real rad    = .5;
+    const Qx::x_real flrSz  = 5;
 
     // -------------------------
-    // Create floor
+    // Top floor
     // -------------------------
 
-    auto floor0 = world0->addBody();
-    floor0->setPosition( {0.0f, 5+5.0f} );
-    floor0->setType( Qx::Box2D::BodyType::Static );
-    auto floorShp0 = floor0->addShape( Qx::Box2D::makeBox(5,5) );
+    flr0Itm->m_body->setType( Qx::Box2D::BodyType::Static );
+    auto floorShp0 = flr0Itm->m_body->addShape( Qx::Box2D::makeBox( .5*flrSz, .5*flrSz ) );
+    flr0Itm->physics.setSize( { flrSz, flrSz, 0});
+    flr0Itm->physics.setPosition( {0, 20, 0 });
     floorShp0->setDensity( 1, true );
     floorShp0->setRestitution( .7 );
 
-
-    flr0Itm->transform.setPosition( {
-        0,
-        5,
-        0
-    });
-    flr0Itm->transform.setSize( { 5, .5, 0});
-
-
     // -------------------------
-    // Create floor
+    // Bottom floor
     // -------------------------
 
-    auto floor1 = world0->addBody();
-    floor1->setPosition( {0.0f, -5.0f} );
-    floor1->setType( Qx::Box2D::BodyType::Static );
-    auto floorShp1 = floor1->addShape( Qx::Box2D::makeBox(5,5) );
+    flr1Itm->m_body->setType( Qx::Box2D::BodyType::Static );
+    auto floorShp1 = flr1Itm->m_body->addShape( Qx::Box2D::makeBox( .5*flrSz, .5*flrSz ) );
+    flr1Itm->physics.setSize( { flrSz, flrSz, 0});
+    flr1Itm->physics.setPosition( {0, -flrSz, 0 });
     floorShp1->setDensity( 1, true );
     floorShp1->setRestitution( .7 );
 
@@ -96,47 +100,38 @@ MainWindow::MainWindow(CoreItem *parent):
     // -------------------------
     // Create ball
     // -------------------------
-    const Qx::x_real rad = .5;
 
 
-    auto ball = world0->addBody();
-    ball->setPosition( {rad, 1.5f} );
-    ball->setType( Qx::Box2D::BodyType::Dynamic );
-    ball->setLinearVelocity( {.0f, 15.0f} );
+    ballItm->physics.setSize( { 2*rad, 2*rad, 0});
+    auto ballBody = ballItm->m_body;
+
+    ballBody->setPosition( {2, 1.5f} );
+    ballBody->setType( Qx::Box2D::BodyType::Dynamic );
+    ballBody->setLinearVelocity( {.0f, 80.0f} );
 
     /// ## --------------------------------------------------
 
     // auto polygon = Qx::Box2D::makeBox( rad , rad);
-    // polygon.centroid = { rad, rad };
-    // auto ballShp = ball->addShape( polygon );
+    // // polygon.centroid = { rad, rad };
+    // auto ballShp = ballBody->addShape( polygon );
     // ballShp->setDensity( 1, true );
     // ballShp->setRestitution( .7 );
 
     /// ## --------------------------------------------------
 
-
     Qx::Box2D::Circle circle;
-    circle.center = { 0, 0 };
+    circle.center = { 0, 0};
     circle.radius = rad;
-    auto ballShp = ball->addShape( circle );
+    auto ballShp = ballBody->addShape( circle );
     ballShp->setDensity( 1.0f, true );
     ballShp->setRestitution( 1 );
 
+    return;
 
-
-    wrldItm->step = [ball, ballItm, rad]()
+    wrldItm->step = [ballBody, ballItm, rad]()
     {
-        const auto position = ball->position();
+        const auto position = ballBody->position();
         dbg_print_st() << position.x << " : " << position.y;
-
-        ballItm->transform.setPosition( {
-            position.x - rad,
-            position.y - rad,
-            0
-        });
-
-
-        ballItm->transform.setSize( { 2*rad, 2*rad, 0});
 
     };
 }

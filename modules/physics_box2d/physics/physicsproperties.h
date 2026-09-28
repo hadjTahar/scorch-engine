@@ -24,6 +24,10 @@ public:
 protected:
     void updatePhysics();
 
+    x_vector3 fromBox(const x_vector3 &bPos );
+    x_vector3   toBox(const x_vector3 &pos );
+
+
 protected:
     x_vector3  m_pixelScale;
     BodyItem  *m_bodyItem;

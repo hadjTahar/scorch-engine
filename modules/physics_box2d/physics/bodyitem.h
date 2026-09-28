@@ -24,7 +24,6 @@ public:
 
 
 private:
-public:
     using Rectangle::transform;
 
 public:

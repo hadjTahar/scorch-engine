@@ -45,37 +45,45 @@ void PhysicsProperties::updateGeometry()
     if( !m_bodyItem->m_body )
         return;
 
+    if( m_bodyItem->m_body->type() == Box2D::BodyType::Static )
+        return;
+
     const auto bPos = m_bodyItem->m_body->position();
-
-    const auto pos = m_bodyItem->transform.position();
-    const auto sz  = m_bodyItem->transform.size();
-
-
-    m_bodyItem->transform.setPosition(
-        {
-          m_pixelScale.x * bPos.x  - .5f * sz.width,
-          m_pixelScale.y * bPos.y  - .5f * sz.height,
-          pos.z
-        }
-        );
+    const auto pos = fromBox( {bPos.x, bPos.y, 0} );
+    m_bodyItem->transform.setPosition(pos);
 
 }
 
 void PhysicsProperties::updatePhysics()
 {
+    const auto pos  = m_bodyItem->transform.position();
+    const auto bPos = toBox(pos);
+    m_bodyItem->m_body->setPosition( {bPos.x, bPos.y} );
+
+}
+
+x_vector3 PhysicsProperties::fromBox(const x_vector3 &bPos)
+{
     const auto pos = m_bodyItem->transform.position();
     const auto sz  = m_bodyItem->transform.size();
 
 
-    m_bodyItem->m_body->setPosition(
-        {
-            (pos.x  + .5f * sz.width)  / m_pixelScale.x,
-            (pos.y  + .5f * sz.height) / m_pixelScale.y,
-        }
-        );
+    return {
+            m_pixelScale.x * bPos.x  - .5f * sz.width,
+            m_pixelScale.y * bPos.y  - .5f * sz.height,
+            pos.z
+        };
+}
 
+x_vector3 PhysicsProperties::toBox(const x_vector3 &pos)
+{
+    const auto sz  = m_bodyItem->transform.size();
 
-
+    return{
+        (pos.x  + .5f * sz.width)  / m_pixelScale.x,
+        (pos.y  + .5f * sz.height) / m_pixelScale.y,
+        (pos.z  + .5f * sz.depth) / m_pixelScale.z,
+    };
 }
 
 

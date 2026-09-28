@@ -1,10 +1,6 @@
 # To do:
 
 
-- Fix "World::addBody"
-	- When vector is resized pointers lose adresses from "m_bodies"
-	- Tmp fix: m_bodies.reserve( 100 );
-- PhysicsProperties::updateGeometry
 	Only if it's dynamic
 
 
