@@ -1,8 +1,12 @@
 # To do:
 
 
+Git the apps
 Worlditem sets the scale
 for created items
+Move box2dcpp to box 2d module
+Remove box2d cpp
+
 
 ------------------------------------------------------------------------------------
 
@@ -252,3 +256,6 @@ CreateWorld( World)
 - https://github.com/litehtml/litehtml
 - https://github.com/plutoprint/plutobook
 - https://github.com/lumia431/reaction
+- AffineUI
+- PanGui
+- std::polymorphic 
