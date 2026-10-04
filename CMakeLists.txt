@@ -119,7 +119,7 @@ add_subdirectory( vendors )
 ### Executables
 ### ----------------
 
-# add_subdirectory( examples_2d   examples_2d_build)
+add_subdirectory( examples_2d   examples_2d_build)
 # add_subdirectory( examples_3d   examples_3d_build)
 # add_subdirectory( tests         tests_build)
 # add_subdirectory( benchmarks    benchmarks_build)
@@ -129,5 +129,5 @@ add_subdirectory( vendors )
 
 ### Add "apps", only if it exists
 if(EXISTS "${CMAKE_SOURCE_DIR}/apps/CMakeLists.txt")
-    add_subdirectory( apps          apps_build)
+    # add_subdirectory( apps          apps_build)
 endif()
