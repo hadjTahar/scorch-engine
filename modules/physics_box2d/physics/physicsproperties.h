@@ -21,12 +21,14 @@ public:
 
     void updateGeometry();
 
+    x_vector3 fromBoxPos(const x_vector3 &bPos );
+    x_vector3   toBoxPos(const x_vector3 &pos );
+
+    x_size toBoxSize(const x_size &sz );
+
+
 protected:
     void updatePhysics();
-
-    x_vector3 fromBox(const x_vector3 &bPos );
-    x_vector3   toBox(const x_vector3 &pos );
-
 
 protected:
     x_vector3  m_pixelScale;

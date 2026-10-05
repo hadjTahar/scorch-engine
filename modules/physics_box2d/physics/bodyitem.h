@@ -4,11 +4,12 @@
 #include <items/rectangle.h>
 #include "physicsproperties.h"
 
+struct b2Polygon;
+
 namespace Qx::Box2D {
 
 
 class Body;
-
 
 class BodyItem : public Rectangle
 {
@@ -21,6 +22,13 @@ class BodyItem : public Rectangle
 
 public:
     BodyItem(CoreItem *parent);
+
+
+
+    /// ## Functions
+    /// ## ----------------------------------------------------
+
+    b2Polygon makeBox(float width, float height);
 
 
 private:

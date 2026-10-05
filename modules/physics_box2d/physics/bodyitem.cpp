@@ -11,6 +11,12 @@ BodyItem::BodyItem(CoreItem *parent):
 {
 }
 
+b2Polygon BodyItem::makeBox(float width, float height)
+{
+    const auto bx = physics.toBoxSize( {.5f*width , .5f*height, 0 } );
+    return b2MakeBox(bx.width,  bx.height);
+}
+
 
 
 }

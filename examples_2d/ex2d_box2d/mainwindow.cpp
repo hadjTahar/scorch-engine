@@ -13,15 +13,7 @@
 #include <physics/bodyitem.h>
 #include <physics/worlditem.h>
 
-const Qx::x_real sc    = 20;
 
-Qx::x_real tmp( Qx::x_real xx )
-{
-    /// ## From pixels to physics
-    /// ## Add "19_b2_px" something like
-    /// ## Or "19_b2m", "19_b2cm"
-    return xx / sc;
-}
 
 void fixBallDirection(Qx::Box2D::Body* ball)
 {
@@ -97,12 +89,10 @@ MainWindow::MainWindow(CoreItem *parent):
     auto wrldItm = scene->addItem<Qx::Box2D::WorldItem>();
     auto topItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
     auto botItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
-    auto lftItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
-    auto rhtItm  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
 
 
 
-    auto brickItm0  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
+    // auto brickItm0  = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
 
     auto ballItm = wrldItm->addBodyItem<Qx::Box2D::BodyItem>();
 
@@ -115,7 +105,7 @@ MainWindow::MainWindow(CoreItem *parent):
           640,
           1}
         );
-    wrldItm->setWorldAxis( {1,-1,1} );
+    wrldItm->setWorldAxis( {1,1,1} );
     wrldItm->world()->setGravity( {0,0} );
 
 
@@ -137,32 +127,21 @@ MainWindow::MainWindow(CoreItem *parent):
     botItm->style.setBorder( 2 );
 
 
-    lftItm->style.setColor( Qx::yellow() );
-    lftItm->style.setBorderColor( Qx::green() );
-    lftItm->style.setBorder( 2 );
 
-    rhtItm->style.setColor( Qx::yellow() );
-    rhtItm->style.setBorderColor( Qx::green() );
-    rhtItm->style.setBorder( 2 );
-
-
-    brickItm0->style.setColor( Qx::yellow() );
-    brickItm0->style.setBorderColor( Qx::green() );
-    brickItm0->style.setBorder( 2 );
-
-
-    const Qx::x_real rad   = .5;
-    const Qx::x_real pyWW  = tmp(360.f);
-    const Qx::x_real pyHH  = tmp(640.f);
+    const Qx::x_real sc     = 20;
+    const Qx::x_real rad    = 10;
+    const Qx::x_real pyWW   = 360.f;
+    const Qx::x_real pyHH   = 640.f;
+    const Qx::x_real wallSz = 10.f;
 
     // -------------------------
     // Top floor
     // -------------------------
 
     topItm->m_body->setType( Qx::Box2D::BodyType::Static );
-    auto topItmShp = topItm->m_body->addShape( Qx::Box2D::makeBox( .5*pyWW, .5*pyWW ) );
-    topItm->physics.setSize( { pyWW, pyWW, 0});
+    topItm->physics.setSize( { pyWW, wallSz, 0});
     topItm->physics.setPosition( {0, pyHH, 0 });
+    auto topItmShp = topItm->m_body->addShape( topItm->makeBox( pyWW, wallSz ) );
     topItmShp->setDensity( 1, true );
     topItmShp->setRestitution( 1 );
 
@@ -171,34 +150,13 @@ MainWindow::MainWindow(CoreItem *parent):
     // -------------------------
 
     botItm->m_body->setType( Qx::Box2D::BodyType::Static );
-    auto botItmShp = botItm->m_body->addShape( Qx::Box2D::makeBox( .5*pyWW, .5*pyWW ) );
-    botItm->physics.setSize( { pyWW, pyWW, 0});
-    botItm->physics.setPosition( {0, -pyWW, 0 });
+    botItm->physics.setSize( { pyWW, wallSz, 0});
+    botItm->physics.setPosition( {0, -wallSz, 0 });
+    auto botItmShp = botItm->m_body->addShape( botItm->makeBox( pyWW, wallSz ) );
     botItmShp->setDensity( 1, true );
     botItmShp->setRestitution( 1 );
 
 
-    // -------------------------
-    // Left floor
-    // -------------------------
-
-    lftItm->m_body->setType( Qx::Box2D::BodyType::Static );
-    auto lftItmShp = lftItm->m_body->addShape( Qx::Box2D::makeBox( .5*pyHH, .5*pyHH ) );
-    lftItm->physics.setSize( { pyHH, pyHH, 0});
-    lftItm->physics.setPosition( {-pyHH, 0, 0 });
-    lftItmShp->setDensity( 1, true );
-    lftItmShp->setRestitution( 1 );
-
-    // -------------------------
-    // Right floor
-    // -------------------------
-
-    rhtItm->m_body->setType( Qx::Box2D::BodyType::Static );
-    auto rhtItmShp = rhtItm->m_body->addShape( Qx::Box2D::makeBox( .5*pyHH, .5*pyHH ) );
-    rhtItm->physics.setSize( { pyHH, pyHH, 0});
-    rhtItm->physics.setPosition( {pyWW, 0, 0 });
-    rhtItmShp->setDensity( 1, true );
-    rhtItmShp->setRestitution( 1 );
 
 
     // -------------------------
@@ -211,11 +169,11 @@ MainWindow::MainWindow(CoreItem *parent):
 
     ballBody->setPosition( {2, 1.5f} );
     ballBody->setType( Qx::Box2D::BodyType::Dynamic );
-    ballBody->setLinearVelocity( {30.0f, 80.0f} );
+    ballBody->setLinearVelocity( {0.0f, 80.0f} );
 
     /// ## --------------------------------------------------
 
-    // auto polygon = Qx::Box2D::makeBox( rad , rad);
+    // auto polygon = ballItm->makeBox( rad , rad);
     // // polygon.centroid = { rad, rad };
     // auto ballShp = ballBody->addShape( polygon );
     // ballShp->setDensity( 1, true );
@@ -225,35 +183,12 @@ MainWindow::MainWindow(CoreItem *parent):
 
     Qx::Box2D::Circle circle;
     circle.center = { 0, 0};
-    circle.radius = rad;
+    circle.radius = rad / sc;
     auto ballShp = ballBody->addShape( circle );
     ballShp->setDensity( 1.0f, true );
     ballShp->setRestitution( 1 );
 
 
-    // -------------------------
-    // Brick 0
-    // -------------------------
 
-    const Qx::x_real ww  = 20.f / sc;
-    const Qx::x_real hh  = 10.f / sc;
-    const Qx::x_real xx  = 150.f / sc;
-    const Qx::x_real yy  = 200.f / sc;
-
-
-    brickItm0->m_body->setType( Qx::Box2D::BodyType::Static );
-    auto brickItm0Shp = brickItm0->m_body->addShape( Qx::Box2D::makeBox( .5*ww, .5*hh ) );
-    brickItm0->physics.setSize( { ww, hh, 0});
-    brickItm0->physics.setPosition( {xx, yy, 0 });
-    brickItm0Shp->setDensity( 1, true );
-    brickItm0Shp->setRestitution( .7 );
-
-
-    wrldItm->step = [ballItm]()
-    {
-        auto ball = ballItm->m_body;
-        fixBallDirection( ball );
-        // dbg_print_st() << xv.x << " : " << xv.y;
-    };
 
 }
