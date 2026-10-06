@@ -181,9 +181,7 @@ MainWindow::MainWindow(CoreItem *parent):
 
     /// ## --------------------------------------------------
 
-    Qx::Box2D::Circle circle;
-    circle.center = { 0, 0};
-    circle.radius = rad / sc;
+    Qx::Box2D::Circle circle = ballItm->makeCircle( rad );
     auto ballShp = ballBody->addShape( circle );
     ballShp->setDensity( 1.0f, true );
     ballShp->setRestitution( 1 );

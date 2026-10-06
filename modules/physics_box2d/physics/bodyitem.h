@@ -1,10 +1,10 @@
 #ifndef BODYITEM_H
 #define BODYITEM_H
 
-#include <items/rectangle.h>
 #include "physicsproperties.h"
+#include <items/rectangle.h>
+#include <box2dcpp/types.h>
 
-struct b2Polygon;
 
 namespace Qx::Box2D {
 
@@ -28,7 +28,8 @@ public:
     /// ## Functions
     /// ## ----------------------------------------------------
 
-    b2Polygon makeBox(float width, float height);
+    Polygon makeBox(x_real width, x_real height);
+    Circle makeCircle(x_real rad);
 
 
 private:
