@@ -8,12 +8,14 @@ namespace Qx::Box2D
 {
 
 class BodyItem;
-
+class Body;
+class Shape;
 
 class PhysicsProperties
 {
 
     friend class BodyItem;
+    friend class WorldItem;
 
 public:
     PhysicsProperties(BodyItem *itm);
@@ -21,22 +23,29 @@ public:
     void setSize( const x_size &sz );
 
 
+    Shape *addBoxShape( x_real width, x_real height );
+    Shape *addCircleShape( x_real rad );
 
-    void updateGeometry();
+    void setType(BodyType tp );
+    BodyType type() const;
 
-    x_vector3 fromBoxPos(const x_vector3 &bPos );
-    x_vector3   toBoxPos(const x_vector3 &pos );
 
-    x_size toBoxSize(const x_size &sz );
+    void setLinearVelocity( const b2Pos &vel );
+    b2Pos linearVelocity() const;
 
 
 protected:
-    void updatePhysics();
+
+
+    void updateBodyItem();
+    void updateBodyPhysics();
+    x_vector3 fromBoxPos(const x_vector3 &bPos );
+    x_vector3 toBoxPos(const x_vector3 &pos );
+    x_size    toBoxSize(const x_size &sz );
 
 
     Polygon makeBox(x_real width, x_real height);
     Circle makeCircle(x_real rad);
-
 
 
 protected:

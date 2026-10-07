@@ -17,7 +17,7 @@
 
 void fixBallDirection(Qx::Box2D::BodyItem* ballItem)
 {
-    b2Vec2 v = ballItem->linearVelocity();
+    b2Vec2 v = ballItem->physics.linearVelocity();
 
     auto speed = std::sqrt(v.x * v.x + v.y * v.y);
 
@@ -63,7 +63,7 @@ void fixBallDirection(Qx::Box2D::BodyItem* ballItem)
     v = b2Normalize(v);
     v *= speed;
 
-    ballItem->setLinearVelocity(v);
+    ballItem->physics.setLinearVelocity(v);
 }
 
 
@@ -138,10 +138,10 @@ MainWindow::MainWindow(CoreItem *parent):
     // Top floor
     // -------------------------
 
-    topItm->setType( Qx::Box2D::BodyType::Static );
+    topItm->physics.setType( Qx::Box2D::BodyType::Static );
     topItm->physics.setSize( { pyWW, wallSz, 0});
     topItm->physics.setPosition( {0, pyHH, 0 });
-    auto topItmShp = topItm->addBoxShape( pyWW, wallSz );
+    auto topItmShp = topItm->physics.addBoxShape( pyWW, wallSz );
     topItmShp->setDensity( 1, true );
     topItmShp->setRestitution( 1 );
 
@@ -149,10 +149,10 @@ MainWindow::MainWindow(CoreItem *parent):
     // Bottom floor
     // -------------------------
 
-    botItm->setType( Qx::Box2D::BodyType::Static );
+    botItm->physics.setType( Qx::Box2D::BodyType::Static );
     botItm->physics.setSize( { pyWW, wallSz, 0});
     botItm->physics.setPosition( {0, -wallSz, 0 });
-    auto botItmShp = botItm->addBoxShape(pyWW, wallSz );
+    auto botItmShp = botItm->physics.addBoxShape(pyWW, wallSz );
     botItmShp->setDensity( 1, true );
     botItmShp->setRestitution( 1 );
 
@@ -165,8 +165,8 @@ MainWindow::MainWindow(CoreItem *parent):
     ballItm->physics.setSize( { 2*rad, 2*rad, 0});
 
     ballItm->physics.setPosition( {0, 20, 0 });
-    ballItm->setType( Qx::Box2D::BodyType::Dynamic );
-    ballItm->setLinearVelocity( {0.0f, 900.0f} );
+    ballItm->physics.setType( Qx::Box2D::BodyType::Dynamic );
+    ballItm->physics.setLinearVelocity( {0.0f, 900.0f} );
 
     /// ## --------------------------------------------------
 
@@ -178,7 +178,7 @@ MainWindow::MainWindow(CoreItem *parent):
 
     /// ## --------------------------------------------------
 
-    auto ballShp = ballItm->addCircleShape( rad );
+    auto ballShp = ballItm->physics.addCircleShape( rad );
     ballShp->setDensity( 1.0f, true );
     ballShp->setRestitution( 1 );
 

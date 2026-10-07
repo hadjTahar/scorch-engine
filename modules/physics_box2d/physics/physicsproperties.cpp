@@ -24,7 +24,7 @@ void PhysicsProperties::setPosition(const x_vector3 &pos)
         }
         );
 
-    updatePhysics();
+    updateBodyPhysics();
 }
 
 void PhysicsProperties::setSize(const x_size &sz)
@@ -34,10 +34,41 @@ void PhysicsProperties::setSize(const x_size &sz)
         sz.height,
         sz.depth
     });
-    updatePhysics();
+    updateBodyPhysics();
 }
 
-void PhysicsProperties::updateGeometry()
+Shape *PhysicsProperties::addBoxShape(x_real width, x_real height)
+{
+    return m_bodyItem->m_body->addShape( makeBox( width, height ) );
+}
+
+Shape *PhysicsProperties::addCircleShape(x_real rad)
+{
+    return m_bodyItem->m_body->addShape( makeCircle( rad ) );
+}
+
+void PhysicsProperties::setType(BodyType tp)
+{
+    m_bodyItem->m_body->setType( tp );
+}
+
+BodyType PhysicsProperties::type() const
+{
+    return m_bodyItem->m_body->type();
+}
+
+void PhysicsProperties::setLinearVelocity(const b2Pos &vel)
+{
+    const auto bx = toBoxPos( {vel.x , vel.y, 0 } );
+    m_bodyItem->m_body->setLinearVelocity( {bx.x, bx.y} );
+}
+
+b2Pos PhysicsProperties::linearVelocity() const
+{
+    return m_bodyItem->m_body->linearVelocity();
+}
+
+void PhysicsProperties::updateBodyItem()
 {
     if( !m_bodyItem )
         return;
@@ -51,6 +82,15 @@ void PhysicsProperties::updateGeometry()
     const auto bPos = m_bodyItem->m_body->position();
     const auto pos = fromBoxPos( {bPos.x, bPos.y, 0} );
     m_bodyItem->transform.setPosition(pos);
+
+}
+
+
+void PhysicsProperties::updateBodyPhysics()
+{
+    const auto pos  = m_bodyItem->transform.position();
+    const auto bPos = toBoxPos(pos);
+    m_bodyItem->m_body->setPosition( {bPos.x, bPos.y} );
 
 }
 
@@ -85,15 +125,6 @@ x_size PhysicsProperties::toBoxSize(const x_size &sz)
         sz.height / m_pixelScale.y,
         sz.depth  / m_pixelScale.z,
     };
-}
-
-
-void PhysicsProperties::updatePhysics()
-{
-    const auto pos  = m_bodyItem->transform.position();
-    const auto bPos = toBoxPos(pos);
-    m_bodyItem->m_body->setPosition( {bPos.x, bPos.y} );
-
 }
 
 Polygon PhysicsProperties::makeBox(x_real width, x_real height)

@@ -67,7 +67,7 @@ WorldItem::WorldItem(CoreItem *parent):
         for ( auto &chldPtr : lst) {
             auto chldItm = castItem<BodyItem,
                                     prv::MetaItemType::PhysicsItem2D>( chldPtr.get() );
-            chldItm->physics.updateGeometry();
+            chldItm->physics.updateBodyItem();
         }
         if( step )
             step();

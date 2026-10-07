@@ -37,8 +37,6 @@ Fix "m_bodies.reserve" in "World::World"
 	  - Boxes 
 	  - State machine
 	  - Petri net
-
-
 - Retest examples
 
 ------------------------------------------------------------------------------------

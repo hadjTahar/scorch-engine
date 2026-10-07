@@ -8,9 +8,6 @@
 namespace Qx::Box2D {
 
 
-class Body;
-class Shape;
-
 class BodyItem : public Rectangle
 {
     QX_META_OBJECT( "Qx::Box2D::BodyItem",
@@ -23,25 +20,12 @@ class BodyItem : public Rectangle
 public:
     BodyItem(CoreItem *parent);
 
-
-    Shape *addBoxShape( x_real width, x_real height );
-    Shape *addCircleShape( x_real rad );
-
-    void setType(BodyType tp );
-    BodyType type() const;
-
-
-    void setLinearVelocity( const b2Pos &vel );
-    b2Pos linearVelocity() const;
-
-
-
-
 public:
     PhysicsProperties physics;
 
 private:
     using Rectangle::transform;
+    /// ## Populated by WorldItem
     Body *m_body;
 
 
