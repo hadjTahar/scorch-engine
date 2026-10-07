@@ -2,6 +2,7 @@
 #define PHYSICSPROPERTIES_H
 
 #include <misc/vecs.h>
+#include <box2dcpp/types.h>
 
 namespace Qx::Box2D
 {
@@ -11,6 +12,8 @@ class BodyItem;
 
 class PhysicsProperties
 {
+
+    friend class BodyItem;
 
 public:
     PhysicsProperties(BodyItem *itm);
@@ -29,6 +32,12 @@ public:
 
 protected:
     void updatePhysics();
+
+
+    Polygon makeBox(x_real width, x_real height);
+    Circle makeCircle(x_real rad);
+
+
 
 protected:
     x_vector3  m_pixelScale;

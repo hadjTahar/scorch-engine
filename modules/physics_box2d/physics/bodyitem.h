@@ -3,13 +3,13 @@
 
 #include "physicsproperties.h"
 #include <items/rectangle.h>
-#include <box2dcpp/types.h>
 
 
 namespace Qx::Box2D {
 
 
 class Body;
+class Shape;
 
 class BodyItem : public Rectangle
 {
@@ -24,23 +24,27 @@ public:
     BodyItem(CoreItem *parent);
 
 
+    Shape *addBoxShape( x_real width, x_real height );
+    Shape *addCircleShape( x_real rad );
 
-    /// ## Functions
-    /// ## ----------------------------------------------------
-
-    Polygon makeBox(x_real width, x_real height);
-    Circle makeCircle(x_real rad);
+    void setType(BodyType tp );
+    BodyType type() const;
 
 
-private:
-    using Rectangle::transform;
+    void setLinearVelocity( const b2Pos &vel );
+    b2Pos linearVelocity() const;
 
-public:
-    Body *m_body;
+
 
 
 public:
     PhysicsProperties physics;
+
+private:
+    using Rectangle::transform;
+    Body *m_body;
+
+
 };
 
 }

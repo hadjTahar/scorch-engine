@@ -96,4 +96,20 @@ void PhysicsProperties::updatePhysics()
 
 }
 
+Polygon PhysicsProperties::makeBox(x_real width, x_real height)
+{
+    const auto bx = toBoxSize( {.5f*width , .5f*height, 0 } );
+    return b2MakeBox(bx.width,  bx.height);
+}
+
+Circle PhysicsProperties::makeCircle(x_real rad)
+{
+    const auto bx = toBoxSize( {rad , rad, rad } );
+
+    Qx::Box2D::Circle circle;
+    circle.center = {0, 0};
+    circle.radius = bx.width;
+    return circle;
+}
+
 }

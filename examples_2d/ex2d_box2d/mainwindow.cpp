@@ -15,14 +15,14 @@
 
 
 
-void fixBallDirection(Qx::Box2D::Body* ball)
+void fixBallDirection(Qx::Box2D::BodyItem* ballItem)
 {
-    b2Vec2 v = ball->linearVelocity();
+    b2Vec2 v = ballItem->linearVelocity();
 
     auto speed = std::sqrt(v.x * v.x + v.y * v.y);
 
-    constexpr auto minSpeed = 80.0f;
-    constexpr auto maxSpeed = 85.0f;
+    constexpr auto minSpeed = 900.0f;
+    constexpr auto maxSpeed = 900.0f;
 
     constexpr auto minAngle = 15.0f * 3.14f / 180.0f;
 
@@ -63,7 +63,7 @@ void fixBallDirection(Qx::Box2D::Body* ball)
     v = b2Normalize(v);
     v *= speed;
 
-    ball->setLinearVelocity(v);
+    ballItem->setLinearVelocity(v);
 }
 
 
@@ -138,10 +138,10 @@ MainWindow::MainWindow(CoreItem *parent):
     // Top floor
     // -------------------------
 
-    topItm->m_body->setType( Qx::Box2D::BodyType::Static );
+    topItm->setType( Qx::Box2D::BodyType::Static );
     topItm->physics.setSize( { pyWW, wallSz, 0});
     topItm->physics.setPosition( {0, pyHH, 0 });
-    auto topItmShp = topItm->m_body->addShape( topItm->makeBox( pyWW, wallSz ) );
+    auto topItmShp = topItm->addBoxShape( pyWW, wallSz );
     topItmShp->setDensity( 1, true );
     topItmShp->setRestitution( 1 );
 
@@ -149,14 +149,12 @@ MainWindow::MainWindow(CoreItem *parent):
     // Bottom floor
     // -------------------------
 
-    botItm->m_body->setType( Qx::Box2D::BodyType::Static );
+    botItm->setType( Qx::Box2D::BodyType::Static );
     botItm->physics.setSize( { pyWW, wallSz, 0});
     botItm->physics.setPosition( {0, -wallSz, 0 });
-    auto botItmShp = botItm->m_body->addShape( botItm->makeBox( pyWW, wallSz ) );
+    auto botItmShp = botItm->addBoxShape(pyWW, wallSz );
     botItmShp->setDensity( 1, true );
     botItmShp->setRestitution( 1 );
-
-
 
 
     // -------------------------
@@ -165,24 +163,22 @@ MainWindow::MainWindow(CoreItem *parent):
 
 
     ballItm->physics.setSize( { 2*rad, 2*rad, 0});
-    auto ballBody = ballItm->m_body;
 
-    ballBody->setPosition( {2, 1.5f} );
-    ballBody->setType( Qx::Box2D::BodyType::Dynamic );
-    ballBody->setLinearVelocity( {0.0f, 80.0f} );
+    ballItm->physics.setPosition( {0, 20, 0 });
+    ballItm->setType( Qx::Box2D::BodyType::Dynamic );
+    ballItm->setLinearVelocity( {0.0f, 900.0f} );
 
     /// ## --------------------------------------------------
 
     // auto polygon = ballItm->makeBox( rad , rad);
     // // polygon.centroid = { rad, rad };
-    // auto ballShp = ballBody->addShape( polygon );
+    // auto ballShp = ballItm->addShape( polygon );
     // ballShp->setDensity( 1, true );
     // ballShp->setRestitution( .7 );
 
     /// ## --------------------------------------------------
 
-    Qx::Box2D::Circle circle = ballItm->makeCircle( rad );
-    auto ballShp = ballBody->addShape( circle );
+    auto ballShp = ballItm->addCircleShape( rad );
     ballShp->setDensity( 1.0f, true );
     ballShp->setRestitution( 1 );
 

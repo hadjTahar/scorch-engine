@@ -24,6 +24,8 @@ Remove box2d cpp
 Create type aliases for defs
 Add createType( TypeDef )
 CreateWorld( World)
+Fix "m_bodies.reserve" in "World::World"
+	- Try std::polymorphic 
 
 
 ------------------------------------------------------------------------------------
@@ -258,4 +260,10 @@ CreateWorld( World)
 - https://github.com/lumia431/reaction
 - AffineUI
 - PanGui
-- std::polymorphic 
+- C++ 26
+	- std::polymorphic 
+	- std::indirect
+	struct Node {
+	    int value;
+	    std::indirect<Node> next; // Compiles and acts purely like a value type
+	};
