@@ -27,26 +27,26 @@ public:
     {
         auto ret = addItem<ItemType>();
         ret->m_body = m_world->addBody();
+        ret->physics.m_physicsRatio = m_physicsRatio;
         return ret;
     }
 
 
 public:
     prv::x_simpleCallback step;
-
-
     World *world() const;
-
-
-    x_vector3 worldView() const;
-    void setWorldView(const x_vector3 &newWorldView);
 
     x_vector3 worldAxis() const;
     void setWorldAxis(const x_vector3 &newWorldAxis);
 
+    x_vector3 physicsRatio() const;
+    void setPhysicsRatio(const x_vector3 &newPhysicsRatio);
+
 private:
     x_matrix4x4 m_prevMat;
     x_vector3   m_worldAxis;
+    x_vector3   m_physicsRatio;
+
     PhysicsComponent *m_physicsComponent;
     World            *m_world;
 };

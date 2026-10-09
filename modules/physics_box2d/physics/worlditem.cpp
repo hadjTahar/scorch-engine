@@ -19,7 +19,9 @@ bool areMatricesEqual(const glm::mat4& m1, const glm::mat4& m2, float epsilon = 
 WorldItem::WorldItem(CoreItem *parent):
     Rectangle{ parent},
     m_prevMat{},
-    m_worldAxis{ 1,1,1 }
+    m_worldAxis{ 1,1,1 },
+    m_physicsRatio{ 1,1,1 }
+
 {
     m_prevMat = {-1};
     auto pCmp = attach<Qx::prv::CoreComponent>();
@@ -91,6 +93,21 @@ x_vector3 WorldItem::worldAxis() const
 void WorldItem::setWorldAxis(const x_vector3 &newWorldAxis)
 {
     m_worldAxis = newWorldAxis;
+}
+
+x_vector3 WorldItem::physicsRatio() const
+{
+    return m_physicsRatio;
+}
+
+void WorldItem::setPhysicsRatio(const x_vector3 &newPhysicsRatio)
+{
+    if( m_physicsRatio != x_vector3{1,1,1} )
+    {
+        dbg_assert( false ) << "m_physicsRatio can only be set once";
+        return;
+    }
+    m_physicsRatio = newPhysicsRatio;
 }
 
 

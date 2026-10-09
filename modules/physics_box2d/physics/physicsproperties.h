@@ -49,7 +49,7 @@ protected:
 
 
 protected:
-    x_vector3  m_pixelScale;
+    x_vector3  m_physicsRatio;
     BodyItem  *m_bodyItem;
 
 };

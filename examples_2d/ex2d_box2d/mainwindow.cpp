@@ -126,9 +126,6 @@ MainWindow::MainWindow(CoreItem *parent):
     botItm->style.setBorderColor( Qx::green() );
     botItm->style.setBorder( 2 );
 
-
-
-    const Qx::x_real sc     = 20;
     const Qx::x_real rad    = 10;
     const Qx::x_real pyWW   = 360.f;
     const Qx::x_real pyHH   = 640.f;

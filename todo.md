@@ -4,8 +4,6 @@
 Git the apps
 Worlditem sets the scale
 for created items
-Move box2dcpp to box 2d module
-Remove box2d cpp
 
 
 ------------------------------------------------------------------------------------
@@ -24,8 +22,6 @@ Remove box2d cpp
 Create type aliases for defs
 Add createType( TypeDef )
 CreateWorld( World)
-Fix "m_bodies.reserve" in "World::World"
-	- Try std::polymorphic 
 
 
 ------------------------------------------------------------------------------------
@@ -74,7 +70,6 @@ Fix "m_bodies.reserve" in "World::World"
 
 ------------------------------------------------------------------------------------
 
-- Box2D, check the example and check memory leaks
 - Item type is not checked while creating, the code is commented out at "makeUniqueItem"
 	- Use a static or a data member to store the types
 	
